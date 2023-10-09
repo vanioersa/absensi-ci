@@ -4,14 +4,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class Keuangan extends CI_Controller
+class karyawan extends CI_Controller
 {
 
     function __construct()
     {
         parent::__construct();
         $this->load->model('m_model');
-        if ($this->session->userdata('loged_in') != true || $this->session->userdata('role') != 'keuangan') {
+        if ($this->session->userdata('loged_in') != true || $this->session->userdata('role') != 'karyawan') {
             redirect(base_url() . 'auth');
         }
     }
@@ -149,13 +149,13 @@ class Keuangan extends CI_Controller
     }
     public function index()
     {
-        $this->load->view('keuangan/index');
+        $this->load->view('karyawan/index');
     }
 
-    public function pembayaran()
+    public function karyawan()
     {
-        $data['pembayaran'] = $this->m_model->getDataPembayaran();
-        $this->load->view('keuangan/pembayaran', $data);
+        $data[ 'user' ] = $this->m_model->get_data( 'user' )->result();
+        $this->load->view('karyawan/karyawan', $data);
     }
 
     public function ubah_pembayaran($id)

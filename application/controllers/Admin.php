@@ -18,11 +18,11 @@ class Admin extends CI_Controller {
 
     public function index()
  {
-        $data[ 'siswa' ] = $this->m_model->get_data( 'siswa' )->num_rows();
-        $data[ 'mapel' ] = $this->m_model->get_data( 'mapel' )->num_rows();
-        $data[ 'kelas' ] = $this->m_model->get_data( 'kelas' )->num_rows();
-        $data[ 'guru' ] = $this->m_model->get_data( 'guru' )->num_rows();
-        $this->load->view( 'admin/indek', $data );
+        // $data[ 'siswa' ] = $this->m_model->get_data( 'siswa' )->num_rows();
+        // $data[ 'mapel' ] = $this->m_model->get_data( 'mapel' )->num_rows();
+        // $data[ 'kelas' ] = $this->m_model->get_data( 'kelas' )->num_rows();
+        // $data[ 'guru' ] = $this->m_model->get_data( 'guru' )->num_rows();
+        $this->load->view( 'admin/index');
     }
 
     public function upload_img( $value )
@@ -47,10 +47,10 @@ class Admin extends CI_Controller {
 
     //from untuk siswa
 
-    public function siswa()
+    public function karyawan()
  {
-        $data[ 'siswa' ] = $this->m_model->get_data( 'siswa' )->result();
-        $this->load->view( 'admin/siswa', $data );
+        $data[ 'user' ] = $this->m_model->get_data( 'user' )->result();
+        $this->load->view( 'admin/karyawan', $data );
     }
     public function tambah_siswa()
  {
@@ -180,7 +180,7 @@ class Admin extends CI_Controller {
 
     public function account()
  {
-        $data[ 'admin' ] = $this->m_model->get_by_id( 'admin', 'id', $this->session->userdata( 'id' ) )->result();
+        $data[ 'user' ] = $this->m_model->get_by_id( 'user', 'id', $this->session->userdata( 'id' ) )->result();
         $this->load->view( 'admin/account', $data );
     }
     // from untuk ubah akun

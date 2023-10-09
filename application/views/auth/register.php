@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Halaman Login</title>
+<title>Halaman Register</title>
 <style>
 * {
     margin: 0;
@@ -113,25 +113,24 @@ button:hover {
 </head>
 <body>
   <div class="container">
-      <div class="login">
-          <form action="<?php echo base_url()?>Auth/fungsi_login" method="post">
-            <img src="https://o.remove.bg/downloads/0c02ea72-6f56-49b7-820c-1e7c00403be6/p-removebg-preview.png " height="125PX;" width="250px">
-              <h1>Login</h1>
-              <hr>
-              <p>Silahkan Isi Form Sesuai Reistrasi Anda</p>
-                
-              <label for="">Email</label>
-              <input type="text" name="email" placeholder="Email">
-              <label for="">Password</label>
-              <input type="password" name="password" placeholder="Password">
-              <button type="submit" name="submit">Login</button>
-              
-              <p>
-                Jika Belum Punya Akun, Silakan Klik <?php echo anchor(site_url().'auth/register','Di Sini'); ?>
-           </p>
-          </form>
-      
-  
+    <div class="login">
+      <form action="<?php echo base_url('Register/aksi_register')?>" method="post">
+      <img src="https://o.remove.bg/downloads/0c02ea72-6f56-49b7-820c-1e7c00403be6/p-removebg-preview.png" height="125PX;" width="250px">
+        <h1>Register</h1>
+        <hr>
+        <p>Silahkan Di Bawah Ini :</p>
+          <label for="">Nama</label>
+          <input type="text" name="nama_pengguna" placeholder="Nama">
+          <label for="">Email</label>
+          <input type="text" name="email" placeholder="Email">
+          <label for="">Password</label>
+          <input type="password" name="password" placeholder="Password">
+          <label for="">Rolle</label>
+          <input type="text" name="role" placeholder="Rolle">
+          <button type="submit" name="submit">Register</button>  
+      </form>
+    </div>
+  </div>
 </body>
 </html>
 
