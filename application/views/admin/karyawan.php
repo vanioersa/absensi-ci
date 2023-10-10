@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
   <div class="d-flex">
     <div class="col-12 bg-dark" style="width: 15%;">
       <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
@@ -19,7 +18,7 @@
         </h4>
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
           <li>
-            <a href="<?php echo base_url('keuangan') ?>" class="nav-link px-0 align-middle">
+            <a href="<?php echo base_url('admin') ?>" class="nav-link px-0 align-middle">
               <i class="fa-solid fa-house-chimney"></i> <span class="ms-1 d-none d-sm-inline">Home</span></a>
           </li>
           <li>
@@ -39,7 +38,7 @@
     </div>
 
     <div class="">
-    <nav class="navbar navbar-expand-lg navbar bg-dark" data-bs-theme="dark" style="height: 50px; width: 1160px">
+    <nav class="navbar navbar-expand-lg navbar bg-primary" data-bs-theme="dark" style="height: 50px; width: 1160px">
         <div class="container-fluid">
           <!-- <a class="navbar-brand" href="#">Navbar</a> -->
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,7 +47,7 @@
           <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="padding: 2px;">
             <li class="nav-item">
-              <img src="https://o.remove.bg/downloads/0c02ea72-6f56-49b7-820c-1e7c00403be6/p-removebg-preview.png" style="width: 50px;">
+              <img src="https://cdn.pixabay.com/photo/2017/07/25/11/59/logo-2537871_1280.png" style="height: 45px; width: 55px;">
             </li>
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="<?php echo base_url('home'); ?>">

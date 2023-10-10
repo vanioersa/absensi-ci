@@ -62,7 +62,7 @@
         </div>
       </nav>
       <div class="py-3 h-auto" style="margin-left: 1px;">
-        <h1 style="margin-bottom: 20px; text-align: center;"><b>Pembayaran</b></h1>
+        <h1 style="margin-bottom: 20px; text-align: center;"><b>pack</b></h1>
         <a href="<?php echo base_url('keuangan/tambah_pembayaran') ?>"><button type="submit" class="btn btn-primary w-25" name="submit">Tambah <i class="fa-solid fa-folder-plus"></i></button></a>
         
         <a href="<?php echo base_url('keuangan/export')?>" class="btn btn-outline-secondary">Export <i class="fa-solid fa-file-arrow-down"></i></a>

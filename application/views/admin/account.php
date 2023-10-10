@@ -10,25 +10,24 @@
 </head>
 
 <body>
-
   <div class="d-flex">
     <div class="col-12 bg-dark" style="width: 15%;">
       <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-        <a href="" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <h4>
           <span class="fs-5 d-none d-sm-inline">Info Selengkapnya</span>
-        </a>
+        </h4>
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
           <li>
             <a href="<?php echo base_url('keuangan') ?>" class="nav-link px-0 align-middle">
               <i class="fa-solid fa-house-chimney"></i> <span class="ms-1 d-none d-sm-inline">Home</span></a>
           </li>
           <li>
-            <a href="<?php echo base_url('admin/siswa') ?>" class="nav-link px-0 align-middle">
-              <i class="fa-solid fa-user"></i> <span class="ms-1 d-none d-sm-inline">siswa</span></a>
+            <a href="<?php echo base_url('admin/karyawan') ?>" class="nav-link px-0 align-middle">
+            <i class="fa-solid fa-users"></i> <span class="ms-1 d-none d-sm-inline">Karyawan</span></a>
           </li>
           <li>
             <a href="<?php echo base_url('admin/account') ?>" class="nav-link px-0 align-middle">
-              <i class="fa-solid fa-user-secret"></i> <span class="ms-1 d-none d-sm-inline">Account</span></a>
+            <i class="fa-solid fa-user-lock"></i> <span class="ms-1 d-none d-sm-inline">Account</span></a>
           </li>
           <li style="margin-top: 440px;">
             <a href="<?php echo base_url('auth/logout') ?>" class="nav-link px-0 align-middle">
@@ -39,7 +38,7 @@
     </div>
 
     <div style="width:100%;">
-      <nav class="navbar navbar-expand-lg navbar bg-primary" data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg navbar bg-primary"style="height: 50px; width: 1150px">
         <div class="container-fluid">
           <!-- <a class="navbar-brand" href="#">Navbar</a> -->
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,22 +46,25 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="padding: 2px;">
+            <li class="nav-item">
+              <img src="https://cdn.pixabay.com/photo/2017/07/25/11/59/logo-2537871_1280.png" style="width: 50px;">
+            </li>
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="<?php echo base_url('home'); ?>">
                   <font color="white"><i class="fa-solid fa-house-user"></i> Home</font>
                 </a>
               </li>
-              <!-- <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+              <li class="nav-item">
+          <a class="nav-link" href="">Link</a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>
         </li> -->
             </ul>
-            <form style="margin-right: 20px;" class="d-flex" role="search">
+            <!-- <form style="margin-right: 20px;" class="d-flex" role="search">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            </form> -->
           </div>
         </div>
       </nav>

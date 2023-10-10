@@ -217,9 +217,9 @@
         <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
         <div class="signin">
             <div class="content">
-                <h2>Sign Up Admin</h2>
+                <h2>Sign Up Karyawan</h2>
                 <div class="form">
-                    <form action="<?php echo base_url('auth/aksi_register') ?>" method="post">
+                    <form action="<?php echo base_url('auth/aksi_registeri') ?>" method="post">
                         <div style="margin-bottom: 30px;" class="inputBox">
                             <input type="text" name="username" required> <i>Username</i>
                         </div>
@@ -236,7 +236,7 @@
                             <input type="password" name="password" required> <i>Password</i>
                         </div>
                         <div style="margin-bottom: 30px;" class="inputBox">
-                            <input type="hidden" name="role" value="admin">
+                            <input type="hidden" name="role" value="karyawan">
                         </div>
                         <!-- <div class="links"> <a href="#">Forgot Password</a> <a href="#">Signup</a>
                         </div> -->

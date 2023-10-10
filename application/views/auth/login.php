@@ -1,137 +1,241 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Halaman Login</title>
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-body {
-    display: flex;
-    justify-content: center;
-    background-image: url("https://24slides.com/templates/assets/templates-previews/Xbd1cE8fPt0RUHThCtYLlu5EfWlymRp945jMMp0E.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    /* background-color: blueviolet; */
-    align-items: center;
-    min-height: 100vh;
-}
-.container {
-    width: 350px;
-    display: flex;
-    max-width: 850px;
-    background: #fff;
-    border-radius: 35px;
-    /* background-color: maroon; */
-}
-.login {
-    text-align: center;
-    width: 500px;
-}
-form {
-    width: 275px;
-    margin: 30px auto;
-}
-h1 {
-    margin: 10px;
-    text-align: center;
-    font-weight: bolder;
-    text-transform: uppercase;
-}
-hr {
-    border-top: 3px solid #ffa12c;
-    border-radius: 500px;
-}
-p {
-    text-align: center;
-    margin: 10px;
-}
-.right img {
-    width: 30px;
-    height: 100%;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-}
-form label {
-    font-size: 16px;
-    font-weight: 550;
-    padding: 5px;
-}
-input {
-    width: 100%;
-    border: none;
-    outline: none;
-    padding: 8px;
-    border-radius: 15px;
-    border: 1px solid gray;
-}
-button {
-    border: none;
-    outline: none;
-    padding: 8px;
-    width: 250px;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-    margin-top: 20px;
-    border-radius: 15px;
-    background: blue;
-}
-button:hover {
-    background: rgba(214, 86, 64, 1);
-}
+<!doctype html>
+<html lang="en">
 
-@media (max-width: 880px) {
-    .container {
-        width: 100%;
-        max-width: 750px;
-        margin-left: 20px;
-        margin-right: 20px;
+<head>
+    <meta charset="UTF-8">
+    <title>Halaman Login</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Quicksand', sans-serif;
     }
-    form {
-        width: 300px;
-        margin: 20px auto;
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: #000;
     }
-    .login {
-        width: 900px;
-        padding: 20px;
+
+    section {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2px;
+        flex-wrap: wrap;
+        overflow: hidden;
     }
-    button {
-        width: 100%;
-    }
-    .right img {
+
+    section::before {
+        content: '';
+        position: absolute;
         width: 100%;
         height: 100%;
+        background: linear-gradient(#000, #0f0, #000);
+        animation: animate 5s linear infinite;
     }
-}
 
+    @keyframes animate {
+        0% {
+            transform: translateY(-100%);
+        }
+
+        100% {
+            transform: translateY(100%);
+        }
+    }
+
+    section span {
+        position: relative;
+        display: block;
+        width: calc(6.25vw - 2px);
+        height: calc(6.25vw - 2px);
+        background: #181818;
+        z-index: 2;
+        transition: 1.5s;
+    }
+
+    section span:hover {
+        background: #0f0;
+        transition: 0s;
+    }
+
+    section .signin {
+        position: absolute;
+        width: 400px;
+        background: #222;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px;
+        border-radius: 4px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 9);
+    }
+
+    section .signin .content {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    section .signin .content h2 {
+        font-size: 2em;
+        color: #0f0;
+        text-transform: uppercase;
+    }
+
+    section .signin .content .form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    section .signin .content .form .inputBox {
+        position: relative;
+        width: 100%;
+    }
+
+    section .signin .content .form .inputBox input {
+        position: relative;
+        width: 100%;
+        background: #333;
+        border: none;
+        outline: none;
+        padding: 25px 10px 7.5px;
+        border-radius: 4px;
+        color: #fff;
+        font-weight: 500;
+        font-size: 1em;
+    }
+
+    section .signin .content .form .inputBox i {
+        position: absolute;
+        left: 0;
+        padding: 15px 10px;
+        font-style: normal;
+        color: #aaa;
+        transition: 0.5s;
+        pointer-events: none;
+    }
+
+    .signin .content .form .inputBox input:focus~i,
+    .signin .content .form .inputBox input:valid~i {
+        transform: translateY(-7.5px);
+        font-size: 0.8em;
+        color: #fff;
+    }
+
+    .signin .content .form .links {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .signin .content .form .links a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .signin .content .form .links a:nth-child(2) {
+        color: #0f0;
+        font-weight: 600;
+    }
+
+    .signin .content .form .inputBox input[type="submit"] {
+        padding: 10px;
+        background: #0f0;
+        color: #000;
+        font-weight: 600;
+        font-size: 1.35em;
+        letter-spacing: 0.05em;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:active {
+        opacity: 0.6;
+    }
+
+    @media (max-width: 900px) {
+        section span {
+            width: calc(10vw - 2px);
+            height: calc(10vw - 2px);
+        }
+    }
+
+    @media (max-width: 600px) {
+        section span {
+            width: calc(20vw - 2px);
+            height: calc(20vw - 2px);
+        }
+    }
 </style>
-</head>
-<body>
-  <div class="container">
-      <div class="login">
-          <form action="<?php echo base_url()?>Auth/fungsi_login" method="post">
-            <img src="https://o.remove.bg/downloads/0c02ea72-6f56-49b7-820c-1e7c00403be6/p-removebg-preview.png " height="125PX;" width="250px">
-              <h1>Login</h1>
-              <hr>
-              <p>Silahkan Isi Form Sesuai Reistrasi Anda</p>
-                
-              <label for="">Email</label>
-              <input type="text" name="email" placeholder="Email">
-              <label for="">Password</label>
-              <input type="password" name="password" placeholder="Password">
-              <button type="submit" name="submit">Login</button>
-              
-              <p>
-                Jika Belum Punya Akun, Silakan Klik <?php echo anchor(site_url().'auth/register','Di Sini'); ?>
-           </p>
-          </form>
-      
-  
-</body>
-</html>
 
+<body> <!-- partial:index.partial.html -->
+    <section>
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+        <div class="signin">
+            <div class="content">
+                <h2>Sign In</h2>
+                <div class="form">
+                    <form action="<?php echo base_url() ?>Auth/fungsi_login" method="post">
+                        <div style="margin-bottom: 30px;" class="inputBox">
+                            <input type="text" name="email" required> <i>Email</i>
+                        </div>
+                        <div style="margin-bottom: 30px;" class="inputBox">
+                            <input type="password" name="password" required> <i>Password</i>
+                        </div>
+                        <div style="margin-bottom: 20px;" class="links"><a href="<?php echo base_url('auth/registerii'); ?>">Sign Up</a>
+                        </div>
+                        <div class="inputBox">
+                            <input type="submit" value="Login">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section> <!-- partial -->
+</body>
+
+</html>

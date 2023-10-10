@@ -1,5 +1,4 @@
 <?php
-
 class M_model extends CI_Model {
     function get_data( $table ) {
         return $this->db->get( $table );
@@ -20,6 +19,52 @@ class M_model extends CI_Model {
  {
         $this->db->insert( $table, $data );
         return $this->db->insert_id( $table );
+    }
+
+    public function register($username, $email,  $nama_depan, $nama_belakang, $password, $role)
+    {
+        $pass = md5($password);
+        $data = array(
+            'username' => $username,
+            'email' => $email,
+            'nama_depan' => $nama_depan,
+            'nama_belakang' => $nama_belakang,
+            'password' => $pass,
+            'role' => $role
+        );
+
+        // Simpan data ke dalam tabel pengguna (ganti 'users' sesuai dengan nama tabel Anda)
+        $this->db->insert('user', $data);
+    }
+    public function registeri($username, $email,  $nama_depan, $nama_belakang, $password, $role)
+    {
+        $pass = md5($password);
+        $data = array(
+            'username' => $username,
+            'email' => $email,
+            'nama_depan' => $nama_depan,
+            'nama_belakang' => $nama_belakang,
+            'password' => $pass,
+            'role' => $role
+        );
+
+        // Simpan data ke dalam tabel pengguna (ganti 'users' sesuai dengan nama tabel Anda)
+        $this->db->insert('user', $data);
+    }
+    public function registerii($username, $email,  $nama_depan, $nama_belakang, $password, $role)
+    {
+        $pass = md5($password);
+        $data = array(
+            'username' => $username,
+            'email' => $email,
+            'nama_depan' => $nama_depan,
+            'nama_belakang' => $nama_belakang,
+            'password' => $pass,
+            'role' => $role
+        );
+
+        // Simpan data ke dalam tabel pengguna (ganti 'users' sesuai dengan nama tabel Anda)
+        $this->db->insert('user', $data);
     }
 
     public function ubah_data( $tabel, $data, $where )
