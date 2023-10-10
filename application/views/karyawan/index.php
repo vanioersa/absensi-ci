@@ -49,7 +49,7 @@
               <i class="fa-solid fa-house-chimney"></i> <span class="ms-1 d-none d-sm-inline">Home</span></a>
           </li>
           <li>
-            <a style="color:white" href="<?php echo base_url('karyawan/karyawan') ?>" class="nav-link px-0 align-middle">
+            <a style="color:white" href="<?php echo base_url('karyawan/history') ?>" class="nav-link px-0 align-middle">
               <i class="fa-solid fa-users"></i> <span class="ms-1 d-none d-sm-inline">History</span></a>
           </li>
           <li style="margin-top: 480px;">

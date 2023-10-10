@@ -226,7 +226,7 @@
                         <div style="margin-bottom: 30px;" class="inputBox">
                             <input type="password" name="password" required> <i>Password</i>
                         </div>
-                        <div style="margin-bottom: 20px;" class="links"><a href="<?php echo base_url('auth/registerii'); ?>">Sign Up</a>
+                        <div style="margin-bottom: 20px;" class="links"><a href="auth/registerii">Sign Up</a>
                         </div>
                         <div class="inputBox">
                             <input type="submit" value="Login">

@@ -152,20 +152,20 @@ class karyawan extends CI_Controller
         $this->load->view('karyawan/index');
     }
 
-    public function karyawan()
+    public function history()
     {
         $data[ 'user' ] = $this->m_model->get_data( 'user' )->result();
-        $this->load->view('karyawan/karyawan', $data);
+        $this->load->view('karyawan/history', $data);
     }
 
-    public function ubah_pembayaran($id)
+    public function ubah_history($id)
     {
         $data['pembayaran'] = $this->m_model->get_by_id('pembayaran', 'id', $id)->result();
         $data['siswa'] = $this->m_model->get_data('siswa')->result();
         $this->load->view('keuangan/ubah_pembayaran', $data);
     }
 
-    public function aksi_update_pembayaran()
+    public function aksi_update_history()
     {
         $data = [
             'id_siswa' => $this->input->post('id_siswa'),
@@ -182,13 +182,13 @@ class karyawan extends CI_Controller
         }
     }
 
-    public function tambah_pembayaran()
+    public function tambah_history()
     {
         $data['siswa'] = $this->m_model->get_data('siswa')->result();
         $this->load->view('keuangan/tambah_pembayaran', $data);
     }
 
-    public function aksi_tambah_pembayaran()
+    public function aksi_tambah_history()
     {
         $data = [
             'id_siswa' => $this->input->post('nama_siswa'),

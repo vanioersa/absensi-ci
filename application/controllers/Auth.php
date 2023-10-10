@@ -93,8 +93,8 @@ class Auth extends CI_Controller
     {
         $username = $this->input->post('username');
         $email = $this->input->post('email');
-        $nama_depan = $this->input->post('nama_$nama_depan');
-        $nama_belakang = $this->input->post('nama$nama_belakang');
+        $nama_depan = $this->input->post('nama_depan');
+        $nama_belakang = $this->input->post('nama_belakang');
         $password = $this->input->post('password');
         $role = $this->input->post('role');
 
@@ -119,6 +119,7 @@ class Auth extends CI_Controller
             redirect('auth');
         }
     }
+
 	public function registerii() 
 	{
 		$this->load->view('auth/registerii');
@@ -128,8 +129,8 @@ class Auth extends CI_Controller
     {
         $username = $this->input->post('username');
         $email = $this->input->post('email');
-        $nama_depan = $this->input->post('na$nama_depan');
-        $nama_belakang = $this->input->post('na$nama_belakang');
+        $nama_depan = $this->input->post('nama_depan');
+        $nama_belakang = $this->input->post('nama_belakang');
         $password = $this->input->post('password');
         $role = $this->input->post('role');
 
