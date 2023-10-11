@@ -10,8 +10,8 @@
 
 <body class='min-vh-100 d-flex align-items-center'>
     <div class='card w-50 m-auto p-3 text-center'>
-        <h3 class='text-center '>Tambah Pembayaran</h3>
-        <form action="<?php echo base_url('keuangan/aksi_tambah_pembayaran') ?>" method="post" enctype="multipart/from-data">
+        <h3 class='text-center '>Tambah karyawan</h3>
+        <form action="<?php echo base_url('karyawan/aksi_tambah_karyawan') ?>" method="post" enctype="multipart/from-data">
             <div class="row">
                 <div class="mb-3 col-6">
                     <label for="nama_siswa" class="form-label">Nama Siswa</label>
@@ -22,17 +22,17 @@
                     </select>
                 </div>
                 <div class="mb-3 col-6">
-                    <label for="jenis_pembayaran" class="form-label">Jenis Pembayaran</label>
-                    <select name="jenis_pembayaran" class="form-select">
-                        <option selected> Pilih Pembayaran </option>
-                        <option value="jumlah pembayaran spp">Uang SPP</option>
-                        <option value="pembayaran uang gedung">pembayaran Uang gedung</option>
-                        <option value="pembayaran uang sragam">pembayaran Sragam</option>
+                    <label for="jenis_karyawan" class="form-label">Jenis karyawan</label>
+                    <select name="jenis_karyawan" class="form-select">
+                        <option selected> Pilih karyawan </option>
+                        <option value="jumlah karyawan spp">Uang SPP</option>
+                        <option value="karyawan uang gedung">karyawan Uang gedung</option>
+                        <option value="karyawan uang sragam">karyawan Sragam</option>
                     </select>
                 </div>
                 <div class="mb-3 col-6" style="margin-left: 25%;">
-                    <label for="total_pembayaran" class="form-label">Total Pembayaran</label>
-                    <input type="number" class="form-control" id="total_pembayaran" name="total_pembayaran">
+                    <label for="total_karyawan" class="form-label">Total karyawan</label>
+                    <input type="number" class="form-control" id="total_karyawan" name="total_karyawan">
                 </div>
             </div>
             <button type="submit" class="btn btn-primary w-100" name="submit">Tambah</button>

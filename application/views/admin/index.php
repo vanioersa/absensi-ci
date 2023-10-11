@@ -37,10 +37,10 @@
   <div class="d-flex">
     <div class="col-12 bg-dark" style="width: 15%;">
       <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-      <img src="https://cdn.pixabay.com/photo/2017/07/25/11/59/logo-2537871_1280.png" style="height: 50px; width: 60px;">
+        <img src="https://cdn.pixabay.com/photo/2017/07/25/11/59/logo-2537871_1280.png" style="height: 50px; width: 60px;">
 
         <h4>
-          <span class="fs-5 d-none d-sm-inline">Info Selengkapnya</span>
+          <span class="fs-5 d-none d-sm-inline">Admin</span>
         </h4>
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
           <li>
@@ -64,42 +64,45 @@
     </div>
 
     <div style="width:100%;">
-    <h2 style="margin-left: 25px; margin-top:25px;">Dashboard</h2>
-      <!-- <div class="row container py-4">
-        <div class="col-3">
+      <div class="text-center m-4">
+        <h1><b><font color="white">Selamat Datang <?php echo $this->session->userdata('username') ?></font></b></h1>
+      </div>
+      <hr>
+      <div class="row mb-sm-0" style="margin-top: 25px;">
+        <div class="col-3" style="margin-left: 10%;">
           <div class="card text-bg-secondary">
-            <div class="card-header">Jumlah Siswa</div>
+            <div class="card-header">Laporan Harian</div>
             <div class="card-body">
-              <p class="card-text"><?php echo $siswa; ?></p>
+              <p class="card-text">P</p>
+              <div class="card text-center card-footer">
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-3">
+        <div class="col-3" style="margin-left: 25px;">
           <div class="card text-bg-secondary">
-            <div class="card-header">Jumlah Mapel</div>
+            <div class="card-header">Laporan Mingguan</div>
             <div class="card-body">
-              <p class="card-text"><?php echo $mapel; ?></p>
+              <p class="card-text">P</p>
+              <div class="card text-center card-footer">
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-3">
+        <div class="col-3" style="margin-left: 25px;">
           <div class="card text-bg-secondary">
-            <div class="card-header">Jumlah Kelas</div>
+            <div class="card-header">Laporan Bulanan</div>
             <div class="card-body">
-              <p class="card-text"><?php echo $kelas; ?></p>
+              <p class="card-text">P</p>
+              <div class="card text-center card-footer">
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-3">
-          <div class="card text-bg-secondary">
-            <div class="card-header">Jumlah Guru</div>
-            <div class="card-body">
-              <p class="card-text"><?php echo $guru; ?></p>
-            </div>
-          </div>
-        </div>
-      </div> -->
-    </div>
+      </div>
   </div>
 </body>
 

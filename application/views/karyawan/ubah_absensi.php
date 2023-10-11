@@ -12,7 +12,7 @@
     <div class='card w-50 m-auto p-3 text-center'>
         <h3 class="text-center">Update Data</h3>
         <?php foreach ($pembayaran as $data_pembayaran) : ?>
-            <form method="post" action="<?php echo base_url('keuangan/aksi_update_pembayaran') ?>" enctype="multipart/form_data">
+            <form method="post" action="<?php echo base_url('karyawan/aksi_update_pembayaran') ?>" enctype="multipart/form_data">
                 <input name="id" type="hidden" value="<?php echo $data_pembayaran->id ?>">
                 <div class="row">
                     <div class="col-6">

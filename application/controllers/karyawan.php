@@ -149,60 +149,76 @@ class karyawan extends CI_Controller
     }
     public function index()
     {
-        $this->load->view('karyawan/index');
+        $data[ 'absensi' ] = $this->m_model->get_data( 'absensi' )->result();
+        $this->load->view('karyawan/index', $data);
     }
 
-    public function history()
+    public function absensi()
     {
-        $data[ 'user' ] = $this->m_model->get_data( 'user' )->result();
-        $this->load->view('karyawan/history', $data);
+        $data[ 'absensi' ] = $this->m_model->get_data( 'absensi' )->result();
+        $this->load->view('karyawan/absensi', $data);
     }
-
-    public function ubah_history($id)
+    public function menu_izin()
     {
-        $data['pembayaran'] = $this->m_model->get_by_id('pembayaran', 'id', $id)->result();
-        $data['siswa'] = $this->m_model->get_data('siswa')->result();
-        $this->load->view('keuangan/ubah_pembayaran', $data);
+        $data[ 'absensi' ] = $this->m_model->get_data( 'absensi' )->result();
+        $this->load->view('karyawan/menu_izin', $data);
+    }
+    public function menu_absen()
+    {
+        $data[ 'absensi' ] = $this->m_model->get_data( 'absensi' )->result();
+        $this->load->view('karyawan/menu_absen', $data);
     }
 
-    public function aksi_update_history()
+    public function ubah_absensi($id)
+    {
+        $data['user'] = $this->m_model->get_by_id('user', 'id', $id)->result();
+        $data['absensi'] = $this->m_model->get_data('absensi')->result();
+        $this->load->view('karyawan/ubah_absensi', $data);
+    }
+
+    public function aksi_update_absensi()
     {
         $data = [
-            'id_siswa' => $this->input->post('id_siswa'),
-            'jenis_pembayaran' => $this->input->post('jenis_pembayaran'),
-            'total_pembayaran' => $this->input->post('total_pembayaran'),
+            'id_karyawan' => $this->input->post('id_karyawan'),
+            'kegiatan' => $this->input->post('kegiatan'),
+            'jam_masuk' => $this->input->post('jam_masuk'),
+            'jam_pulang' => $this->input->post('jam_pulang'),
+            'keterangan' => $this->input->post('keterangan'),
+            'status' => $this->input->post('status'),
         ];
-        $eksekusi = $this->m_model->ubah_data('pembayaran', $data, ['id' => $this->input->post('id')]);
+        $eksekusi = $this->m_model->ubah_data('absensi', $data, ['id' => $this->input->post('id')]);
         if ($eksekusi) {
             $this->session->set_flashdata('sukses', 'berhasil');
-            redirect(base_url('keuangan/pembayaran'));
+            redirect(base_url('karyawan/absensi'));
         } else {
             $this->session->set_flashdata('sukses', 'berhasil');
-            redirect(base_url('keuangan/ubah_pembayaran/' . $this->input->post('id')));
+            redirect(base_url('karyawan/ubah_absensi/' . $this->input->post('id')));
         }
     }
 
-    public function tambah_history()
+    public function tambah_absensi()
     {
-        $data['siswa'] = $this->m_model->get_data('siswa')->result();
-        $this->load->view('keuangan/tambah_pembayaran', $data);
+        $data['absensi'] = $this->m_model->get_data('absensi')->result();
+        $this->load->view('karyawan/tambah_absensi', $data);
     }
 
-    public function aksi_tambah_history()
+    public function aksi_tambah_absensi()
     {
         $data = [
-            'id_siswa' => $this->input->post('nama_siswa'),
-            'jenis_pembayaran' => $this->input->post('jenis_pembayaran'),
-            'total_pembayaran' => $this->input->post('total_pembayaran'),
+            'id_karyawan' => $this->input->post('id_karyawan'),
+            'kegiatan' => $this->input->post('kegiatan'),
+            'jam_masuk' => $this->input->post('jam_masuk'),
+            'jam_pulang' => $this->input->post('jam_pulang'),
+            'keterangan' => $this->input->post('keterangan'),
+            'status' => $this->input->post('status'),
         ];
-        $this->m_model->tambah_data('pembayaran', $data);
-        redirect(base_url('keuangan/pembayaran'));
+        $this->m_model->tambah_data('absensi', $data);
+        redirect(base_url('keuangan/absensi'));
     }
 
-
-    public function delete_pembayaran($id)
+    public function delete_absensi($id)
     {
-        $this->m_model->delete('pembayaran', 'id', $id);
-        redirect(base_url('Keuangan/pembayaran'));
+        $this->m_model->delete('absensi', 'id', $id);
+        redirect(base_url('karyawan/absensi'));
     }
 }

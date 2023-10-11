@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Absensi Karyawan</title>
+    <title>Absen Karyawan</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <style>
