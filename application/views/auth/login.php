@@ -219,7 +219,7 @@
             <div class="content">
                 <h2>Sign In</h2>
                 <div class="form">
-                    <form action="<?php echo base_url() ?>Auth/fungsi_login" method="post">
+                    <form action="<?php echo base_url('Auth/fungsi_login') ?>" method="post">
                         <div style="margin-bottom: 30px;" class="inputBox">
                             <input type="text" name="email" required> <i>Email</i>
                         </div>

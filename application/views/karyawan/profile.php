@@ -8,7 +8,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
+<style>
+  .gradient-custom {
+    /* fallback for old browsers */
+    background: #6565a3;
 
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right bottom, rgba(31, 164, 194), rgba(102, 61, 217))
+  }
+</style>
 <body style="overflow: hidden; background-image: url('https://media.istockphoto.com/id/1337977426/photo/dark-gray-and-black-grunge-cement-wall-studio-room-space-product-background-template.webp?b=1&s=170667a&w=0&k=20&c=4dVCV5KtJKEhuQtp5dbnFmwMBAzNknz35VUIa0C3KoE='); background-size: cover;">
     <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
         <div class="container-fluid">
@@ -102,16 +113,69 @@
         </ul>
       </div>
     </div>
-
-        <div style="width: 50%; margin-left: 5%; margin-top: 3%;">
-            <div class="card text-bg-secondary">
-                <div class="card-body">
-                    <h5 style="margin-top: 20px; margin-bottom: 30px ;" class="card-title text-center">Izin Atau Cuti</h5>
-                    <p class="card-text"><input style="padding-left:60%; margin-left: 20px;" type="text"></p>
-                    <a href="#" style="margin-left: 20px; margin-bottom: 50px;" class="btn btn-primary w-25">Tambah</a>
+        
+      <div class="container">
+        <div class="row d-flex justify-content-center" style="margin-top: 10%;">
+          <div class="col col-lg-6 mb-4 mb-lg-0">
+            <div class="card mb-3" style="border-radius: .5rem;">
+              <div class="row g-0">
+                <div class="col-md-4 gradient-custom text-center text-white" style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png" alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
+                  <h5><?php echo $this->session->userdata('username') ?></h5>
+                  <p>Web Designer <br>Employees</p>
+                  <!-- <i class="far fa-edit mb-5"></i> -->
                 </div>
+                <div class="col-md-8">
+                  <div class="card-body p-4">
+                    <h6>Information</h6>
+                    <hr class="mt-0 mb-4">
+                    <div class="row pt-1">
+                      <div class="col-6 mb-3">
+                        <h6>First Name</h6>
+                        <p class="text-muted"><?php echo $this->session->userdata('username') ?></p>
+                      </div>
+                      <div class="col-6 mb-3">
+                        <h6>Last Name</h6>
+                        <p class="text-muted"><?php echo $this->session->userdata('email') ?></p>
+                      </div>
+                      <div class="col-6 mb-3">
+                        <h6>Username</h6>
+                        <p class="text-muted"><?php echo $this->session->userdata('username') ?></p>
+                      </div>
+                      <div class="col-6 mb-3">
+                        <h6>Email</h6>
+                        <p class="text-muted"><?php echo $this->session->userdata('email') ?></p>
+                      </div>
+                      <div class="col-6 mb-3">
+                        <h6>Password</h6>
+                        <p class="text-muted"><?php echo $this->session->userdata('email') ?></p>
+                      </div>
+                      <a href="<?php echo base_url('karyawan/ubah_profile/')?>" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+                    </div>
+                    <!-- <h6>Projects</h6>
+                    <hr class="mt-0 mb-4">
+                    <div class="row pt-1">
+                      <div class="col-6 mb-3">
+                        <h6>Recent</h6>
+                        <p class="text-muted">Lorem ipsum</p>
+                      </div>
+                      <div class="col-6 mb-3">
+                        <h6>Most Viewed</h6>
+                        <p class="text-muted">Dolor sit amet</p>
+                      </div>
+                    </div> -->
+                    <div class="d-flex justify-content-start" style="margin-top: 10px;">
+                      <a href="https://www.facebook.com/"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
+                      <a href="https://www.twitter.com/"><i class="fab fa-twitter fa-lg me-3"></i></a>
+                      <a href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
 </body>
 

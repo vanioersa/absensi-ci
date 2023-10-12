@@ -11,6 +11,7 @@ class karyawan extends CI_Controller
     {
         parent::__construct();
         $this->load->model('m_model');
+        $this->load->helper('my_helper');
         if ($this->session->userdata('loged_in') != true || $this->session->userdata('role') != 'karyawan') {
             redirect(base_url() . 'auth');
         }
@@ -149,14 +150,18 @@ class karyawan extends CI_Controller
     }
     public function index()
     {
-        $data[ 'absensi' ] = $this->m_model->get_data( 'absensi' )->result();
+        $data[ 'karyawan' ] = $this->m_model->get_data('absensi')->result();
         $this->load->view('karyawan/index', $data);
     }
-
     public function absensi()
     {
         $data[ 'absensi' ] = $this->m_model->get_data( 'absensi' )->result();
         $this->load->view('karyawan/absensi', $data);
+    }
+    public function profile()
+    {
+        $data[ 'absensi' ] = $this->m_model->get_data( 'absensi' )->result();
+        $this->load->view('karyawan/profile', $data);
     }
     public function menu_izin()
     {
@@ -168,14 +173,35 @@ class karyawan extends CI_Controller
         $data[ 'absensi' ] = $this->m_model->get_data( 'absensi' )->result();
         $this->load->view('karyawan/menu_absen', $data);
     }
-
+    public function ubah_profile()
+    {
+        $data['user'] = $this->m_model->get_by_id('user', 'id')->result();
+        $this->load->view('karyawan/ubah_profile', $data);
+    }
+    public function aksi_update_profile()
+    {
+        $data = [
+            'username' => $this->input->post('username'),
+            'email  ' => $this->input->post('email    '),
+            'nama_depan' => $this->input->post('nama_depan'),
+            'nama_belakang' => $this->input->post('nama_belakang'),
+            'password' => $this->input->post('password'),
+        ];
+        $eksekusi = $this->m_model->ubah_data('user', $data, ['id' => $this->input->post('id')]);
+        if ($eksekusi) {
+            $this->session->set_flashdata('sukses', 'berhasil');
+            redirect(base_url('karyawan/profile'));
+        } else {
+            $this->session->set_flashdata('sukses', 'berhasil');
+            redirect(base_url('karyawan/ubah_profile/' . $this->input->post('id')));
+        }
+    }
     public function ubah_absensi($id)
     {
         $data['user'] = $this->m_model->get_by_id('user', 'id', $id)->result();
         $data['absensi'] = $this->m_model->get_data('absensi')->result();
         $this->load->view('karyawan/ubah_absensi', $data);
     }
-
     public function aksi_update_absensi()
     {
         $data = [
@@ -195,13 +221,11 @@ class karyawan extends CI_Controller
             redirect(base_url('karyawan/ubah_absensi/' . $this->input->post('id')));
         }
     }
-
     public function tambah_absensi()
     {
         $data['absensi'] = $this->m_model->get_data('absensi')->result();
         $this->load->view('karyawan/tambah_absensi', $data);
     }
-
     public function aksi_tambah_absensi()
     {
         $data = [
@@ -215,7 +239,6 @@ class karyawan extends CI_Controller
         $this->m_model->tambah_data('absensi', $data);
         redirect(base_url('keuangan/absensi'));
     }
-
     public function delete_absensi($id)
     {
         $this->m_model->delete('absensi', 'id', $id);

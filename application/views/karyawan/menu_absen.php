@@ -37,32 +37,71 @@
     </nav>
 
     <div class="d-flex">
-        <div class="col-12 bg-dark" style="width: 15%;">
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                <img src="https://cdn.pixabay.com/photo/2017/07/25/11/59/logo-2537871_1280.png" style="height: 50px; width: 60px; margin-bottom: 10px; margin-top: 5px;">
-                <h4>
-                    <span class="fs-5 d-none d-sm-inline">Karyawan</span>
-                </h4>
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <li>
-                        <a style="color:white" href="<?php echo base_url('karyawan') ?>" class="nav-link px-0 align-middle">
-                            <i class="fa-solid fa-house-chimney"></i> <span class="ms-1 d-none d-sm-inline">Home</span></a>
-                    </li>
-                    <li>
-                        <a style="color:white" href="<?php echo base_url('karyawan/menu_absen') ?>" class="nav-link px-0 align-middle">
-                            <i class="fa-solid fa-users"></i> <span class="ms-1 d-none d-sm-inline">Absen</span></a>
-                    </li>
-                    <li>
-                        <a style="color:white" href="<?php echo base_url('karyawan/menu_izin') ?>" class="nav-link px-0 align-middle">
-                            <i class="fa-solid fa-users"></i> <span class="ms-1 d-none d-sm-inline">Izin </span></a>
-                    </li>
-                    <li style="margin-top: 370px;">
-                        <a style="color:white" href="<?php echo base_url('auth/logout') ?>" class="nav-link px-0 align-middle">
-                            <i class="fa-solid fa-right-from-bracket"></i> <span class="ms-1 d-none d-sm-inline">Logout</span></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <div class="col-12 bg-dark" style="width: 15%;">
+      <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+        <img src="https://cdn.pixabay.com/photo/2017/07/25/11/59/logo-2537871_1280.png" style="height: 50px; width: 60px; margin-bottom: 10px; margin-top: 5px;">
+        <h4>
+          <span class="fs-5 d-none d-sm-inline">Karyawan</span>
+        </h4>
+        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+          <li>
+            <a><i class="fa-regular fa-calendar"></i> Tanggal : <?php date_default_timezone_set("Asia/Jakarta"); ?>
+              <script type="text/javascript">
+                function date_time(id) {
+                  date = new Date;
+                  year = date.getFullYear();
+                  month = date.getMonth();
+                  months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'Jully', 'August', 'September', 'October', 'November', 'December');
+                  d = date.getDate();
+                  day = date.getDay();
+                  days = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+                  h = date.getHours();
+                  if (h < 10) {
+                    h = "0" + h;
+                  }
+                  m = date.getMinutes();
+                  if (m < 10) {
+                    m = "0" + m;
+                  }
+                  s = date.getSeconds();
+                  if (s < 10) {
+                    s = "0" + s;
+                  }
+                  result = '' + days[day] + ' ' + d + ' ' + months[month] + ' ' + year + ' ' + h + ':' + m + ':' + s;
+                  document.getElementById(id).innerHTML = result;
+                  setTimeout('date_time("' + id + '");', '1000');
+                  return true;
+                }
+              </script>
+              <span id="date_time"></span>
+              <script type="text/javascript">
+                window.onload = date_time('date_time');
+              </script>
+            </a>
+          </li>
+          <li>
+            <a style="color:white" href="<?php echo base_url('karyawan') ?>" class="nav-link px-0 align-middle">
+              <i class="fa-solid fa-house-chimney"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span></a>
+          </li>
+          <li>
+            <a style="color:white" href="<?php echo base_url('karyawan/menu_absen') ?>" class="nav-link px-0 align-middle">
+              <i class="fa-solid fa-users"></i> <span class="ms-1 d-none d-sm-inline">Absen</span></a>
+          </li>
+          <li>
+            <a style="color:white" href="<?php echo base_url('karyawan/menu_izin') ?>" class="nav-link px-0 align-middle">
+              <i class="fa-solid fa-users"></i> <span class="ms-1 d-none d-sm-inline">Izin </span></a>
+          </li>
+          <li>
+            <a style="color:white" href="<?php echo base_url('karyawan/profile') ?>" class="nav-link px-0 align-middle">
+              <i class="fa-solid fa-user"></i> <span class="ms-1 d-none d-sm-inline">Profile </span></a>
+          </li>
+          <li style="margin-top: 100%;">
+            <a style="color:white" href="<?php echo base_url('auth/logout') ?>" class="nav-link px-0 align-middle">
+              <i class="fa-solid fa-right-from-bracket"></i> <span class="ms-1 d-none d-sm-inline">Logout</span></a>
+          </li>
+        </ul>
+      </div>
+    </div>
 
         <div style="width: 50%; margin-left: 5%; margin-top: 3%;">
             <div class="card text-bg-secondary">

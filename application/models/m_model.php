@@ -77,9 +77,9 @@ class M_model extends CI_Model
         return $this->db->affected_rows();
     }
 
-    public function get_by_id($tabel, $id_column, $id)
+    public function get_by_id($tabel, $id_column)
     {
-        $data = $this->db->where($id_column, $id)->get($tabel);
+        $data = $this->db->where($id_column)->get($tabel);
         return $data;
     }
 
@@ -168,6 +168,21 @@ class M_model extends CI_Model
         if ($query->num_rows() > 0) {
             $result = $query->row();
             return $result->id_siswa;
+        } else {
+            return false;
+        }
+    }
+
+    public function get_by_karyawan($nama_depan)
+    {
+        $this->db->select('id');
+        $this->db->from('absensi');
+        $this->db->where('nama_depan', $nama_depan);
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            $result = $query->row();
+            return $result->id;
         } else {
             return false;
         }

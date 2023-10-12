@@ -47,8 +47,8 @@
                 <br>
                 <button type="submit" class="btn btn-primary w-100" name="submit">Ubah</button>
             </form>
+        <?php endforeach ?>
     </div>
-<?php endforeach ?>
 </div>
 </body>
 
