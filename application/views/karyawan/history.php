@@ -231,6 +231,14 @@
     </div>
   </div>
   </div>
+  <script>
+      function hapus(id) {
+        var yes = confirm('Yakin Di Hapus?');
+        if (yes == true) {
+          window.location.href = "<?php echo base_url('karyawan/delete_karyawan/') ?>" + id;
+        }
+      }
+    </script>
 </body>
 
 </html>

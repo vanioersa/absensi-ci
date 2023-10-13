@@ -120,10 +120,10 @@ class karyawan extends CI_Controller
         $data['user'] = $this->m_model->get_data('user')->result();
         $this->load->view('karyawan/ubah_profile', $data);
     }
-    public function delete_absensi($id)
+    public function delete_karyawan($id)
     {
         $this->m_model->delete('absensi', 'id', $id);
-        redirect(base_url('karyawan/absensi'));
+        redirect(base_url('karyawan/history'));
     }
     public function history()
     {
