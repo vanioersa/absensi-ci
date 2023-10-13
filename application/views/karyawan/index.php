@@ -162,7 +162,7 @@
               <i class="fa-solid fa-house-chimney"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span></a>
           </li>
           <li>
-            <a style="color:white" href="<?php echo base_url('karyawan/menu_absen') ?>" class="nav-link px-0 align-middle">
+            <a style="color:white" href="<?php echo base_url('karyawan/ubah_absen') ?>" class="nav-link px-0 align-middle">
               <i class="fa-solid fa-users"></i> <span class="ms-1 d-none d-sm-inline">Absen</span></a>
           </li>
           <li>
@@ -172,6 +172,10 @@
           <li>
             <a style="color:white" href="<?php echo base_url('karyawan/profile') ?>" class="nav-link px-0 align-middle">
               <i class="fa-solid fa-user"></i> <span class="ms-1 d-none d-sm-inline">Profile </span></a>
+          </li>
+          <li>
+            <a style="color:white" href="<?php echo base_url('karyawan/history') ?>" class="nav-link px-0 align-middle">
+              <i class="fa-solid fa-user"></i> <span class="ms-1 d-none d-sm-inline">History </span></a>
           </li>
           <li style="margin-top: 100%;">
             <a style="color:white" href="<?php echo base_url('auth/logout') ?>" class="nav-link px-0 align-middle">
@@ -255,7 +259,7 @@
         </thead>
         <tbody>
           <?php $no = 0;
-          foreach ($karyawan as $row) : $no++ ?>
+          foreach ($absensi as $row) : $no++ ?>
             <tr>
               <th><?php echo $no ?></th>
               <td><?php echo tampil_full_karyawan_byid($row->id_karyawan) ?></td>

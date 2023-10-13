@@ -7,23 +7,87 @@
   <title>Document</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
 </head>
 <style>
-  .body {}
+  .card {
+    background-color: #fff;
+    border-radius: 10px;
+    border: none;
+    position: relative;
+    margin-bottom: 30px;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90, 97, 105, 0.1), 0 0.9375rem 1.40625rem rgba(90, 97, 105, 0.1), 0 0.25rem 0.53125rem rgba(90, 97, 105, 0.12), 0 0.125rem 0.1875rem rgba(90, 97, 105, 0.1);
+  }
 
-  .gradient-custom {
-    /* fallback for old browsers */
-    background: #6565a3;
+  .l-bg-cherry {
+    background: linear-gradient(to right, #493240, #f09) !important;
+    color: #fff;
+  }
 
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
+  .l-bg-blue-dark {
+    background: linear-gradient(to right, #373b44, #4286f4) !important;
+    color: #fff;
+  }
 
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to right bottom, rgba(31, 164, 194), rgba(102, 61, 217))
+  .l-bg-green-dark {
+    background: linear-gradient(to right, #0a504a, #38ef7d) !important;
+    color: #fff;
+  }
+
+  .l-bg-orange-dark {
+    background: linear-gradient(to right, #a86008, #ffba56) !important;
+    color: #fff;
+  }
+
+  .card .card-statistic-3 .card-icon-large .fas,
+  .card .card-statistic-3 .card-icon-large .far,
+  .card .card-statistic-3 .card-icon-large .fab,
+  .card .card-statistic-3 .card-icon-large .fal {
+    font-size: 110px;
+  }
+
+  .card .card-statistic-3 .card-icon {
+    text-align: center;
+    line-height: 50px;
+    margin-left: 15px;
+    color: #000;
+    position: absolute;
+    right: -5px;
+    top: 20px;
+    opacity: 0.1;
+  }
+
+  .l-bg-cyan {
+    background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
+    color: #fff;
+  }
+
+  .l-bg-green {
+    background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%) !important;
+    color: #fff;
+  }
+
+  .l-bg-orange {
+    background: linear-gradient(to right, #f9900e, #ffba56) !important;
+    color: #fff;
+  }
+
+  .l-bg-cyan {
+    background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
+    color: #fff;
+  }
+
+  .table {
+    width: 90%;
+    margin-top: 50px;
+    margin-left: 4%;
+    margin-right: 9%;
+    text-align: center;
+    border-radius: 5%;
   }
 </style>
 
-<body style="background-image: url('https://media.istockphoto.com/id/1337977426/photo/dark-gray-and-black-grunge-cement-wall-studio-room-space-product-background-template.webp?b=1&s=170667a&w=0&k=20&c=4dVCV5KtJKEhuQtp5dbnFmwMBAzNknz35VUIa0C3KoE='); background-size: cover;">
+<body style="overflow: hidden;background-image: url('https://media.istockphoto.com/id/1337977426/photo/dark-gray-and-black-grunge-cement-wall-studio-room-space-product-background-template.webp?b=1&s=170667a&w=0&k=20&c=4dVCV5KtJKEhuQtp5dbnFmwMBAzNknz35VUIa0C3KoE='); background-size: cover;">
   <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
     <div class="container-fluid">
       <!-- <a class="navbar-brand" href="#">Navbar</a> -->
@@ -121,67 +185,51 @@
       </div>
     </div>
 
-    <div class="container">
-        <div class="row d-flex justify-content-center" style="margin-top: 10%;">
-          <div class="col col-lg-6 mb-4 mb-lg-0">
-            <div class="card mb-3" style="border-radius: .5rem;">
-              <div class="row g-0">
-                <div class="col-md-4 gradient-custom text-center text-white" style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png" alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
-                  <h5><?php echo $this->session->userdata('username') ?></h5>
-                  <p>Web Designer <br>Employees</p>
-                  <!-- <i class="far fa-edit mb-5"></i> -->
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body p-4">
-                    <h6>Information</h6>
-                    <hr class="mt-0 mb-4">
-                    <div class="row pt-1">
-                      <div class="col-6 mb-3">
-                        <h6>First Name</h6>
-                        <p class="text-muted"><?php echo $this->session->userdata('nama_depan') ?></p>
-                      </div>
-                      <div class="col-6 mb-3">
-                        <h6>Last Name</h6>
-                        <p class="text-muted"><?php echo $this->session->userdata('nama_belakang') ?></p>
-                      </div>
-                      <div class="col-6 mb-3">
-                        <h6>Username</h6>
-                        <p class="text-muted"><?php echo $this->session->userdata('username') ?></p>
-                      </div>
-                      <div class="col-6 mb-3">
-                        <h6>Email</h6>
-                        <p class="text-muted"><?php echo $this->session->userdata('email') ?></p>
-                      </div>
-                      <div class="col-6 mb-3">
-                        <h6>Password</h6>
-                        <p class="text-muted"><?php echo $this->session->userdata('password') ?></p>
-                      </div>
-                      <a href="<?php echo base_url('karyawan/aksi_update_profile/')?>" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
-                    </div>
-                    <!-- <h6>Projects</h6>
-                    <hr class="mt-0 mb-4">
-                    <div class="row pt-1">
-                      <div class="col-6 mb-3">
-                        <h6>Recent</h6>
-                        <p class="text-muted">Lorem ipsum</p>
-                      </div>
-                      <div class="col-6 mb-3">
-                        <h6>Most Viewed</h6>
-                        <p class="text-muted">Dolor sit amet</p>
-                      </div>
-                    </div> -->
-                    <div class="d-flex justify-content-start" style="margin-top: 10px;">
-                      <a href="https://www.facebook.com/"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
-                      <a href="https://www.twitter.com/"><i class="fab fa-twitter fa-lg me-3"></i></a>
-                      <a href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div style="width:100%;">
+      <div class="text-center m-4">
+        <h1><b>
+            <font color="white">History</font>
+          </b></h1>
+      </div>
+      <hr size="10px" color="red"> 
+
+
+      <table class="table table-info table-bordered border-primary">
+        <thead>
+          <tr>
+            <th style="width: 10px;">No</th>
+            <th>Nama</th>
+            <th>kegiatan</th>
+            <th>Tanggal</th>
+            <th>Jam Masuk</th>
+            <th>Jam Pulang</th>
+            <th>Keterangan</th>
+            <th>Status</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php $no = 0;
+          foreach ($karyawan as $row) : $no++ ?>
+            <tr>
+              <th><?php echo $no ?></th>
+              <td><?php echo tampil_full_karyawan_byid($row->id_karyawan) ?></td>
+              <td><?php echo $row->kegiatan ?></td>
+              <td><?php echo $row->date ?></td>
+              <td><?php echo $row->jam_masuk ?></td>
+              <td><?php echo $row->jam_pulang ?></td>
+              <td><?php echo $row->keterangan ?></td>
+              <td><?php echo $row->status ?></td>
+              <td>
+              <a href="<?php echo base_url('karyawan/ubah_absen/') . $row->id ?>" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+                  <button onclick="hapus(<?php echo $row->id ?>)" class="btn btn-danger"><i class="fa-solid fa-delete-left"></i></button>
+                  </td>
+            </tr>
+          <?php endforeach ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
   </div>
 </body>
 

@@ -9,15 +9,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 <style>
-    .gradient-custom {
-        /* fallback for old browsers */
-        background: #6565a3;
+    .table {
+        margin-left: 50px;
+        margin-top: 5%;
+        margin-right: 50px;
+        padding: auto;
+    }
 
-        /* Chrome 10-25, Safari 5.1-6 */
-        background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
-
-        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        background: linear-gradient(to right bottom, rgba(31, 164, 194), rgba(102, 61, 217))
+    .table .tbody .tr .td {
+        background-color: red;
     }
 </style>
 
@@ -115,15 +115,34 @@
             </div>
         </div>
 
-        <table border="1" cellpadding="10">
-        <tr>
-            <td>Baris 1 kolom 1</td>
-            <td>baris 1 kolom 2</td>
-        </tr>
-        <tr>
-            <td>Baris 2 kolom 1</td>
-            <td>baris 2 kolom 2</td>
-        </tr>
-    </table>
+        <table class="table table-bordered">
+            <thead class="table-primary text-center">
+                <th scope="col">No</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Nama Depan</th>
+                <th scope="col">Nama Belakang</th>
+                <th scope="col">Password</th>
+                <th scope="col">Aksi</th>
+            </thead>
+            <tbody classs="table-grup-divider">
+                <?php $no = 0;
+                foreach ($user as $row) : $no++ ?>
+                    <tr class="text-center">
+                        <td><?php echo $no ?></td>
+                        <td><?php echo $row->username ?></td>
+                        <td><?php echo $row->email ?></td>
+                        <td><?php echo $row->nama_depan ?></td>
+                        <td><?php echo $row->nama_belakang ?></td>
+                        <td><?php echo $row->password ?></td>
+                        <td>
+                            <a href="<?php echo base_url('karyawan/ubah_profile/') . $row->id ?>" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <button onclick="hapus(<?php echo $row->id ?>)" class="btn btn-danger"><i class="fa-solid fa-delete-left"></i></button>
+                        </td>
+                    </tr>
+                    <?php endforeach ?>
+            </tbody>
+        </table>
 </body>
+
 </html>
