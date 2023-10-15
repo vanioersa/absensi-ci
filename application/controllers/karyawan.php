@@ -28,7 +28,7 @@ class karyawan extends CI_Controller
     }
     public function profile()
     {
-        $data[ 'user' ] = $this->m_model->get_by_id( 'user',          'id', $this->session->userdata( 'id' ) )->result();
+        $data[ 'user' ] = $this->m_model->get_data( 'user', 'id', $this->session->userdata( 'id' ) )->result();
         $this->load->view( 'karyawan/profile', $data );
     }
     public function ubah_profile()
@@ -150,4 +150,38 @@ class karyawan extends CI_Controller
 			redirect(base_url('karyawan/ubah_absen'.$this->input->post('id')));
 		 }
 	}
+    public function pulang($id)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $absensi = $this->db->get_where('absensi', array('id' => $id))->row();
+        if ($absensi) {
+            $data = [
+                "jam_pulang" => date('H:i:s'),
+                "status" => 'done'
+            ];
+            $this->db-> where('id', $id);
+            $this->db-> update('absensi', $data);
+            redirect(base_url('karyawan/index'));
+        } else {
+            echo 'Data Absensi Tidak Ditemulkan';
+        }
+    }
+    // public function masuk($id)
+    // {
+    //     date_default_timezone_set('Asia/Jakarta');
+    //     $absensi = $this->db->get_where('absensi', array('id' => $id))->row();
+    //     if ($absensi) {
+    //         $data = [
+    //             "id_karyawan" => 'username',
+    //             "date" => date('Y-m-d'),
+    //             "jam_masuk" => date('H:i:s'),
+    //             "status" => 'not',
+    //         ];
+    //         $this->db-> where('id', $id);
+    //         $this->db-> update('absensi', $data);
+    //         redirect(base_url('karyawan/index'));
+    //     } else {
+    //         echo 'Data Absensi Tidak Ditemulkan';
+    //     }
+    // }
 }

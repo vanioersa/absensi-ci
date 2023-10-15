@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <style>
   .card {
@@ -101,8 +102,41 @@
               <font color="white"><i class="fa-solid fa-house-user"></i> Home</font>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">Link</a>
+          <li class="nav-item" style="margin-left: 500px; padding-top: 5px;">
+            <a>
+              <font color="white"><i class="fa-regular fa-calendar"></i> Tanggal : <?php date_default_timezone_set("Asia/Jakarta"); ?>
+                <script type="text/javascript">
+                  function date_time(id) {
+                    date = new Date;
+                    year = date.getFullYear();
+                    month = date.getMonth();
+                    months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'Jully', 'August', 'September', 'October', 'November', 'December');
+                    d = date.getDate();
+                    day = date.getDay();
+                    days = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+                    h = date.getHours();
+                    if (h < 10) {
+                      h = "0" + h;
+                    }
+                    m = date.getMinutes();
+                    if (m < 10) {
+                      m = "0" + m;
+                    }
+                    s = date.getSeconds();
+                    if (s < 10) {
+                      s = "0" + s;
+                    }
+                    result = '' + days[day] + ' ' + d + ' ' + months[month] + ' ' + year + ' ' + h + ':' + m + ':' + s;
+                    document.getElementById(id).innerHTML = result;
+                    setTimeout('date_time("' + id + '");', '1000');
+                    return true;
+                  }
+                </script>
+                <span id="date_time"></span>
+                <script type="text/javascript">
+                  window.onload = date_time('date_time');
+                </script>
+            </a></font>
           </li>
         </ul>
         </ul>
@@ -122,41 +156,6 @@
           <span class="fs-5 d-none d-sm-inline">Karyawan</span>
         </h4>
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-          <li>
-            <a><i class="fa-regular fa-calendar"></i> Tanggal : <?php date_default_timezone_set("Asia/Jakarta"); ?>
-              <script type="text/javascript">
-                function date_time(id) {
-                  date = new Date;
-                  year = date.getFullYear();
-                  month = date.getMonth();
-                  months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'Jully', 'August', 'September', 'October', 'November', 'December');
-                  d = date.getDate();
-                  day = date.getDay();
-                  days = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-                  h = date.getHours();
-                  if (h < 10) {
-                    h = "0" + h;
-                  }
-                  m = date.getMinutes();
-                  if (m < 10) {
-                    m = "0" + m;
-                  }
-                  s = date.getSeconds();
-                  if (s < 10) {
-                    s = "0" + s;
-                  }
-                  result = '' + days[day] + ' ' + d + ' ' + months[month] + ' ' + year + ' ' + h + ':' + m + ':' + s;
-                  document.getElementById(id).innerHTML = result;
-                  setTimeout('date_time("' + id + '");', '1000');
-                  return true;
-                }
-              </script>
-              <span id="date_time"></span>
-              <script type="text/javascript">
-                window.onload = date_time('date_time');
-              </script>
-            </a>
-          </li>
           <li>
             <a style="color:white" href="<?php echo base_url('karyawan') ?>" class="nav-link px-0 align-middle">
               <i class="fa-solid fa-house-chimney"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span></a>
@@ -179,7 +178,7 @@
           </li>
           <li style="margin-top: 100%;">
             <a style="color:white" href="<?php echo base_url('auth/logout') ?>" class="nav-link px-0 align-middle">
-              <i class="fa-solid fa-right-from-bracket"></i> <span class="ms-1 d-none d-sm-inline">Logout</span></a>
+              <i class="fa-solid fa-right-from-bracket"> Logout</i> <span class="ms-1 d-none d-sm-inline"></span></a>
           </li>
         </ul>
       </div>
@@ -191,18 +190,18 @@
             <font color="white">History</font>
           </b></h1>
       </div>
-      <hr size="10px" color="red"> 
+      <hr size="10px" color="red">
 
 
       <table class="table table-info table-bordered border-primary">
         <thead>
           <tr>
             <th style="width: 10px;">No</th>
-            <th>Nama</th>
+            <th>Nama Pegawai</th>
             <th>kegiatan</th>
             <th>Tanggal</th>
-            <th>Jam Masuk</th>
-            <th>Jam Pulang</th>
+            <th>Waktu Datang</th>
+            <th>Waktu Pulang</th>
             <th>Keterangan</th>
             <th>Status</th>
             <th>Aksi</th>
@@ -221,9 +220,9 @@
               <td><?php echo $row->keterangan ?></td>
               <td><?php echo $row->status ?></td>
               <td>
-              <a href="<?php echo base_url('karyawan/ubah_absen/') . $row->id ?>" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
-                  <button onclick="hapus(<?php echo $row->id ?>)" class="btn btn-danger"><i class="fa-solid fa-delete-left"></i></button>
-                  </td>
+                <a href="<?php echo base_url('karyawan/ubah_absen/') . $row->id ?>" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+                <button onclick="hapus(<?php echo $row->id ?>)" class="btn btn-danger"><i class="fa-solid fa-delete-left"></i></button>
+              </td>
             </tr>
           <?php endforeach ?>
         </tbody>
@@ -232,13 +231,49 @@
   </div>
   </div>
   <script>
-      function hapus(id) {
-        var yes = confirm('Yakin Di Hapus?');
-        if (yes == true) {
-          window.location.href = "<?php echo base_url('karyawan/delete_karyawan/') ?>" + id;
+    function hapus(id) {
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger',
+        },
+        timer: 3000,
+        timerProgressBar: true,
+        buttonsStyling: false
+      })
+
+      swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          swalWithBootstrapButtons.fire(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+
+            )
+            .then(function() {
+              window.location.href = "<?php echo base_url('karyawan/delete_karyawan/') ?>" + id;
+            })
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'cancel',
+            'Your file data is safe :)',
+            'error'
+          )
         }
-      }
-    </script>
+      })
+    }
+  </script>
 </body>
 
 </html>

@@ -9,7 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 
-<body style="overflow: hidden; background-image: url('https://media.istockphoto.com/id/1337977426/photo/dark-gray-and-black-grunge-cement-wall-studio-room-space-product-background-template.webp?b=1&s=170667a&w=0&k=20&c=4dVCV5KtJKEhuQtp5dbnFmwMBAzNknz35VUIa0C3KoE='); background-size: cover;">
+<body style="overflow: hidden;background-image: url('https://media.istockphoto.com/id/1337977426/photo/dark-gray-and-black-grunge-cement-wall-studio-room-space-product-background-template.webp?b=1&s=170667a&w=0&k=20&c=4dVCV5KtJKEhuQtp5dbnFmwMBAzNknz35VUIa0C3KoE='); background-size: cover;">
   <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
     <div class="container-fluid">
       <!-- <a class="navbar-brand" href="#">Navbar</a> -->
@@ -23,8 +23,41 @@
               <font color="white"><i class="fa-solid fa-house-user"></i> Home</font>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">Link</a>
+          <li class="nav-item" style="margin-left: 500px; padding-top: 5px;">
+            <a>
+              <font color="white"><i class="fa-regular fa-calendar"></i> Tanggal : <?php date_default_timezone_set("Asia/Jakarta"); ?>
+                <script type="text/javascript">
+                  function date_time(id) {
+                    date = new Date;
+                    year = date.getFullYear();
+                    month = date.getMonth();
+                    months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'Jully', 'August', 'September', 'October', 'November', 'December');
+                    d = date.getDate();
+                    day = date.getDay();
+                    days = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+                    h = date.getHours();
+                    if (h < 10) {
+                      h = "0" + h;
+                    }
+                    m = date.getMinutes();
+                    if (m < 10) {
+                      m = "0" + m;
+                    }
+                    s = date.getSeconds();
+                    if (s < 10) {
+                      s = "0" + s;
+                    }
+                    result = '' + days[day] + ' ' + d + ' ' + months[month] + ' ' + year + ' ' + h + ':' + m + ':' + s;
+                    document.getElementById(id).innerHTML = result;
+                    setTimeout('date_time("' + id + '");', '1000');
+                    return true;
+                  }
+                </script>
+                <span id="date_time"></span>
+                <script type="text/javascript">
+                  window.onload = date_time('date_time');
+                </script>
+            </a></font>
           </li>
         </ul>
         </ul>
@@ -45,46 +78,11 @@
         </h4>
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
           <li>
-            <a><i class="fa-regular fa-calendar"></i> Tanggal : <?php date_default_timezone_set("Asia/Jakarta"); ?>
-              <script type="text/javascript">
-                function date_time(id) {
-                  date = new Date;
-                  year = date.getFullYear();
-                  month = date.getMonth();
-                  months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'Jully', 'August', 'September', 'October', 'November', 'December');
-                  d = date.getDate();
-                  day = date.getDay();
-                  days = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-                  h = date.getHours();
-                  if (h < 10) {
-                    h = "0" + h;
-                  }
-                  m = date.getMinutes();
-                  if (m < 10) {
-                    m = "0" + m;
-                  }
-                  s = date.getSeconds();
-                  if (s < 10) {
-                    s = "0" + s;
-                  }
-                  result = '' + days[day] + ' ' + d + ' ' + months[month] + ' ' + year + ' ' + h + ':' + m + ':' + s;
-                  document.getElementById(id).innerHTML = result;
-                  setTimeout('date_time("' + id + '");', '1000');
-                  return true;
-                }
-              </script>
-              <span id="date_time"></span>
-              <script type="text/javascript">
-                window.onload = date_time('date_time');
-              </script>
-            </a>
-          </li>
-          <li>
             <a style="color:white" href="<?php echo base_url('karyawan') ?>" class="nav-link px-0 align-middle">
               <i class="fa-solid fa-house-chimney"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span></a>
           </li>
           <li>
-            <a style="color:white" href="<?php echo base_url('karyawan/menu_absen') ?>" class="nav-link px-0 align-middle">
+            <a style="color:white" href="<?php echo base_url('karyawan/ubah_absen') ?>" class="nav-link px-0 align-middle">
               <i class="fa-solid fa-users"></i> <span class="ms-1 d-none d-sm-inline">Absen</span></a>
           </li>
           <li>
@@ -101,7 +99,7 @@
           </li>
           <li style="margin-top: 100%;">
             <a style="color:white" href="<?php echo base_url('auth/logout') ?>" class="nav-link px-0 align-middle">
-              <i class="fa-solid fa-right-from-bracket"></i> <span class="ms-1 d-none d-sm-inline">Logout</span></a>
+              <i class="fa-solid fa-right-from-bracket"> Logout</i> <span class="ms-1 d-none d-sm-inline"></span></a>
           </li>
         </ul>
       </div>

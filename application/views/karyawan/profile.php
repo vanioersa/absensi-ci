@@ -9,7 +9,20 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 <style>
-  .body {}
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  /* Full-width input fields */
+  input[type=text],
+  input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
 
   .gradient-custom {
     /* fallback for old browsers */
@@ -21,9 +34,139 @@
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background: linear-gradient(to right bottom, rgba(31, 164, 194), rgba(102, 61, 217))
   }
+
+  /* Set a style for all buttons */
+  /* button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin-left: 10%;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  } */
+
+  button:hover {
+    opacity: 0.8;
+  }
+
+  /* Extra styles for the cancel button */
+  .cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+  }
+
+  /* Center the image and position the close button */
+  .imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+  }
+
+  img.avatar {
+    width: 40%;
+    border-radius: 50%;
+  }
+
+  .container {
+    padding: 16px;
+  }
+
+  span.psw {
+    float: right;
+    padding-top: 16px;
+  }
+
+  /* The Modal (background) */
+  .modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+    padding-top: 60px;
+  }
+
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto;
+    /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%;
+    /* Could be more or less, depending on screen size */
+  }
+
+  /* The Close Button (x) */
+  .close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: red;
+    cursor: pointer;
+  }
+
+  /* Add Zoom Animation */
+  .animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+  }
+
+  @-webkit-keyframes animatezoom {
+    from {
+      -webkit-transform: scale(0)
+    }
+
+    to {
+      -webkit-transform: scale(1)
+    }
+  }
+
+  @keyframes animatezoom {
+    from {
+      transform: scale(0)
+    }
+
+    to {
+      transform: scale(1)
+    }
+  }
+
+  /* Change styles for span and cancel button on extra small screens */
+  @media screen and (max-width: 300px) {
+    span.psw {
+      display: block;
+      float: none;
+    }
+
+    .cancelbtn {
+      width: 100%;
+    }
+  }
 </style>
 
-<body style="background-image: url('https://media.istockphoto.com/id/1337977426/photo/dark-gray-and-black-grunge-cement-wall-studio-room-space-product-background-template.webp?b=1&s=170667a&w=0&k=20&c=4dVCV5KtJKEhuQtp5dbnFmwMBAzNknz35VUIa0C3KoE='); background-size: cover;">
+<body style="overflow: hidden;background-image: url('https://media.istockphoto.com/id/1337977426/photo/dark-gray-and-black-grunge-cement-wall-studio-room-space-product-background-template.webp?b=1&s=170667a&w=0&k=20&c=4dVCV5KtJKEhuQtp5dbnFmwMBAzNknz35VUIa0C3KoE='); background-size: cover;">
   <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
     <div class="container-fluid">
       <!-- <a class="navbar-brand" href="#">Navbar</a> -->
@@ -37,8 +180,41 @@
               <font color="white"><i class="fa-solid fa-house-user"></i> Home</font>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">Link</a>
+          <li class="nav-item" style="margin-left: 500px; padding-top: 5px;">
+            <a>
+              <font color="white"><i class="fa-regular fa-calendar"></i> Tanggal : <?php date_default_timezone_set("Asia/Jakarta"); ?>
+                <script type="text/javascript">
+                  function date_time(id) {
+                    date = new Date;
+                    year = date.getFullYear();
+                    month = date.getMonth();
+                    months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'Jully', 'August', 'September', 'October', 'November', 'December');
+                    d = date.getDate();
+                    day = date.getDay();
+                    days = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+                    h = date.getHours();
+                    if (h < 10) {
+                      h = "0" + h;
+                    }
+                    m = date.getMinutes();
+                    if (m < 10) {
+                      m = "0" + m;
+                    }
+                    s = date.getSeconds();
+                    if (s < 10) {
+                      s = "0" + s;
+                    }
+                    result = '' + days[day] + ' ' + d + ' ' + months[month] + ' ' + year + ' ' + h + ':' + m + ':' + s;
+                    document.getElementById(id).innerHTML = result;
+                    setTimeout('date_time("' + id + '");', '1000');
+                    return true;
+                  }
+                </script>
+                <span id="date_time"></span>
+                <script type="text/javascript">
+                  window.onload = date_time('date_time');
+                </script>
+            </a></font>
           </li>
         </ul>
         </ul>
@@ -58,41 +234,6 @@
           <span class="fs-5 d-none d-sm-inline">Karyawan</span>
         </h4>
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-          <li>
-            <a><i class="fa-regular fa-calendar"></i> Tanggal : <?php date_default_timezone_set("Asia/Jakarta"); ?>
-              <script type="text/javascript">
-                function date_time(id) {
-                  date = new Date;
-                  year = date.getFullYear();
-                  month = date.getMonth();
-                  months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'Jully', 'August', 'September', 'October', 'November', 'December');
-                  d = date.getDate();
-                  day = date.getDay();
-                  days = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-                  h = date.getHours();
-                  if (h < 10) {
-                    h = "0" + h;
-                  }
-                  m = date.getMinutes();
-                  if (m < 10) {
-                    m = "0" + m;
-                  }
-                  s = date.getSeconds();
-                  if (s < 10) {
-                    s = "0" + s;
-                  }
-                  result = '' + days[day] + ' ' + d + ' ' + months[month] + ' ' + year + ' ' + h + ':' + m + ':' + s;
-                  document.getElementById(id).innerHTML = result;
-                  setTimeout('date_time("' + id + '");', '1000');
-                  return true;
-                }
-              </script>
-              <span id="date_time"></span>
-              <script type="text/javascript">
-                window.onload = date_time('date_time');
-              </script>
-            </a>
-          </li>
           <li>
             <a style="color:white" href="<?php echo base_url('karyawan') ?>" class="nav-link px-0 align-middle">
               <i class="fa-solid fa-house-chimney"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span></a>
@@ -115,51 +256,51 @@
           </li>
           <li style="margin-top: 100%;">
             <a style="color:white" href="<?php echo base_url('auth/logout') ?>" class="nav-link px-0 align-middle">
-              <i class="fa-solid fa-right-from-bracket"></i> <span class="ms-1 d-none d-sm-inline">Logout</span></a>
+              <i class="fa-solid fa-right-from-bracket"> Logout</i> <span class="ms-1 d-none d-sm-inline"></span></a>
           </li>
         </ul>
       </div>
     </div>
 
     <div class="container">
-        <div class="row d-flex justify-content-center" style="margin-top: 10%;">
-          <div class="col col-lg-6 mb-4 mb-lg-0">
-            <div class="card mb-3" style="border-radius: .5rem;">
-              <div class="row g-0">
-                <div class="col-md-4 gradient-custom text-center text-white" style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png" alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
-                  <h5><?php echo $this->session->userdata('username') ?></h5>
-                  <p>Web Designer <br>Employees</p>
-                  <!-- <i class="far fa-edit mb-5"></i> -->
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body p-4">
-                    <h6>Information</h6>
-                    <hr class="mt-0 mb-4">
-                    <div class="row pt-1">
-                      <div class="col-6 mb-3">
-                        <h6>First Name</h6>
-                        <p class="text-muted"><?php echo $this->session->userdata('nama_depan') ?></p>
-                      </div>
-                      <div class="col-6 mb-3">
-                        <h6>Last Name</h6>
-                        <p class="text-muted"><?php echo $this->session->userdata('nama_belakang') ?></p>
-                      </div>
-                      <div class="col-6 mb-3">
-                        <h6>Username</h6>
-                        <p class="text-muted"><?php echo $this->session->userdata('username') ?></p>
-                      </div>
-                      <div class="col-6 mb-3">
-                        <h6>Email</h6>
-                        <p class="text-muted"><?php echo $this->session->userdata('email') ?></p>
-                      </div>
-                      <div class="col-6 mb-3">
-                        <h6>Password</h6>
-                        <p class="text-muted"><?php echo $this->session->userdata('password') ?></p>
-                      </div>
-                      <a href="<?php echo base_url('karyawan/aksi_update_profile/')?>" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+      <div class="row d-flex justify-content-center" style="margin-top: 10%;">
+        <div class="col col-lg-6 mb-4 mb-lg-0">
+          <div class="card mb-3" style="border-radius: .5rem;">
+            <div class="row g-0">
+              <div class="col-md-4 gradient-custom text-center text-white" style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png" alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
+                <h5><?php echo $this->session->userdata('username') ?></h5>
+                <p>Web Designer <br>Employees</p>
+                <!-- <i class="far fa-edit mb-5"></i> -->
+              </div>
+              <div class="col-md-8">
+                <div class="card-body p-4">
+                  <h6>Information</h6>
+                  <hr class="mt-0 mb-4">
+                  <div class="row pt-1">
+                    <div class="col-6 mb-3">
+                      <h6>First Name</h6>
+                      <p class="text-muted"><?php echo $this->session->userdata('nama_depan') ?></p>
                     </div>
-                    <!-- <h6>Projects</h6>
+                    <div class="col-6 mb-3">
+                      <h6>Last Name</h6>
+                      <p class="text-muted"><?php echo $this->session->userdata('nama_belakang') ?></p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>Username</h6>
+                      <p class="text-muted"><?php echo $this->session->userdata('username') ?></p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>Email</h6>
+                      <p class="text-muted"><?php echo $this->session->userdata('email') ?></p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>Password</h6>
+                      <p class="text-muted"><?php echo $this->session->userdata('password') ?></p>
+                    </div>
+                    <button onclick="document.getElementById('id01').style.display='block'" class="btn btn-primary w-100" style="width:auto;">Login</button>
+                  </div>
+                  <!-- <h6>Projects</h6>
                     <hr class="mt-0 mb-4">
                     <div class="row pt-1">
                       <div class="col-6 mb-3">
@@ -171,18 +312,58 @@
                         <p class="text-muted">Dolor sit amet</p>
                       </div>
                     </div> -->
-                    <div class="d-flex justify-content-start" style="margin-top: 10px;">
-                      <a href="https://www.facebook.com/"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
-                      <a href="https://www.twitter.com/"><i class="fab fa-twitter fa-lg me-3"></i></a>
-                      <a href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg"></i></a>
-                    </div>
+                  <div class="d-flex justify-content-start" style="margin-top: 10px;">
+                    <a href="https://www.facebook.com/"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
+                    <a href="https://www.twitter.com/"><i class="fab fa-twitter fa-lg me-3"></i></a>
+                    <a href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg"></i></a>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-  </div>
+      </div>
+      <div id="id01" class="modal">
+
+        <form class="modal-content animate" action="/action_page.php" method="post">
+          <div class="imgcontainer">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <!-- <img src="img_avatar2.png" alt="Avatar" class="avatar"> -->
+          </div>
+
+          <div class="container">
+            <label for="uname"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="uname" required>
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required>
+
+            <a href="" class="btn btn-primary">Ubah</a>
+            <!-- <label>
+              <input type="checkbox" checked="checked" name="remember"> Remember me
+            </label> -->
+          </div>
+
+          <div class="container" style="background-color:#f1f1f1">
+            <a type="button" onclick="document.getElementById('id01').style.display='none'" class="btn btn-danger ">Cancel</a>
+            <!-- <span class="psw">Forgot <a href="#">password?</a></span> -->
+          </div>
+        </form>
+      </div>
+
+      <script>
+        // Get the modal
+        var modal = document.getElementById('id01');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+      </script>
+
+    </div>
 </body>
 
 </html>

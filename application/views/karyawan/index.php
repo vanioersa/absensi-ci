@@ -101,10 +101,45 @@
               <font color="white"><i class="fa-solid fa-house-user"></i> Home</font>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="">Link</a>
+          </li> -->
+          <li class="nav-item" style="margin-left: 500px; padding-top: 5px;">
+            <a>
+              <font color="white"><i class="fa-regular fa-calendar"></i> Tanggal : <?php date_default_timezone_set("Asia/Jakarta"); ?>
+                <script type="text/javascript">
+                  function date_time(id) {
+                    date = new Date;
+                    year = date.getFullYear();
+                    month = date.getMonth();
+                    months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'Jully', 'August', 'September', 'October', 'November', 'December');
+                    d = date.getDate();
+                    day = date.getDay();
+                    days = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+                    h = date.getHours();
+                    if (h < 10) {
+                      h = "0" + h;
+                    }
+                    m = date.getMinutes();
+                    if (m < 10) {
+                      m = "0" + m;
+                    }
+                    s = date.getSeconds();
+                    if (s < 10) {
+                      s = "0" + s;
+                    }
+                    result = '' + days[day] + ' ' + d + ' ' + months[month] + ' ' + year + ' ' + h + ':' + m + ':' + s;
+                    document.getElementById(id).innerHTML = result;
+                    setTimeout('date_time("' + id + '");', '1000');
+                    return true;
+                  }
+                </script>
+                <span id="date_time"></span>
+                <script type="text/javascript">
+                  window.onload = date_time('date_time');
+                </script>
+            </a></font>
           </li>
-        </ul>
         </ul>
         <!-- <form style="margin-right: 20px;" class="d-flex" role="search">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -122,41 +157,7 @@
           <span class="fs-5 d-none d-sm-inline">Karyawan</span>
         </h4>
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-          <li>
-            <a><i class="fa-regular fa-calendar"></i> Tanggal : <?php date_default_timezone_set("Asia/Jakarta"); ?>
-              <script type="text/javascript">
-                function date_time(id) {
-                  date = new Date;
-                  year = date.getFullYear();
-                  month = date.getMonth();
-                  months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'Jully', 'August', 'September', 'October', 'November', 'December');
-                  d = date.getDate();
-                  day = date.getDay();
-                  days = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-                  h = date.getHours();
-                  if (h < 10) {
-                    h = "0" + h;
-                  }
-                  m = date.getMinutes();
-                  if (m < 10) {
-                    m = "0" + m;
-                  }
-                  s = date.getSeconds();
-                  if (s < 10) {
-                    s = "0" + s;
-                  }
-                  result = '' + days[day] + ' ' + d + ' ' + months[month] + ' ' + year + ' ' + h + ':' + m + ':' + s;
-                  document.getElementById(id).innerHTML = result;
-                  setTimeout('date_time("' + id + '");', '1000');
-                  return true;
-                }
-              </script>
-              <span id="date_time"></span>
-              <script type="text/javascript">
-                window.onload = date_time('date_time');
-              </script>
-            </a>
-          </li>
+
           <li>
             <a style="color:white" href="<?php echo base_url('karyawan') ?>" class="nav-link px-0 align-middle">
               <i class="fa-solid fa-house-chimney"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span></a>
@@ -179,7 +180,7 @@
           </li>
           <li style="margin-top: 100%;">
             <a style="color:white" href="<?php echo base_url('auth/logout') ?>" class="nav-link px-0 align-middle">
-              <i class="fa-solid fa-right-from-bracket"></i> <span class="ms-1 d-none d-sm-inline">Logout</span></a>
+              <i class="fa-solid fa-right-from-bracket"> Logout</i> <span class="ms-1 d-none d-sm-inline"></span></a>
           </li>
         </ul>
       </div>
@@ -244,6 +245,8 @@
         </div>
       </div>
 
+
+
       <table class="table table-info table-bordered border-primary">
         <thead>
           <tr>
@@ -255,6 +258,7 @@
             <th>Jam Pulang</th>
             <th>Keterangan</th>
             <th>Status</th>
+            <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
@@ -269,13 +273,27 @@
               <td><?php echo $row->jam_pulang ?></td>
               <td><?php echo $row->keterangan ?></td>
               <td><?php echo $row->status ?></td>
+              <td>
+                <?php if ($row->status === "done") : ?>
+                  <button disabled class="btn btn-danger" type="submit">Pulang</button>
+                <?php else : ?>
+                  <a type="submit" href="<?php echo base_url('karyawan/pulang/' . $row->id) ?>" class="btn btn-primary">Pulang</a>
+                <?php endif; ?>
+              </td>
             </tr>
           <?php endforeach ?>
         </tbody>
       </table>
     </div>
   </div>
-  </div>
+  <script>
+    function pulang(id) {
+      var yes = confrim('Pulang');
+      if (yes == true) {
+        window.location.href = "<?php echo base_url('karyawan/pulang/') ?>" + id;
+      }
+    }
+  </script>
 </body>
 
 </html>

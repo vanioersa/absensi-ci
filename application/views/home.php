@@ -9,7 +9,8 @@
     body {
         font-family: verdana;
         font-size: 0.85em;
-        background-image: url(https://png.pngtree.com/background/20210711/original/pngtree-watercolor-black-white-brush-background-picture-image_1166963.jpg);
+        background-image: url(https://images.pexels.com/photos/773966/pexels-photo-773966.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+
     }
 
     .menu {
