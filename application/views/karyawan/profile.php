@@ -20,7 +20,6 @@
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
-    border: 1px solid #ccc;
     box-sizing: border-box;
   }
 
@@ -96,7 +95,7 @@
     /* Enable scroll if needed */
     background-color: rgb(0, 0, 0);
     /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0);
     /* Black w/ opacity */
     padding-top: 60px;
   }
@@ -104,11 +103,12 @@
   /* Modal Content/Box */
   .modal-content {
     background-color: #fefefe;
-    margin: 5% auto 15% auto;
+    margin-left: 35%;
     /* 5% from the top, 15% from the bottom and centered */
     border: 1px solid #888;
-    width: 80%;
+    width: 50%;
     /* Could be more or less, depending on screen size */
+    background-color: rgb(192, 192, 192);
   }
 
   /* The Close Button (x) */
@@ -182,7 +182,7 @@
           </li>
           <li class="nav-item" style="margin-left: 500px; padding-top: 5px;">
             <a>
-              <font color="white"><i class="fa-regular fa-calendar"></i> Tanggal : <?php date_default_timezone_set("Asia/Jakarta"); ?>
+              <font color="white">Tanggal: <?php date_default_timezone_set("Asia/Jakarta"); ?>
                 <script type="text/javascript">
                   function date_time(id) {
                     date = new Date;
@@ -239,7 +239,7 @@
               <i class="fa-solid fa-house-chimney"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span></a>
           </li>
           <li>
-            <a style="color:white" href="<?php echo base_url('karyawan/ubah_absen') ?>" class="nav-link px-0 align-middle">
+            <a style="color:white" href="<?php echo base_url('karyawan/absen') ?>" class="nav-link px-0 align-middle">
               <i class="fa-solid fa-users"></i> <span class="ms-1 d-none d-sm-inline">Absen</span></a>
           </li>
           <li>
@@ -277,30 +277,32 @@
                 <div class="card-body p-4">
                   <h6>Information</h6>
                   <hr class="mt-0 mb-4">
-                  <div class="row pt-1">
-                    <div class="col-6 mb-3">
-                      <h6>First Name</h6>
-                      <p class="text-muted"><?php echo $this->session->userdata('nama_depan') ?></p>
+                  <?php foreach ($user as $row) : ?>
+                    <div class="row pt-1">
+                      <div class="col-6 mb-3">
+                        <h6>First Name</h6>
+                        <p class="text-muted"><?php echo $row->nama_depan ?></p>
+                      </div>
+                      <div class="col-6 mb-3">
+                        <h6>Last Name</h6>
+                        <p class="text-muted"><?php echo $row->nama_belakang ?></p>
+                      </div>
+                      <div class="col-6 mb-3">
+                        <h6>Username</h6>
+                        <p class="text-muted"><?php echo $row->username ?></p>
+                      </div>
+                      <div class="col-6 mb-3">
+                        <h6>Email</h6>
+                        <p class="text-muted"><?php echo $row->email ?></p>
+                      </div>
+                      <div style="margin-left: 25%;" class="col-6">
+                        <h6>Password</h6>
+                        <p class="text-muted"><?php echo $row->password ?></p>
+                      </div>
+                    <?php endforeach; ?>
+                    <button onclick="document.getElementById('id01').style.display='block'" class="btn btn-primary w-100" style="width:auto;">Ubah</button>
                     </div>
-                    <div class="col-6 mb-3">
-                      <h6>Last Name</h6>
-                      <p class="text-muted"><?php echo $this->session->userdata('nama_belakang') ?></p>
-                    </div>
-                    <div class="col-6 mb-3">
-                      <h6>Username</h6>
-                      <p class="text-muted"><?php echo $this->session->userdata('username') ?></p>
-                    </div>
-                    <div class="col-6 mb-3">
-                      <h6>Email</h6>
-                      <p class="text-muted"><?php echo $this->session->userdata('email') ?></p>
-                    </div>
-                    <div class="col-6 mb-3">
-                      <h6>Password</h6>
-                      <p class="text-muted"><?php echo $this->session->userdata('password') ?></p>
-                    </div>
-                    <button onclick="document.getElementById('id01').style.display='block'" class="btn btn-primary w-100" style="width:auto;">Login</button>
-                  </div>
-                  <!-- <h6>Projects</h6>
+                    <!-- <h6>Projects</h6>
                     <hr class="mt-0 mb-4">
                     <div class="row pt-1">
                       <div class="col-6 mb-3">
@@ -312,11 +314,11 @@
                         <p class="text-muted">Dolor sit amet</p>
                       </div>
                     </div> -->
-                  <div class="d-flex justify-content-start" style="margin-top: 10px;">
-                    <a href="https://www.facebook.com/"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
-                    <a href="https://www.twitter.com/"><i class="fab fa-twitter fa-lg me-3"></i></a>
-                    <a href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg"></i></a>
-                  </div>
+                    <div class="d-flex justify-content-start" style="margin-top: 10px;">
+                      <a href="https://www.facebook.com/"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
+                      <a href="https://www.twitter.com/"><i class="fab fa-twitter fa-lg me-3"></i></a>
+                      <a href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg"></i></a>
+                    </div>
                 </div>
               </div>
             </div>
@@ -324,7 +326,6 @@
         </div>
       </div>
       <div id="id01" class="modal">
-
         <form class="modal-content animate" action="/action_page.php" method="post">
           <div class="imgcontainer">
             <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
@@ -332,38 +333,48 @@
           </div>
 
           <div class="container">
+            <label for="uname"><b>First Name</b></label>
+            <input type="text" placeholder="Enter First Name" name="nama_depan" required>
+
+            <label for="uname"><b>Last Name</b></label>
+            <input type="text" placeholder="Enter Last Name" name="nama_belakang" required>
+
             <label for="uname"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="uname" required>
+            <input type="text" placeholder="Enter Username" name="username" required>
+
+            <label for="uname"><b>Email</b></label>
+            <input type="text" placeholder="Enter Email" name="email" required>
 
             <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
+            <input type="password" placeholder="Enter Password" name="password" required>
 
-            <a href="" class="btn btn-primary">Ubah</a>
+            <a href="#" class="btn btn-primary">Ubah</a>
+
             <!-- <label>
               <input type="checkbox" checked="checked" name="remember"> Remember me
             </label> -->
+            
+            <a style="margin-left: 83%;" type="button" onclick="document.getElementById('id01').style.display='none'" class="btn btn-danger ">Cancel</a>
+          
           </div>
-
           <div class="container" style="background-color:#f1f1f1">
-            <a type="button" onclick="document.getElementById('id01').style.display='none'" class="btn btn-danger ">Cancel</a>
             <!-- <span class="psw">Forgot <a href="#">password?</a></span> -->
           </div>
         </form>
       </div>
-
-      <script>
-        // Get the modal
-        var modal = document.getElementById('id01');
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-          if (event.target == modal) {
-            modal.style.display = "none";
-          }
-        }
-      </script>
-
     </div>
+
+    <script>
+      // Get the modal
+      var modal = document.getElementById('id01');
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+    </script>
 </body>
 
 </html>

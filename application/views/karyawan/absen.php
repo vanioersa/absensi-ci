@@ -8,9 +8,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
+<!-- tes -->
 
-<body style="overflow: hidden; background-image: url('https://media.istockphoto.com/id/1337977426/photo/dark-gray-and-black-grunge-cement-wall-studio-room-space-product-background-template.webp?b=1&s=170667a&w=0&k=20&c=4dVCV5KtJKEhuQtp5dbnFmwMBAzNknz35VUIa0C3KoE='); background-size: cover;">
-  <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+<body style=" background-image: url('https://media.istockphoto.com/id/1337977426/photo/dark-gray-and-black-grunge-cement-wall-studio-room-space-product-background-template.webp?b=1&s=170667a&w=0&k=20&c=4dVCV5KtJKEhuQtp5dbnFmwMBAzNknz35VUIa0C3KoE='); background-size: cover;">
+  <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">overflow: hidden;
     <div class="container-fluid">
       <!-- <a class="navbar-brand" href="#">Navbar</a> -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,6 +24,9 @@
               <font color="white"><i class="fa-solid fa-house-user"></i> Home</font>
             </a>
           </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="">Link</a>
+          </li> -->
           <li class="nav-item" style="margin-left: 500px; padding-top: 5px;">
             <a>
               <font color="white">Tanggal: <?php date_default_timezone_set("Asia/Jakarta"); ?>
@@ -59,7 +63,6 @@
                 </script>
             </a></font>
           </li>
-        </ul>
         </ul>
         <!-- <form style="margin-right: 20px;" class="d-flex" role="search">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -105,18 +108,57 @@
       </div>
     </div>
 
-    <?php foreach ($absensi as $data) : ?>
-      <form class="card w-50 p-5 " style="margin-left:23%" method="post" enctype="multipart/from-data" action="<?php echo base_url('karyawan/aksi_ubah_karyawan') ?>">
-        <input type="hidden" name="id" value="<?php echo $data->id ?>">
-        <div class="card-body">
-          <h5 style="margin-left:20%;">Menu Izin</h5>
-          <div class="card" style="width: 30rem; margin-right:5%;">
-            <input type="text" name="keterangan" value="<?php echo $data->keterangan ?>">
-          </div><br>
-          <button type="submit" name="submit" class="btn btn-primary">ubah</button>
-        </div>
-      </form>
-    <?php endforeach; ?>
+      <div class="py-3 h-auto" style="margin-left: 1px;">
+        <a href="<?php echo base_url('karyawan/tambah_absensi') ?>"><button type="submit" class="btn btn-primary w-25" name="submit">Tambah <i class="fa-solid fa-folder-plus"></i></button></a>
+        <!-- <a href="<?php echo base_url('karyawan/export') ?>" class="btn btn-outline-secondary">Export <i class="fa-solid fa-file-arrow-down"></i></a> -->
+        <br><br>
+        <table class="table table-bordered">
+          <thead class="table-primary text-center">
+            <th scope="col">No</th>
+            <th scope="col">Nama</th>
+            <th scope="col">Kegiatan</th>
+            <th scope="col">Jam Masuk</th>
+            <th scope="col">Jam Pulang</th>
+            <th scope="col">Keterangan</th>
+            <th scope="col">Status</th>
+            <th scope="col">Aksi</th>
+          </thead>
+          <tbody classs="table-grup-divider">
+            <?php $no = 0; foreach ($absensii as $row): $no++ ?>
+              <tr class="text-center">
+                <td><?php echo $no ?></td>
+                <td><?php echo $row->$id_karyawan ?></td>
+                <td><?php echo $row->$kegiatan ?></td>
+                <td><?php echo $row->$jam_masuk ?></td>
+                <td><?php echo $row->$jam_pulang ?></td>
+                <td><?php echo $row->$keterangan ?></td>
+                <td><?php echo $row->$status ?></td>
+                <td>
+                  <a href="<?php echo base_url('karyawan/ubah_absensi/') . $row->id ?>" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+                  <button onclick="hapus(<?php echo $row->id ?>)" class="btn btn-danger"><i class="fa-solid fa-delete-left"></i></button>
+                </td>
+              </tr>
+            <?php endforeach ?>
+          </tbody>
+        </table>
+        <!-- <form method="post" enctype="multipart/form-data" action="<?= base_url('keuangan/import') ?>">
+          <div class="modal-body">
+            <input type="file" name="file">
+            <input type="submit" name="import" class="btn btn-outline-success" value="import">
+          </div>
+        </form>  -->
+
+        <script>
+          function hapus(id) {
+            var yes = confirm('Yakin Di Hapus?');
+            if (yes == true) {
+              window.location.href = "<?php echo base_url('karyawan/delete_absensi/') ?>" + id;
+            }
+          }
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+      </div>
+    </div>
   </div>
 </body>
 

@@ -9,13 +9,13 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 
-<body>
-  <nav class="navbar navbar-expand-lg navbar bg-primary" data-bs-theme="dark">
+<body style="overflow: hidden;background-image: url('https://media.istockphoto.com/id/1337977426/photo/dark-gray-and-black-grunge-cement-wall-studio-room-space-product-background-template.webp?b=1&s=170667a&w=0&k=20&c=4dVCV5KtJKEhuQtp5dbnFmwMBAzNknz35VUIa0C3KoE='); background-size: cover;">
+  <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
     <div class="container-fluid">
-      <!-- <a class="navbar-brand" href="#">Navbar</a>
+      <!-- <a class="navbar-brand" href="#">Navbar</a> -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button> -->
+      </button>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="padding: 2px;">
           <li class="nav-item">
@@ -23,8 +23,44 @@
               <font color="white"><i class="fa-solid fa-house-user"></i> Home</font>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="">Link</a>
+          </li> -->
+          <li class="nav-item" style="margin-left: 500px; padding-top: 5px;">
+            <a>
+              <font color="white">Tanggal: <?php date_default_timezone_set("Asia/Jakarta"); ?>
+                <script type="text/javascript">
+                  function date_time(id) {
+                    date = new Date;
+                    year = date.getFullYear();
+                    month = date.getMonth();
+                    months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'Jully', 'August', 'September', 'October', 'November', 'December');
+                    d = date.getDate();
+                    day = date.getDay();
+                    days = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+                    h = date.getHours();
+                    if (h < 10) {
+                      h = "0" + h;
+                    }
+                    m = date.getMinutes();
+                    if (m < 10) {
+                      m = "0" + m;
+                    }
+                    s = date.getSeconds();
+                    if (s < 10) {
+                      s = "0" + s;
+                    }
+                    result = '' + days[day] + ' ' + d + ' ' + months[month] + ' ' + year + ' ' + h + ':' + m + ':' + s;
+                    document.getElementById(id).innerHTML = result;
+                    setTimeout('date_time("' + id + '");', '1000');
+                    return true;
+                  }
+                </script>
+                <span id="date_time"></span>
+                <script type="text/javascript">
+                  window.onload = date_time('date_time');
+                </script>
+            </a></font>
           </li>
         </ul>
         <!-- <form style="margin-right: 20px;" class="d-flex" role="search">
@@ -34,30 +70,29 @@
       </div>
     </div>
   </nav>
+
   <div class="d-flex">
     <div class="col-12 bg-dark" style="width: 15%;">
       <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-        <img src="https://cdn.pixabay.com/photo/2017/07/25/11/59/logo-2537871_1280.png" style="height: 50px; width: 60px;">
-
+        <img src="https://cdn.pixabay.com/photo/2017/07/25/11/59/logo-2537871_1280.png" style="height: 50px; width: 60px; margin-bottom: 10px; margin-top: 5px;">
         <h4>
           <span class="fs-5 d-none d-sm-inline">Admin</span>
         </h4>
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
           <li>
-            <a href="<?php echo base_url('admin') ?>" class="nav-link px-0 align-middle">
-              <i class="fa-solid fa-house-chimney"></i> <span class="ms-1 d-none d-sm-inline">Home</span></a>
+            <a style="color:white" href="<?php echo base_url('admin') ?>" class="nav-link px-0 align-middle">
+              <i class="fa-solid fa-house-chimney"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span></a>
           </li>
-          <li>
-            <a href="<?php echo base_url('admin/karyawan') ?>" class="nav-link px-0 align-middle">
+            <a style="color:white" href="<?php echo base_url('admin/karyawan') ?>" class="nav-link px-0 align-middle">
               <i class="fa-solid fa-users"></i> <span class="ms-1 d-none d-sm-inline">Karyawan</span></a>
           </li>
           <li>
-            <a href="<?php echo base_url('admin/account') ?>" class="nav-link px-0 align-middle">
+            <a style="color:white" href="<?php echo base_url('admin/account') ?>" class="nav-link px-0 align-middle">
               <i class="fa-solid fa-user-lock"></i> <span class="ms-1 d-none d-sm-inline">Account</span></a>
           </li>
-          <li style="margin-top: 440px;">
-            <a href="<?php echo base_url('auth/logout') ?>" class="nav-link px-0 align-middle">
-              <span class="ms-1 d-none d-sm-inline"><i class="fa-solid fa-right-from-bracket"></i> Logout</span></a>
+          <li style="margin-top: 100%;">
+            <a style="color:white" href="<?php echo base_url('auth/logout') ?>" class="nav-link px-0 align-middle">
+              <span class="ms-1 d-none d-sm-inline"><i class="fa-solid fa-right-from-bracket"> Logout</i></span></a>
           </li>
         </ul>
       </div>
@@ -71,33 +106,33 @@
       <div class="row mb-sm-0" style="margin-top: 25px;">
         <div class="col-3" style="margin-left: 10%;">
           <div class="card text-bg-secondary">
-            <div class="card-header">Laporan Harian</div>
+            <div class="card-header">Daily Report</div>
             <div class="card-body">
               <p class="card-text">P</p>
               <div class="card text-center card-footer">
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <a href="<?php echo base_url('admin/rekap_harian') ?>" class="btn btn-primary">Go Page</a>
               </div>
             </div>
           </div>
         </div>
         <div class="col-3" style="margin-left: 25px;">
           <div class="card text-bg-secondary">
-            <div class="card-header">Laporan Mingguan</div>
+            <div class="card-header">Weekly Report</div>
             <div class="card-body">
               <p class="card-text">P</p>
               <div class="card text-center card-footer">
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <a href="<?php echo base_url('admin/rekap_mingguan') ?>" class="btn btn-primary">Go Page</a>
               </div>
             </div>
           </div>
         </div>
         <div class="col-3" style="margin-left: 25px;">
           <div class="card text-bg-secondary">
-            <div class="card-header">Laporan Bulanan</div>
+            <div class="card-header">Monthly Report</div>
             <div class="card-body">
               <p class="card-text">P</p>
               <div class="card text-center card-footer">
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <a href="<?php echo base_url('admin/rekap_bulanan') ?>" class="btn btn-primary">Go Page</a>
               </div>
             </div>
           </div>

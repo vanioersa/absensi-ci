@@ -106,7 +106,7 @@
           </li> -->
           <li class="nav-item" style="margin-left: 500px; padding-top: 5px;">
             <a>
-              <font color="white"><i class="fa-regular fa-calendar"></i> Tanggal : <?php date_default_timezone_set("Asia/Jakarta"); ?>
+              <font color="white">Tanggal: <?php date_default_timezone_set("Asia/Jakarta"); ?>
                 <script type="text/javascript">
                   function date_time(id) {
                     date = new Date;
@@ -157,13 +157,12 @@
           <span class="fs-5 d-none d-sm-inline">Karyawan</span>
         </h4>
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-
           <li>
             <a style="color:white" href="<?php echo base_url('karyawan') ?>" class="nav-link px-0 align-middle">
               <i class="fa-solid fa-house-chimney"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span></a>
           </li>
           <li>
-            <a style="color:white" href="<?php echo base_url('karyawan/ubah_absen') ?>" class="nav-link px-0 align-middle">
+            <a style="color:white" href="<?php echo base_url('karyawan/absen') ?>" class="nav-link px-0 align-middle">
               <i class="fa-solid fa-users"></i> <span class="ms-1 d-none d-sm-inline">Absen</span></a>
           </li>
           <li>
