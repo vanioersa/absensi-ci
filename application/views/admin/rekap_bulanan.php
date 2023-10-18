@@ -129,7 +129,7 @@
                             <button class="btn btn-primary" type="submit" name="submit">Submit</button>
                         </div>
                     </div>
-                </form>
+                </form><br>
                 <table class="table table-striped table-bordered text-center" style="font-size: 14px;">
                     <thead class="bg-dark text-white">
                         <tr>

@@ -77,9 +77,9 @@ class M_model extends CI_Model
         return $this->db->affected_rows();
     }
 
-    public function get_by_id($tabel, $id_column)
+    public function get_by_id($tabel, $id_column, $id)
     {
-        $data = $this->db->where($id_column)->get($tabel);
+        $data = $this->db->where($id_column, $id)->get($tabel);
         return $data;
     }
     public function getAbsensiLast7Days()

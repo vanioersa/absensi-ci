@@ -101,11 +101,20 @@
     </div>
 
     <div class="container">
-      <div class="card w-50 m-auto p-3 text-center">
-        <h1 class="text-center">Akun <?php echo $this->session->userdata('username'); ?></h1>
+      <div class="card  text-center" style="margin-left: 25%;margin-top: 25px; width: 50%; padding: 15px;">
+      <div class="">
+          <button class="border border-0 btn btn-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <?php if (!empty($row->foto)) : ?>
+              <img class="rounded-circle" height="150" width="150" src="<?php echo base64_decode($row->foto); ?>">
+            <?php else : ?>
+              <img class="rounded-circle" height="150" width="150" src="https://slabsoft.com/wp-content/uploads/2022/05/pp-wa-kosong-default.jpg" />
+            <?php endif; ?>
+          </button>
+        </div>
+        <h1 class="text-center"><b>Akun <?php echo $this->session->userdata('username'); ?></b></h1>
         <?php echo $this->session->flashdata('message'); ?>
         <?php foreach ($user as $users) : ?>
-          <form class="row" action="<?php echo base_url('account/update'); ?>" method="post" enctype="multipart/form-data">
+          <form class="row" action="<?php echo base_url('admin/aksi_update_account'); ?>" method="post" enctype="multipart/form-data">
             <div class="col-6">
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
@@ -120,14 +129,26 @@
             </div>
             <div class="col-6">
               <div class="mb-3">
-                <label for="password" class="form-label">Password Baru</label>
-                <input type="password" class="form-control" id="password" name="password">
+                <label for="nama_depan" class="form-label">Nama Depan</label>
+                <input type="text" class="form-control" id="nama_depan" name="nama_depan" value="<?php echo $users->nama_depan; ?>">
               </div>
             </div>
             <div class="col-6">
               <div class="mb-3">
-                <label for="confirm_password" class="form-label">Konfirmasi Password Baru</label>
-                <input type="password" class="form-control" id="confirm_password" name="confirm_password">
+                <label for="nama_belakang" class="form-label">Nama Belakang</label>
+                <input type="text" class="form-control" id="nama_belakang" name="nama_belakang" value="<?php echo $users->nama_belakang; ?>">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="mb-3">
+                <label for="password_baru" class="form-label">Password Baru</label>
+                <input type="password_baru" class="form-control" id="password_baru" name="password_baru">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="mb-3">
+                <label for="konfirmasi_password" class="form-label">Konfirmasi Password Baru</label>
+                <input type="password" class="form-control" id="konfirmasi_password" name="konfirmasi_password">
               </div>
             </div>
             <div class="col-8" style="margin-left: 15%">

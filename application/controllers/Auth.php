@@ -40,7 +40,8 @@ class Auth extends CI_Controller
 				redirect(base_url() . "auth");
 			}
 		} else {
-			redirect(base_url() . "auth");
+			// redirect(base_url() . "auth");
+            echo "gagal";
 		}
 	}
 	function logout()

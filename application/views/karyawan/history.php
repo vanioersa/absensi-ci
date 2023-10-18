@@ -223,7 +223,6 @@
               <td><?php echo $row->keterangan ?></td>
               <td><?php echo $row->status ?></td>
               <td>
-                <a href="<?php echo base_url('karyawan/menu_izin/') . $row->id ?>" class="btn btn-primary"><b>Izin</b></a>
                 <button onclick="hapus(<?php echo $row->id ?>)" class="btn btn-danger"><b>Hapus</b></button>
               </td>
             </tr>
@@ -240,8 +239,7 @@
           confirmButton: 'btn btn-success',
           cancelButton: 'btn btn-danger',
         },
-        timer: 3000,
-        timerProgressBar: true,
+        
         buttonsStyling: false
       })
 

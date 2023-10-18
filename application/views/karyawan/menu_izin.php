@@ -7,6 +7,7 @@
   <title>Document</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body style="overflow: hidden;">
@@ -108,18 +109,43 @@
       </div>
     </div>
 
-    <?php foreach ($absensi as $data) : ?>
-      <form class="card w-50 p-5 " style="margin-left:23%" method="post" enctype="multipart/form-data" action="<?php echo base_url('karyawan/aksi_ubah_karyawan') ?>">
-        <input type="hidden" name="id" value="<?php echo $data->id ?>">
-        <div class="card-body">
-          <h5 style="margin-left:20%;">Menu Izin</h5>
-          <div class="card" style="width: 30rem; margin-right:5%;">
-            <input type="text" name="keterangan" value="<?php echo $data->keterangan ?>">
-          </div><br>
-          <button type="submit" name="submit" class="btn btn-primary">ubah</button>
-        </div>
+    <div style="background-color: rgb(42, 145, 0);" class='card w-50 m-auto p-5 text-center'>
+      <h3 class='text-center'><b>Izin</b></h3>
+      <form action="<?php echo base_url('karyawan/aksi_ubah_izin') ?>" method="post" enctype="multipart/from-data">
+        <?php foreach ($menu_izin as $key) : ?>
+          <input type="hidden" class="form-control" id="id" name="id" value="<?php echo $key->id ?>">
+          <div class="row">
+
+            <!-- <div class="mb-3 col-6">
+            <label for="nama_siswa" class="form-label"><b>Username</b></label>
+            <select name="username" class="form-select">
+              <option selected>Pilih Username</option>
+              <?php foreach ($absensi as $data) : ?>
+                <option value="<?php echo $data->id_karyawan ?>">
+                  <?php echo $data->username ?>
+                </option>
+              <?php endforeach; ?>
+            </select>
+          </div> -->
+            <div class="mb-3 col-6">
+              <label for="date" class="form-label"><b>Keterangan</b></label>
+              <input type="text" class="form-control" id="keterangan" name="keterangan" value="<?php echo $key->keterangan ?>">
+            </div>
+
+            <input type="hidden" class="form-control" id="kegiatan" name="kegiatan" value="-">
+
+            <input type="hidden" class="form-control" id="jam_masuk" name="jam_masuk" value="-">
+
+            <input type="hidden" class="form-control" id="jam_pulang" name="jam_pulang" value="-">
+
+
+            <input type="hidden" class="form-control" id="status" name="status" value="done">
+          </div>
+          <br><br>
+          <button type="submit" class="btn btn-primary w-100" name="submit">Ubah</button>
+        <?php endforeach; ?>
       </form>
-    <?php endforeach; ?>
+    </div>
   </div>
 </body>
 

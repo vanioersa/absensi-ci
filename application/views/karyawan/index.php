@@ -177,6 +177,11 @@
               <i class="fa-solid fa-history"></i> <span class="ms-2">History</span>
             </a>
           </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link text-white" href="<?php echo base_url('karyawan/menu_izin') ?>">
+            <i class="fas fa-check-circle"></i> <span class="ms-2">Izin</span>
+            </a>
+          </li> -->
           <li class="nav-item" style="margin-top: 100%;">
             <hr style="height: 5px; width: 100%; background-color: white;">
             <a class="nav-link text-white" href="<?php echo base_url('auth/logout') ?>">
@@ -262,10 +267,11 @@
                 <td><?= $row->keterangan ?></td>
                 <td><?= $row->status ?></td>
                 <td>
+                <a href="<?php echo base_url('karyawan/menu_izin/') . $row->id ?>" class="btn btn-danger"><b><i class="fas fa-check-circle"></i> Izin</b></a>
                   <?php if ($row->status === "done") : ?>
-                    <button disabled class="btn btn-danger" type="button">Pulang</button>
+                    <button disabled class="btn btn-danger" type="button"><i class="fas fa-check"></i> Pulang</button>
                   <?php else : ?>
-                    <button onclick="pulang(<?= $row->id ?>)" class="btn btn-primary" type="button">Pulang</button>
+                    <button onclick="pulang(<?= $row->id ?>)" class="btn btn-primary" type="button"><i class="fas fa-home"></i> Pulang</button>
                   <?php endif; ?>
                 </td>
               </tr>
@@ -286,7 +292,7 @@
 
           swalWithBootstrapButtons.fire({
             title: 'Pulang?',
-            text: "Anda tidak akan bisa mengembalikannya!",
+            text: "Anda Yakin Ingin pulang!",
             icon: 'question',
             showCancelButton: true,
             confirmButtonText: 'Ya, pulang!',
@@ -296,7 +302,7 @@
             if (result.isConfirmed) {
               swalWithBootstrapButtons.fire(
                   'Pulang!',
-                  'Anda telah melakukan pulang.',
+                  'Selamat, Anda Telah pulang.',
                   'success'
                 )
                 .then(function() {
@@ -305,7 +311,7 @@
             } else if (result.dismiss === Swal.DismissReason.cancel) {
               swalWithBootstrapButtons.fire(
                 'Dibatalkan',
-                'Data Anda aman :)',
+                'Tidak Jadi Pulang :)',
                 'error'
               );
             }

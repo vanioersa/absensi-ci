@@ -1,270 +1,110 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Halaman Login</title>
-    <link rel="stylesheet" href="./style.css">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('background-image.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #fff;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 400px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px #000000;
+        }
+
+        h2 {
+            text-align: center;
+            color: #007BFF;
+        }
+
+        label {
+            font-weight: bold;
+            color: #007BFF;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 94%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .password-toggle {
+            cursor: pointer;
+            color: #007BFF;
+            text-decoration: underline; /* Tambah garis bawah untuk menandai tautan */
+        }
+    </style>
 </head>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Quicksand', sans-serif;
-    }
+<body>
+    <div class="container">
+        <h2>Sign In Admin</h2>
+        <form method="post" action="<?php echo base_url('auth/aksi_register') ?>">
+            <label for="username">Username:</label>
+            <input type="text" name="username" required><br><br>
 
-    body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        background: #000;
-    }
+            <label for="email">Email:</label>
+            <input type="email" name="email" required><br><br>
 
-    section {
-        position: absolute;
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 2px;
-        flex-wrap: wrap;
-        overflow: hidden;
-    }
+            <label for="nama_depan">Nama Depan:</label>
+            <input type="text" name="nama_depan" required><br><br>
 
-    section::before {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(#000, #0f0, #000);
-        animation: animate 5s linear infinite;
-    }
+            <label for="nama_belakang">Nama Belakang:</label>
+            <input type="text" name="nama_belakang" required><br><br>
 
-    @keyframes animate {
-        0% {
-            transform: translateY(-100%);
-        }
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <span class="password-toggle" id="password-toggle" onclick="togglePassword()">Lihat Password</span><br><br>
 
-        100% {
-            transform: translateY(100%);
-        }
-    }
+            <input type="hidden" name="role" value="admin">
 
-    section span {
-        position: relative;
-        display: block;
-        width: calc(6.25vw - 2px);
-        height: calc(6.25vw - 2px);
-        background: #181818;
-        z-index: 2;
-        transition: 1.5s;
-    }
+            <input type="submit" value="Register">
+        </form>
+    </div>
 
-    section span:hover {
-        background: #0f0;
-        transition: 0s;
-    }
+    <script>
+        function togglePassword() {
+            var passwordField = document.getElementById('password');
+            var passwordToggle = document.getElementById('password-toggle');
 
-    section .signin {
-        position: absolute;
-        width: 400px;
-        background: #222;
-        z-index: 1000;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 40px;
-        border-radius: 4px;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 9);
-    }
-
-    section .signin .content {
-        position: relative;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        gap: 40px;
-    }
-
-    section .signin .content h2 {
-        font-size: 2em;
-        color: #0f0;
-        text-transform: uppercase;
-    }
-
-    section .signin .content .form {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 25px;
-    }
-
-    section .signin .content .form .inputBox {
-        position: relative;
-        width: 100%;
-    }
-
-    section .signin .content .form .inputBox input {
-        position: relative;
-        width: 100%;
-        background: #333;
-        border: none;
-        outline: none;
-        padding: 25px 10px 7.5px;
-        border-radius: 4px;
-        color: #fff;
-        font-weight: 500;
-        font-size: 1em;
-    }
-
-    section .signin .content .form .inputBox i {
-        position: absolute;
-        left: 0;
-        padding: 15px 10px;
-        font-style: normal;
-        color: #aaa;
-        transition: 0.5s;
-        pointer-events: none;
-    }
-
-    .signin .content .form .inputBox input:focus~i,
-    .signin .content .form .inputBox input:valid~i {
-        transform: translateY(-7.5px);
-        font-size: 0.8em;
-        color: #fff;
-    }
-
-    .signin .content .form .links {
-        position: relative;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .signin .content .form .links a {
-        color: #fff;
-        text-decoration: none;
-    }
-
-    .signin .content .form .links a:nth-child(2) {
-        color: #0f0;
-        font-weight: 600;
-    }
-
-    .signin .content .form .inputBox input[type="submit"] {
-        padding: 10px;
-        background: #0f0;
-        color: #000;
-        font-weight: 600;
-        font-size: 1.35em;
-        letter-spacing: 0.05em;
-        cursor: pointer;
-    }
-
-    input[type="submit"]:active {
-        opacity: 0.6;
-    }
-
-    @media (max-width: 900px) {
-        section span {
-            width: calc(10vw - 2px);
-            height: calc(10vw - 2px);
-        }
-    }
-
-    @media (max-width: 600px) {
-        section span {
-            width: calc(20vw - 2px);
-            height: calc(20vw - 2px);
-        }
-    }
-</style>
-
-<body> <!-- partial:index.partial.html -->
-    <section>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <div class="signin">
-            <div class="content">
-                <h2>Sign Up Admin</h2>
-                <div class="form">
-                    <form action="<?php echo base_url('auth/aksi_register') ?>" method="post">
-                        <div style="margin-bottom: 30px;" class="inputBox">
-                            <input type="text" name="username" required> <i>Username</i>
-                        </div>
-                        <div style="margin-bottom: 30px;" class="inputBox">
-                            <input type="text" name="email" required> <i>Email</i>
-                        </div>
-                        <div style="margin-bottom: 30px;" class="inputBox">
-                            <input type="text" name="nama_depan" required> <i>Nama Depan</i>
-                        </div>
-                        <div style="margin-bottom: 30px;" class="inputBox">
-                            <input type="text" name="nama_belakang" required> <i>Nama Belakang</i>
-                        </div>
-                        <div style="margin-bottom: 30px;" class="inputBox">
-                            <input type="password" name="password" class="form-control" required> <i>Password</i>
-                        </div>
-                        <div style="margin-bottom: 30px;" class="inputBox">
-                            <input type="hidden" name="role" value="admin">
-                        </div>
-                        <!-- <div class="links"> <a href="#">Forgot Password</a> <a href="#">Signup</a>
-                        </div> -->
-                        <div class="inputBox">
-                            <input type="submit" value="Login">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section> <!-- partial -->
-</body>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(".ipt_pass a").on("click", function(event) {
-            event.preventDefault();
-            var parent = $(this).parent().parent().parent();
-            if (parent.find("input:eq(0)").attr("type") == "text") {
-                parent.find("input:eq(0)").attr("type", "password");
-                parent.find("i:eq(0)").addClass("la-eye-slash");
-                parent.find("i:eq(0)").removeClass("la-eye");
-            } else if (parent.find("input:eq(0)").attr("type") == "password") {
-                parent.find("input:eq(0)").attr("type", "text");
-                parent.find("i:eq(0)").removeClass("la-eye-slash");
-                parent.find("i:eq(0)").addClass("la-eye");
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                passwordToggle.textContent = 'Sembunyikan Password';
+            } else {
+                passwordField.type = 'password';
+                passwordToggle.textContent = 'Lihat Password';
             }
-        });
-    });
-</script>
+        }
+    </script>
+</body>
 
 </html>

@@ -134,9 +134,7 @@
                 </table>
             </div>
             <div class="text-center mt-3">
-                <button id="exportButton" class="btn btn-primary">
-                    Export Data <i class="fas fa-file-download" style="margin-left: 5px;"></i>
-                </button>
+                <button id="exportButton" class="btn btn-primary"> Data <i class="fas fa-file-download" style="margin-left: 5px;"></i></button>
             </div>
         </div>
         <!-- Include SweetAlert2 library -->

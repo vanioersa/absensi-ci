@@ -186,32 +186,35 @@
             </div>
         </div>
 
-        <div class='card w-50 m-auto p-5 text-center'>
-            <h3 class='text-center '>Absensi Karyawan</h3>
+        <div style="background-color: rgb(42, 145, 0);" class='card w-50 m-auto p-5 text-center'>
+            <h3 class='text-center'><b>Absensi Karyawan</b></h3>
             <form action="<?php echo base_url('karyawan/aksi_tambah_absen') ?>" method="post" enctype="multipart/from-data">
                 <div class="row">
                     <div class="mb-3 col-6">
-                        <label for="nama_siswa" class="form-label">Username</label>
-                        <select name="nama_siswa" class="form-select">
-                            <option selected>Pilih Username</option><?php foreach ($absensi as $data) : ?>
-                                <option><?php echo $data->username ?></option>
+                        <label for="nama_siswa" class="form-label"><b>Username</b></label>
+                        <select name="username" class="form-select">
+                            <option selected>Pilih Username</option>
+                            <?php foreach ($absensi as $data) : ?>
+                                <option value="<?php echo $data->id_karyawan ?>">
+                                <?php echo $data->username ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="mb-3 col-6">
-                        <label for="kegiatan" class="form-label">Kegiatan</label>
+                        <label for="kegiatan" class="form-label"><b>Kegiatan</b></label>
                         <input type="kegiatan" class="form-control" id="kegiatan" name="kegiatan">
                     </div>
                     <div class="mb-3 col-6">
-                        <label for="date" class="form-label">Tanggal</label>
+                        <label for="date" class="form-label"><b>Tanggal</b></label>
                         <input type="date" class="form-control" id="date" name="date">
                     </div>
 
-                    <input type="hidden" class="form-control" id="jam_masuk" name="jam_masuk" value="08.00">
+                    <input type="hidden" class="form-control" id="jam_masuk" name="jam_masuk" value="08.00.00">
 
                     <input type="hidden" class="form-control" id="jam_pulang" name="jam_pulang" value="-">
 
-                    <input type="hidden" class="form-control" id="keterangan" name="keterangan" value="dafault">
+                    <input type="hidden" class="form-control" id="keterangan" name="keterangan" value="default">
 
                     <input type="hidden" class="form-control" id="status" name="status" value="not">
                 </div>

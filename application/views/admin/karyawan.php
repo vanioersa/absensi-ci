@@ -97,44 +97,70 @@
           </li>
         </ul>
       </div>
-    </div>
-
-    <div class="container">
-      <div class="text-center mt-4">
-        <h1><b>Karyawan</b></h1>
-      </div>
-      <hr style="border: 2px solid blue;">
-      <table class="table table-striped table-bordered text-center">
-        <thead class="table-danger">
-          <tr>
-            <th>No</th>
-            <th>Nama Pegawai</th>
-            <th>Kegiatan</th>
-            <th>Tanggal</th>
-            <th>Waktu Datang</th>
-            <th>Waktu Pulang</th>
-            <th>Keterangan</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php $no = 0;
-          foreach ($absensi as $row) : $no++ ?>
-            <tr>
-              <td><?php echo $no ?></td>
-              <td><?php echo tampil_full_karyawan_byid($row->id_karyawan) ?></td>
-              <td><?php echo $row->kegiatan ?></td>
-              <td><?php echo $row->date ?></td>
-              <td><?php echo $row->jam_masuk ?></td>
-              <td><?php echo $row->jam_pulang ?></td>
-              <td><?php echo $row->keterangan ?></td>
-              <td><?php echo $row->status ?></td>
-            </tr>
-          <?php endforeach ?>
-        </tbody>
-      </table>
-    </div>
   </div>
+
+  <div class="container">
+    <div class="text-center mt-4">
+      <h1><b>Karyawan</b></h1>
+    </div>
+    <hr style="border: 2px solid blue;">
+    <div class="text-right mb-3">
+      <button class="btn btn-success" id="exportData">Export Data</button>
+    </div>
+    <table class="table table-striped table-bordered text-center" id="dataKaryawan">
+      <thead class="table-danger">
+        <tr>
+          <th>No</th>
+          <th>Nama Pegawai</th>
+          <th>Kegiatan</th>
+          <th>Tanggal</th>
+          <th>Waktu Datang</th>
+          <th>Waktu Pulang</th>
+          <th>Keterangan</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php $no = 0;
+        foreach ($absensi as $row) : $no++ ?>
+          <tr>
+            <td><?php echo $no ?></td>
+            <td><?php echo tampil_full_karyawan_byid($row->id_karyawan) ?></td>
+            <td><?php echo $row->kegiatan ?></td>
+            <td><?php echo $row->date ?></td>
+            <td><?php echo $row->jam_masuk ?></td>
+            <td><?php echo $row->jam_pulang ?></td>
+            <td><?php echo $row->keterangan ?></td>
+            <td><?php echo $row->status ?></td>
+          </tr>
+        <?php endforeach ?>
+      </tbody>
+    </table>
+  </div>
+  <!-- Tambahkan script untuk SweetAlert2 dan Export Data -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script>
+    // SweetAlert2 saat tombol export diklik
+    document.getElementById("exportData").addEventListener("click", function() {
+      Swal.fire({
+        title: "Apakah Anda yakin ingin mengekspor data?",
+        text: "Data karyawan akan diekspor dalam format tertentu.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Ekspor",
+        cancelButtonText: "Batal"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Tambahkan kode ekspor data di sini
+          window.location.href = "<?php echo base_url('admin/export_karyawan') ?>";
+          Swal.fire("Data berhasil diekspor!", "", "success");
+        }
+      });
+    });
+  </script>
+
+
+    </div>
 </body>
 
 </html>

@@ -9,160 +9,32 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 <style>
-  body {
-    font-family: Arial, Helvetica, sans-serif;
+  .container {
+    margin-top: 20px;
   }
 
-  /* Full-width input fields */
-  input[type=text],
-  input[type=password] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    box-sizing: border-box;
-  }
-
-  .gradient-custom {
-    /* fallback for old browsers */
-    background: #6565a3;
-
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
-
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to right bottom, rgba(31, 164, 194), rgba(102, 61, 217))
-  }
-
-  /* Set a style for all buttons */
-  /* button {
-    background-color: #04AA6D;
-    color: white;
-    padding: 14px 20px;
-    margin-left: 10%;
+  .card {
+    width: 60%;
+    padding: 20px;
     border: none;
-    cursor: pointer;
-    width: 100%;
-  } */
-
-  button:hover {
-    opacity: 0.8;
-  }
-
-  /* Extra styles for the cancel button */
-  .cancelbtn {
-    width: auto;
-    padding: 10px 18px;
-    background-color: #f44336;
-  }
-
-  /* Center the image and position the close button */
-  .imgcontainer {
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    background-color: #f5f5f5;
     text-align: center;
-    margin: 24px 0 12px 0;
-    position: relative;
   }
 
-  img.avatar {
-    width: 40%;
+  .card img {
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
   }
 
-  .container {
-    padding: 16px;
+  .btn-upload {
+    background-color: #007BFF;
+    color: #fff;
   }
 
-  span.psw {
-    float: right;
-    padding-top: 16px;
-  }
-
-  /* The Modal (background) */
-  .modal {
-    display: none;
-    /* Hidden by default */
-    position: fixed;
-    /* Stay in place */
-    z-index: 1;
-    /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%;
-    /* Full width */
-    height: 100%;
-    /* Full height */
-    overflow: auto;
-    /* Enable scroll if needed */
-    background-color: rgb(0, 0, 0);
-    /* Fallback color */
-    background-color: rgba(0, 0, 0, 0);
-    /* Black w/ opacity */
-    padding-top: 60px;
-  }
-
-  /* Modal Content/Box */
-  .modal-content {
-    background-color: #fefefe;
-    margin-left: 35%;
-    /* 5% from the top, 15% from the bottom and centered */
-    border: 1px solid #888;
-    width: 50%;
-    /* Could be more or less, depending on screen size */
-    background-color: rgb(192, 192, 192);
-  }
-
-  /* The Close Button (x) */
-  .close {
-    position: absolute;
-    right: 25px;
-    top: 0;
-    color: #000;
-    font-size: 35px;
-    font-weight: bold;
-  }
-
-  .close:hover,
-  .close:focus {
-    color: red;
-    cursor: pointer;
-  }
-
-  /* Add Zoom Animation */
-  .animate {
-    -webkit-animation: animatezoom 0.6s;
-    animation: animatezoom 0.6s
-  }
-
-  @-webkit-keyframes animatezoom {
-    from {
-      -webkit-transform: scale(0)
-    }
-
-    to {
-      -webkit-transform: scale(1)
-    }
-  }
-
-  @keyframes animatezoom {
-    from {
-      transform: scale(0)
-    }
-
-    to {
-      transform: scale(1)
-    }
-  }
-
-  /* Change styles for span and cancel button on extra small screens */
-  @media screen and (max-width: 300px) {
-    span.psw {
-      display: block;
-      float: none;
-    }
-
-    .cancelbtn {
-      width: 100%;
-    }
+  .btn-upload:hover {
+    background-color: #0056b3;
   }
 </style>
 
@@ -266,118 +138,71 @@
     </div>
 
     <div class="container">
-      <div class="row d-flex justify-content-center" style="margin-top: 10%;">
-        <div class="col col-lg-6 mb-4 mb-lg-0">
-          <div class="card mb-3" style="border-radius: .5rem;">
-            <div class="row g-0">
-              <div class="col-md-4 gradient-custom text-center text-white" style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png" alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
-                <h5><?php echo $this->session->userdata('username') ?></h5>
-                <p>Web Designer <br>Employees</p>
-                <!-- <i class="far fa-edit mb-5"></i> -->
-              </div>
-              <div style="background-color: rgba(47, 199, 229, 0.8);" class="col-md-8">
-                <div class="card-body p-4">
-                  <h6>Information</h6>
-                  <hr class="mt-0 mb-4">
-                  <?php foreach ($user as $row) : ?>
-                    <div class="row pt-1">
-                      <div class="col-6 mb-3">
-                        <h6>First Name</h6>
-                        <p class="text-muted"><?php echo $row->nama_depan ?></p>
-                      </div>
-                      <div class="col-6 mb-3">
-                        <h6>Last Name</h6>
-                        <p class="text-muted"><?php echo $row->nama_belakang ?></p>
-                      </div>
-                      <div class="col-6 mb-3">
-                        <h6>Username</h6>
-                        <p class="text-muted"><?php echo $row->username ?></p>
-                      </div>
-                      <div class="col-6 mb-3">
-                        <h6>Email</h6>
-                        <p class="text-muted"><?php echo $row->email ?></p>
-                      </div>
-                      <div style="margin-left: 25%;" class="col-6">
-                        <h6>Password</h6>
-                        <p class="text-muted"><?php echo $row->password ?></p>
-                      </div>
-                    <?php endforeach ?>
-                    <button onclick="document.getElementById('id01').style.display='block'" class="btn btn-primary w-100" style="width:auto;">Ubah</button>
-                    </div>
-                    <!-- <h6>Projects</h6>
-                    <hr class="mt-0 mb-4">
-                    <div class="row pt-1">
-                      <div class="col-6 mb-3">
-                        <h6>Recent</h6>
-                        <p class="text-muted">Lorem ipsum</p>
-                      </div>
-                      <div class="col-6 mb-3">
-                        <h6>Most Viewed</h6>
-                        <p class="text-muted">Dolor sit amet</p>
-                      </div>
-                    </div> -->
-                    <div class="d-flex justify-content-start" style="margin-top: 10px; margin-left: 10px;">
-                      <a href="https://www.facebook.com/"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
-                      <a href="https://www.twitter.com/"><i class="fab fa-twitter fa-lg me-3"></i></a>
-                      <a href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg"></i></a>
-                    </div>
-                </div>
+      <div class="card text-center mx-auto">
+        <div class="text-center">
+          <button class="border border-0 btn btn-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <?php if (!empty($row->foto)) : ?>
+              <img class="rounded-circle" src="<?php echo base64_decode($row->foto); ?>" alt="Profile Picture">
+            <?php else : ?>
+              <img class="rounded-circle" src="https://slabsoft.com/wp-content/uploads/2022/05/pp-wa-kosong-default.jpg" alt="Default Profile Picture" />
+            <?php endif; ?>
+          </button>
+        </div>
+        <h1 class="text-center"><b>Akun <?php echo $this->session->userdata('username'); ?></b></h1>
+        <?php echo $this->session->flashdata('message'); ?>
+        <?php foreach ($user as $users) : ?>
+          <form class="row" action="<?php echo base_url('karyawan/aksi_update_profile'); ?>" method="post" enctype="multipart/form-data">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" class="form-control" id="email" name="email" value="<?php echo $users->email; ?>">
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div id="id01" class="modal">
-        <form class="modal-content animate" action="/action_page.php" method="post">
-          <div class="imgcontainer">
-            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-            <!-- <img src="img_avatar2.png" alt="Avatar" class="avatar"> -->
-          </div>
-
-          <div class="container">
-            <label for="uname"><b>First Name</b></label>
-            <input type="text" placeholder="Enter First Name" name="nama_depan" required>
-
-            <label for="uname"><b>Last Name</b></label>
-            <input type="text" placeholder="Enter Last Name" name="nama_belakang" required>
-
-            <label for="uname"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="username" required>
-
-            <label for="uname"><b>Email</b></label>
-            <input type="text" placeholder="Enter Email" name="email" required>
-
-            <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="password" required>
-
-            <a href="profile" class="btn btn-primary">Ubah</a>
-
-            <!-- <label>
-              <input type="checkbox" checked="checked" name="remember"> Remember me
-            </label> -->
-
-            <a style="margin-left: 83%;" type="button" onclick="document.getElementById('id01').style.display='none'" class="btn btn-danger ">Cancel</a>
-
-          </div>
-          <div class="container" style="background-color:#f1f1f1">
-            <!-- <span class="psw">Forgot <a href="#">password?</a></span> -->
-          </div>
-        </form>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" value="<?php echo $users->username; ?>">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="nama_depan" class="form-label">Nama Depan</label>
+                <input type="text" class="form-control" id="nama_depan" name="nama_depan" value="<?php echo $users->nama_depan; ?>">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="nama_belakang" class="form-label">Nama Belakang</label>
+                <input type="text" class="form-control" id="nama_belakang" name="nama_belakang" value="<?php echo $users->nama_belakang; ?>">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="password_baru" class="form-label">Password Baru</label>
+                <input type="password" class="form-control" id="password_baru" name="password_baru">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="konfirmasi_password" class="form-label">Konfirmasi Password Baru</label>
+                <input type="password" class="form-control" id="konfirmasi_password" name="konfirmasi_password">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="mb-3">
+                <label for="foto" class="form-label">Foto</label>
+                <input type="file" class="form-control" id="foto" name="foto">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-primary w-25">Ubah</button>
+            </div>
+          </form>
+        <?php endforeach; ?>
       </div>
     </div>
 
-    <script>
-      // Get the modal
-      var modal = document.getElementById('id01');
-
-      // When the user clicks anywhere outside of the modal, close it
-      window.onclick = function(event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
-        }
-      }
-    </script>
+  </div>
 </body>
 
 </html>

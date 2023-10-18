@@ -134,30 +134,30 @@
                 </table>
             </div>
             <div class="text-center mt-3">
-                <button class="btn btn-primary" onclick="exportData()">
-                    Export Data <i class="fas fa-file-download" style="margin-left: 5px;"></i>
-                </button>
+            <div class="text-center mt-3">
+                <button id="exportButton" class="btn btn-primary">Export Data <i class="fas fa-file-download" style="margin-left: 5px;"></i></button>
             </div>
         </div>
         <!-- Include SweetAlert2 library -->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
-            function exportData() {
+            document.getElementById("exportButton").addEventListener("click", function() {
                 Swal.fire({
-                    title: 'Export Data',
-                    text: 'Anda yakin ingin mengekspor data?',
+                    title: 'Export Data?',
+                    text: 'Apakah Anda yakin ingin mengekspor data ini?',
                     icon: 'question',
                     showCancelButton: true,
-                    confirmButtonText: 'Ya',
-                    cancelButtonText: 'Tidak',
+                    confirmButtonColor: '#3498db',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Export!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Tambahkan logika ekspor data di sini
-                        // Misalnya, arahkan pengguna ke halaman ekspor
-                        window.location.href = "<?php echo base_url('admin/export_harian') ?>";
+                        // Pemrosesan ekspor data dapat ditempatkan di sini.
+                        // Anda dapat mengarahkan pengguna ke URL ekspor atau melakukan tindakan lainnya.
+                        window.location.href = '<?php echo base_url('admin/export_harian'); ?>';
                     }
                 });
-            }
+            });
         </script>
 </body>
 

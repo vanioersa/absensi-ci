@@ -190,41 +190,95 @@ class Admin extends CI_Controller
         $this->load->view('admin/account', $data);
     }
 
-    public function aksi_ubah_account()
+    public function upload_image($value)
     {
-        $foto = $this->upload_img('foto');
+        $kode = round(microtime(true) * 1000);
+        $config['upload_path'] = './images/karyawan/';
+        $config['allowed_types'] = 'jpg|png|jpeg';
+        $config['max_size'] = 30000;
+        // Ukuran dalam kilobita ( 30 MB )
+        $config['file_name'] = $kode;
+
+        $this->load->library('upload', $config);
+        // Load library 'upload' with config
+
+        if (!$this->upload->do_upload($value)) {
+            return array(false, '');
+        } else {
+            $fn = $this->upload->data();
+            $nama = $fn['file_name'];
+            return array(true, $nama);
+        }
+    }
+
+    public function aksi_update_account()
+    {
+        $username = $this->input->post('username');
+        $email = $this->input->post('email');
+        $nama_depan  = $this->input->post('nama_depan');
+        $nama_belakang  = $this->input->post('nama_belakang');
         $password_baru = $this->input->post('password_baru');
         $konfirmasi_password = $this->input->post('konfirmasi_password');
-        $email = $this->input->post('email');
-        $username = $this->input->post('username');
+        $foto = $this->upload_image('image');
 
-        $user = $this->m_model->get_by_id('user', 'id', $this->session->userdata('id'))->row();
-
-        $data = [
-            'email' => $email,
-            'username' => $username,
-        ];
-
-        // Jika ada password baru yang dimasukkan
+        if ($foto[0] == false) {
+            //data yg akan diubah
+            $data = [
+                'image' => 'User.jpg',
+                'username' => $username,
+                'email' => $email,
+                'nama_depan' => $nama_depan,
+                'nama_belakang' => $nama_belakang,
+            ];
+        } else {
+            //data yg akan diubah
+            $data = [
+                'image' => $foto[1],
+                'username' => $username,
+                'email' => $email,
+                'nama_depan' => $nama_depan,
+                'nama_belakang' => $nama_belakang,
+            ];
+        }
+        //kondisi jika ada password baru
         if (!empty($password_baru)) {
             // Pastikan password baru dan konfirmasi password sama
             if ($password_baru === $konfirmasi_password) {
-                // Gunakan password_hash untuk mengenkripsi password
-                $data['password'] = password_hash($password_baru, PASSWORD_BCRYPT);
+                // Enkripsi password baru dengan md5 (harap ganti dengan metode keamanan yang lebih kuat seperti bcrypt)
+                $hashed_password = md5($password_baru);
+
+                // Perbarui data password pengguna di sesi
+                $this->session->set_userdata('password', $hashed_password);
+
+                // Perbarui data password pengguna di database
+                $data['password'] = $hashed_password;
+
+                // Simpan data pengguna ke database
+                $update_result = $this->m_model->ubah_data('user', $data, array('id' => $this->session->userdata('id')));
+
+                if ($update_result) {
+                    redirect(base_url('admin/account'));
+                } else {
+                    // Handle error jika gagal menyimpan data ke database
+                    $this->session->set_flashdata('message', 'Terjadi kesalahan saat menyimpan data ke database.');
+                    redirect(base_url('admin/account'));
+                }
             } else {
                 $this->session->set_flashdata('message', 'Password baru dan konfirmasi password harus sama');
                 redirect(base_url('admin/account'));
             }
         }
 
-        if ($foto[0] != false) {
-            // Jika ada foto baru yang diunggah
-            $data['foto'] = $foto[1];
+
+        //untuk melakukan pembaruan data
+        $this->session->set_userdata($data);
+        $update_result = $this->m_model->ubah_data('user', $data, array('id' => $this->session->userdata('id')));
+
+        if ($update_result) {
+            redirect(base_url('admin/account'));
+        } else {
+            redirect(base_url('admin/account'));
         }
-
-        $this->m_model->update('user', $data, ['id' => $user->id]);
-
-        redirect(base_url('admin/account'));
     }
 
     // public function upload_image()
@@ -536,6 +590,106 @@ class Admin extends CI_Controller
         $sheet->setTitle("Rekap Bulanan");
         header('Content-Type: aplication/vnd.openxmlformants-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="Rekap Bulanan.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('php://output');
+    }
+    public function export_karyawan()
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $style_col = [
+            'font' => ['bold' => true],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\style\Alignment::HORIZONTAL_CENTER,
+                'vertical' => \PhpOffice\PhpSpreadsheet\style\Alignment::VERTICAL_CENTER
+            ],
+            'borders' => [
+                'top' => ['borderstyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
+                'right' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
+                'bottom' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
+                'left' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN]
+            ]
+        ];
+
+        $style_row = [
+            'alignment' => [
+                'vertical' => \PhpOffice\PhpSpreadsheet\style\Alignment::VERTICAL_CENTER
+            ],
+            'borders' => [
+                'top' => ['borderstyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
+                'right' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
+                'bottom' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
+                'left' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN]
+            ]
+        ];
+
+        // set judul
+        $sheet->setCellValue('A1', "REKAP BULANAN");
+        $sheet->mergeCells('A1:E1');
+        $sheet->getStyle('A1')->getFont()->setBold(true);
+        // set thead
+        $sheet->setCellValue('A3', "Nama Pegawai");
+        $sheet->setCellValue('B3', "Kegiatan");
+        $sheet->setCellValue('C3', "Tanggal");
+        $sheet->setCellValue('D3', "Waktu Datang");
+        $sheet->setCellValue('E3', "Waktu Pulang");
+        $sheet->setCellValue('F3', "Keterangan");
+        $sheet->setCellValue('G3', "Status");
+
+        // mengaplikasikan style thead
+        $sheet->getStyle('A3')->applyFromArray($style_col);
+        $sheet->getStyle('B3')->applyFromArray($style_col);
+        $sheet->getStyle('C3')->applyFromArray($style_col);
+        $sheet->getStyle('D3')->applyFromArray($style_col);
+        $sheet->getStyle('E3')->applyFromArray($style_col);
+        $sheet->getStyle('F3')->applyFromArray($style_col);
+        $sheet->getStyle('G3')->applyFromArray($style_col);
+
+        // get dari database
+        // $data_pembayaran = $this->m_model->getDataSiswa();
+
+        $no = 1;
+        $numrow = 4;
+        foreach ($data as $data) {
+            $sheet->setCellValue('A' . $numrow, $data->username);
+            $sheet->setCellValue('B' . $numrow, $data->kegiatan);
+            $sheet->setCellValue('C' . $numrow, $data->date);
+            $sheet->setCellValue('D' . $numrow, $data->jam_masuk);
+            $sheet->setCellValue('E' . $numrow, $data->jam_pulang);
+            $sheet->setCellValue('F' . $numrow, $data->keterangan);
+            $sheet->setCellValue('E' . $numrow, $data->status);
+
+            $sheet->getStyle('A' . $numrow)->applyFromArray($style_row);
+            $sheet->getStyle('B' . $numrow)->applyFromArray($style_row);
+            $sheet->getStyle('C' . $numrow)->applyFromArray($style_row);
+            $sheet->getStyle('D' . $numrow)->applyFromArray($style_row);
+            $sheet->getStyle('E' . $numrow)->applyFromArray($style_row);
+            $sheet->getStyle('F' . $numrow)->applyFromArray($style_row);
+            $sheet->getStyle('E' . $numrow)->applyFromArray($style_row);
+
+            $no++;
+            $numrow++;
+        }
+
+        // set panjang column
+        $sheet->getColumnDimension('A')->setWidth(5);
+        $sheet->getColumnDimension('B')->setWidth(25);
+        $sheet->getColumnDimension('C')->setWidth(25);
+        $sheet->getColumnDimension('D')->setWidth(25);
+        $sheet->getColumnDimension('E')->setWidth(25);
+        $sheet->getColumnDimension('F')->setWidth(25);
+
+        $sheet->getDefaultRowDimension()->setRowHeight(-1);
+
+        $sheet->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+
+        // set nama file saat di export
+        $sheet->setTitle("Karyawan");
+        header('Content-Type: aplication/vnd.openxmlformants-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="Karyawan.xlsx"');
         header('Cache-Control: max-age=0');
 
         $writer = new Xlsx($spreadsheet);
