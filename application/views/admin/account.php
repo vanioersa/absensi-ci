@@ -18,7 +18,7 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="<?php echo base_url('home'); ?>">
+            <a class="nav-link active" aria-current="page" href="<?php echo base_url('admin'); ?>">
               <i class="fa-solid fa-house-user"></i> <span class="ms-2">Home</span>
             </a>
           </li>
@@ -26,7 +26,7 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <p class="nav-link text-white">
-              Tanggal: <?php date_default_timezone_set("Asia/Jakarta"); ?>
+              <?php date_default_timezone_set("Asia/Jakarta"); ?>
               <script type="text/javascript">
                 function date_time(id) {
                   date = new Date;
@@ -102,7 +102,7 @@
 
     <div class="container">
       <div class="card  text-center" style="margin-left: 25%;margin-top: 25px; width: 50%; padding: 15px;">
-      <div class="">
+        <div class="">
           <button class="border border-0 btn btn-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <?php if (!empty($row->foto)) : ?>
               <img class="rounded-circle" height="150" width="150" src="<?php echo base64_decode($row->foto); ?>">
@@ -142,21 +142,31 @@
             <div class="col-6">
               <div class="mb-3">
                 <label for="password_baru" class="form-label">Password Baru</label>
-                <input type="password_baru" class="form-control" id="password_baru" name="password_baru">
+                <div class="input-group">
+                  <input type="password" class="form-control" id="password_baru" name="password_baru">
+                  <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('password_baru')">
+                    Show
+                  </button>
+                </div>
               </div>
             </div>
             <div class="col-6">
               <div class="mb-3">
                 <label for="konfirmasi_password" class="form-label">Konfirmasi Password Baru</label>
-                <input type="password" class="form-control" id="konfirmasi_password" name="konfirmasi_password">
+                <div class="input-group">
+                  <input type="password" class="form-control" id="konfirmasi_password" name="konfirmasi_password">
+                  <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('konfirmasi_password')">
+                    Show
+                  </button>
+                </div>
               </div>
             </div>
-            <div class="col-8" style="margin-left: 15%">
+            <!-- <div class="col-8" style="margin-left: 15%">
               <div class="mb-3">
                 <label for="foto" class="form-label">Foto</label>
                 <input type="file" class="form-control" id="foto" name="foto">
               </div>
-            </div>
+            </div> -->
             <div class="col-12">
               <button type="submit" class="btn btn-primary w-25">Ubah</button>
             </div>
@@ -164,8 +174,17 @@
         <?php endforeach; ?>
       </div>
     </div>
-
   </div>
+  <script>
+    function togglePassword(inputId) {
+      const passwordInput = document.getElementById(inputId);
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+      } else {
+        passwordInput.type = "password";
+      }
+    }
+  </script>
 </body>
 
 </html>

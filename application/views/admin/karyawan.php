@@ -9,7 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 
-<body style="overflow: hidden;">
+<body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +26,7 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <p class="nav-link text-white">
-              Tanggal: <?php date_default_timezone_set("Asia/Jakarta"); ?>
+              <?php date_default_timezone_set("Asia/Jakarta"); ?>
               <script type="text/javascript">
                 function date_time(id) {
                   date = new Date;
@@ -70,7 +70,7 @@
   </nav>
 
   <div class="d-flex">
-    <<div class="col-12 bg-success" style="width: 15%;">
+    <div class="col-12 bg-success" style="width: 15%;">
       <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
         <img src="https://cdn.pixabay.com/photo/2017/07/25/11/59/logo-2537871_1280.png" style="height: 50px; width: 60px; margin-bottom: 10px; margin-top: 5px;">
         <h4 class="fs-5 d-none d-sm-inline">Admin</h4>
@@ -158,9 +158,7 @@
       });
     });
   </script>
-
-
-    </div>
+  </div>
 </body>
 
 </html>

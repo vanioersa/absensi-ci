@@ -29,7 +29,7 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <p class="nav-link text-white">
-              Tanggal: <?php date_default_timezone_set("Asia/Jakarta"); ?>
+              <?php date_default_timezone_set("Asia/Jakarta"); ?>
               <script type="text/javascript">
                 function date_time(id) {
                   date = new Date;
@@ -157,6 +157,7 @@
     </div>
   </div>
   </div>
+
   <script>
     function hapus(id) {
       const swalWithBootstrapButtons = Swal.mixin({

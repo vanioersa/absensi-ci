@@ -23,6 +23,12 @@ class M_model extends CI_Model
         return $this->db->insert_id($table);
     }
 
+    public function get_by_id($tabel, $id_column, $id)
+    {
+        $data = $this->db->where($id_column, $id)->get($tabel);
+        return $data;
+    }
+
     public function register($username, $email,  $nama_depan, $nama_belakang, $password, $role)
     {
         $pass = md5($password);
@@ -77,11 +83,7 @@ class M_model extends CI_Model
         return $this->db->affected_rows();
     }
 
-    public function get_by_id($tabel, $id_column, $id)
-    {
-        $data = $this->db->where($id_column, $id)->get($tabel);
-        return $data;
-    }
+
     public function getAbsensiLast7Days()
     {
         $this->load->database();
@@ -115,23 +117,35 @@ class M_model extends CI_Model
         return $db->result();
     }
 
-    public function getData()
+    function get_karyawan()
     {
-        $this->db->select('absensi.*,user.username');
+        $this->db->select('absensi.*, user.username');
         $this->db->from('absensi');
         $this->db->join('user', 'absensi.id_karyawan = user.id', 'left');
-        // $this->db->join('kelas', 'pembayaran.id_kelas = kelas.id', 'left');
-        // Query database untuk mengambil data
         $query = $this->db->get();
         return $query->result();
     }
 
-    function get_karyawan() {
-        $this->db->select( 'absensi.*, user.username' );
-        $this->db->from( 'absensi' );
-        $this->db->join( 'user', 'absensi.id_karyawan = user.id', 'left' );
-        $query = $this->db->get();
-        return $query->result();
-}
+    public function get_absen_by_tanggal($tanggal, $id_karyawan)
+    {
+        return $this->db->where('id_karyawan', $id_karyawan)
+            ->where('date', $tanggal)
+            ->where('keterangan_izin', '-')
+            ->where('status', 'not')
+            ->get('absensi');
+    }
 
+    public function get_absen($table, $id_karyawan)
+    {
+        return $this->db->where('id_karyawan', $id_karyawan)
+            ->where('keterangan', 'default')
+            ->get($table);
+    }
+
+    public function get_izin($table, $id_karyawan)
+    {
+        return $this->db->where('id_karyawan', $id_karyawan)
+            ->where('kegiatan', '-')
+            ->get($table);
+    }
 }

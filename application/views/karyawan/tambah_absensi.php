@@ -104,7 +104,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <p class="nav-link text-white">
-                            Tanggal: <?php date_default_timezone_set("Asia/Jakarta"); ?>
+                            <?php date_default_timezone_set("Asia/Jakarta"); ?>
                             <script type="text/javascript">
                                 function date_time(id) {
                                     date = new Date;
@@ -210,7 +210,7 @@
                         <input type="date" class="form-control" id="date" name="date">
                     </div>
 
-                    <input type="hidden" class="form-control" id="jam_masuk" name="jam_masuk" value="08.00.00">
+                    <input type="hidden" class="form-control" id="jam_masuk" name="jam_masuk" value="08:00:00">
 
                     <input type="hidden" class="form-control" id="jam_pulang" name="jam_pulang" value="-">
 

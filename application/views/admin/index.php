@@ -18,7 +18,7 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="<?php echo base_url('home'); ?>">
+            <a class="nav-link active" aria-current="page" href="<?php echo base_url('admin'); ?>">
               <i class="fa-solid fa-house-user"></i> <span class="ms-2">Home</span>
             </a>
           </li>
@@ -26,7 +26,7 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <p class="nav-link text-white">
-              Tanggal: <?php date_default_timezone_set("Asia/Jakarta"); ?>
+              <?php date_default_timezone_set("Asia/Jakarta"); ?>
               <script type="text/javascript">
                 function date_time(id) {
                   date = new Date;
@@ -103,7 +103,7 @@
 
     <div class="container">
       <div class="text-center m-4">
-        <h1><b>Selamat Datang, <?php echo $this->session->userdata('username') ?></b></h1>
+        <h1><b>Selamat Datang <?php echo $this->session->userdata('username') ?></b></h1>
       </div>
       <hr style="border: 2px solid black;">
 

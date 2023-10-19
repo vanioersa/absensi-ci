@@ -18,6 +18,8 @@ class karyawan extends CI_Controller
     }
     public function index()
     {
+        $data['total_izin'] = $this->m_model->get_izin('absensi', $this->session->userdata('id'))->num_rows();
+        $data['total_absen'] = $this->m_model->get_absen('absensi', $this->session->userdata('id'))->num_rows();
         $data['absensi'] = $this->m_model->get_data('absensi')->result();
         $this->load->view('karyawan/index', $data);
     }
@@ -239,23 +241,25 @@ class karyawan extends CI_Controller
         $data['karyawan'] = $this->m_model->get_data('absensi')->result();
         $this->load->view('karyawan/history', $data);
     }
-    public function ubah_absen()
+    public function ubah_absen($id)
     {
-        $data['absensi'] = $this->m_model->get_by_id('absensi', 'id')->result();
+        $data['absensi'] = $this->m_model->get_by_id('absensi', 'id', $id)->result();
+        // $data['absensi'] = $this->m_model->get_karyawan();
         $this->load->view('karyawan/ubah_absen', $data);
     }
     public function aksi_ubah_absen()
     {
         $data = [
             'kegiatan' => $this->input->post('kegiatan'),
+            'keterangan' => $this->input->post('keterangan')
         ];
-        $eksekusi = $this->m_model->ubah_data('siswa', $data, array('id' => $this->input->post('id')));
+        $eksekusi = $this->m_model->ubah_data('absensi', $data, array('id' => $this->input->post('id')));
         if ($eksekusi) {
             $this->session->set_flashdata('sukses', 'berhasil');
-            redirect(base_url('admin/siswa'));
+            redirect(base_url('karyawan/history'));
         } else {
             $this->session->set_flashdata('error', 'gagal...');
-            redirect(base_url('karyawan/ubah_absen' . $this->input->post('id')));
+            redirect(base_url('karyawan/ubah_absen/' . $this->input->post('id')));
         }
     }
     public function pulang($id)
@@ -317,7 +321,7 @@ class karyawan extends CI_Controller
             'status' => $this->input->post('status'),
         ];
         $this->m_model->tambah_data('absensi', $data);
-        redirect(base_url('karyawan/absen'));
+        redirect(base_url('karyawan'));
     }
 
     public function export_absen()

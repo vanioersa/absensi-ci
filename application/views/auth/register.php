@@ -3,6 +3,7 @@
 
 <head>
     <title>Register</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -67,7 +68,7 @@
 
 <body>
     <div class="container">
-        <h2>Sign In Admin</h2>
+        <h2>Register</h2>
         <form method="post" action="<?php echo base_url('auth/aksi_register') ?>">
             <label for="username">Username:</label>
             <input type="text" name="username" required><br><br>
@@ -82,7 +83,7 @@
             <input type="text" name="nama_belakang" required><br><br>
 
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" required placeholder="Password Minimal 8 Karakter">
             <span class="password-toggle" id="password-toggle" onclick="togglePassword()">Lihat Password</span><br><br>
 
             <input type="hidden" name="role" value="admin">
@@ -105,6 +106,7 @@
             }
         }
     </script>
+    
 </body>
 
 </html>

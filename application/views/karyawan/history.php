@@ -105,7 +105,7 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <p class="nav-link text-white">
-              Tanggal: <?php date_default_timezone_set("Asia/Jakarta"); ?>
+              <?php date_default_timezone_set("Asia/Jakarta"); ?>
               <script type="text/javascript">
                 function date_time(id) {
                   date = new Date;
@@ -163,7 +163,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="<?php echo base_url('karyawan/absen') ?>">
+            <a class="nav-link text-white" href="<?php echo base_url('karyawan/tambah_absensi') ?>">
               <i class="fa-solid fa-users"></i> <span class="ms-2">Absen</span>
             </a>
           </li>
@@ -223,6 +223,7 @@
               <td><?php echo $row->keterangan ?></td>
               <td><?php echo $row->status ?></td>
               <td>
+              <a href="<?php echo base_url('karyawan/ubah_absen/') . $row->id ?>" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
                 <button onclick="hapus(<?php echo $row->id ?>)" class="btn btn-danger"><b>Hapus</b></button>
               </td>
             </tr>

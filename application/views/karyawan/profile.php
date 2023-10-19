@@ -7,6 +7,7 @@
   <title>Document</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <style>
   .container {
@@ -55,7 +56,7 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <p class="nav-link text-white">
-              Tanggal: <?php date_default_timezone_set("Asia/Jakarta"); ?>
+              <?php date_default_timezone_set("Asia/Jakarta"); ?>
               <script type="text/javascript">
                 function date_time(id) {
                   date = new Date;
@@ -113,7 +114,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="<?php echo base_url('karyawan/absen') ?>">
+            <a class="nav-link text-white" href="<?php echo base_url('karyawan/tambah_absensi') ?>">
               <i class="fa-solid fa-users"></i> <span class="ms-2">Absen</span>
             </a>
           </li>
@@ -138,13 +139,13 @@
     </div>
 
     <div class="container">
-      <div class="card text-center mx-auto">
+      <div style="margin-top: 20px;" class="card text-center mx-auto">
         <div class="text-center">
           <button class="border border-0 btn btn-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <?php if (!empty($row->foto)) : ?>
               <img class="rounded-circle" src="<?php echo base64_decode($row->foto); ?>" alt="Profile Picture">
             <?php else : ?>
-              <img class="rounded-circle" src="https://slabsoft.com/wp-content/uploads/2022/05/pp-wa-kosong-default.jpg" alt="Default Profile Picture" />
+              <img class="rounded-circle" src="https://slabsoft.com/wp-content/uploads/2022/05/pp-wa-kosong-default.jpg"/>
             <?php endif; ?>
           </button>
         </div>
@@ -179,30 +180,93 @@
             <div class="col-md-6">
               <div class="mb-3">
                 <label for="password_baru" class="form-label">Password Baru</label>
-                <input type="password" class="form-control" id="password_baru" name="password_baru">
+                <div class="input-group mb-3">
+                  <input type="password" class="form-control" id="password_baru" name="password_baru">
+                  <button class="btn btn-outline-secondary" type="button" id="togglePasswordBaru">Show</button>
+                </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="mb-3">
                 <label for="konfirmasi_password" class="form-label">Konfirmasi Password Baru</label>
-                <input type="password" class="form-control" id="konfirmasi_password" name="konfirmasi_password">
+                <div class="input-group mb-3">
+                  <input type="password" class="form-control" id="konfirmasi_password" name="konfirmasi_password">
+                  <button class="btn btn-outline-secondary" type="button" id="toggleKonfirmasiPassword">Show</button>
+                </div>
               </div>
             </div>
-            <div class="col-md-12">
+            <!-- <div class="col-md-12">
               <div class="mb-3">
                 <label for="foto" class="form-label">Foto</label>
                 <input type="file" class="form-control" id="foto" name="foto">
               </div>
-            </div>
+            </div> -->
             <div class="col-md-12">
-              <button type="submit" class="btn btn-primary w-25">Ubah</button>
+              <button type="button" class="btn btn-primary w-25" id="ubahButton">Ubah</button>
             </div>
           </form>
         <?php endforeach; ?>
       </div>
     </div>
-
   </div>
+
+  
+  <script>
+    // Function to toggle password visibility
+    function togglePasswordVisibility(inputId, buttonId) {
+      const passwordInput = document.getElementById(inputId);
+      const toggleButton = document.getElementById(buttonId);
+
+      toggleButton.addEventListener('click', () => {
+        if (passwordInput.type === 'password') {
+          passwordInput.type = 'text';
+          toggleButton.textContent = 'Hide';
+        } else {
+          passwordInput.type = 'password';
+          toggleButton.textContent = 'Show';
+        }
+      });
+    }
+
+    // Toggle password visibility for "Password Baru"
+    togglePasswordVisibility('password_baru', 'togglePasswordBaru');
+
+    // Toggle password visibility for "Konfirmasi Password Baru"
+    togglePasswordVisibility('konfirmasi_password', 'toggleKonfirmasiPassword');
+  </script>
+
+  <script>
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    });
+
+    document.getElementById('ubahButton').addEventListener('click', function() {
+      swalWithBootstrapButtons.fire({
+        title: 'Ubah Data?',
+        text: 'Apakah Anda yakin ingin mengubah data ini?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, ubah!',
+        cancelButtonText: 'Batal',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Submit the form for data update
+          document.querySelector('form').submit();
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire(
+            'Dibatalkan',
+            'Data Anda tidak diubah.',
+            'error'
+          );
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>

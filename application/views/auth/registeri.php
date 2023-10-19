@@ -67,7 +67,7 @@
 
 <body>
     <div class="container">
-        <h2>Sign In Karyawan</h2>
+        <h2>Register</h2>
         <form method="post" action="<?php echo base_url('auth/aksi_registeri') ?>">
             <label for="username">Username:</label>
             <input type="text" name="username" required><br><br>

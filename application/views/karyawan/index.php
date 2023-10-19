@@ -105,7 +105,7 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <p class="nav-link text-white">
-              Tanggal: <?php date_default_timezone_set("Asia/Jakarta"); ?>
+              <?php date_default_timezone_set("Asia/Jakarta"); ?>
               <script type="text/javascript">
                 function date_time(id) {
                   date = new Date;
@@ -163,7 +163,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="<?php echo base_url('karyawan/absen') ?>">
+            <a class="nav-link text-white" href="<?php echo base_url('karyawan/tambah_absensi') ?>">
               <i class="fa-solid fa-users"></i> <span class="ms-2">Absen</span>
             </a>
           </li>
@@ -212,7 +212,7 @@
                 <div class="row align-items-center mb-2 d-flex">
                   <div class="col-8">
                     <h2 class="d-flex align-items-center mb-0">
-                      <i class="fa-solid fa-user"></i><span style="margin-left: 10px;"> 25</span>
+                      <i class="fa-solid fa-user"></i><span style="margin-left: 5px;"><?php echo $total_absen ?></span>
                     </h2>
                   </div>
                 </div>
@@ -224,12 +224,12 @@
               <div class="card-statistic-3 p-4">
                 <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
                 <div class="mb-4">
-                  <h5 class="card-title mb-0">Total Cuti</h5>
+                  <h5 class="card-title mb-0">Total Izin</h5>
                 </div>
                 <div class="row align-items-center mb-2 d-flex">
                   <div class="col-8">
                     <h2 class="d-flex align-items-center mb-0">
-                      <i class="fa-solid fa-user"></i><span style="margin-left: 10px;"> 5</span>
+                      <i class="fa-solid fa-user"></i><span style="margin-left: 5px;"><?php echo $total_izin ?></span>
                     </h2>
                   </div>
                 </div>

@@ -27,13 +27,14 @@
         margin-bottom: 20px;
         color: blue;
     }
-    /* .form-control{
-        color: #fff;
-    } */
+    .form-control{
+        border-radius: 20px;
+    }
     .btn-eye {
         background-color: #007BFF;
         border: none;
         color: #fff;
+        width: 50px;
     }
     </style>
 </head>
@@ -59,6 +60,7 @@
                                 </button>
                             </div>
                         </div>
+                        
                     </div>
                     <button type="submit" name="submit" class="btn btn-primary">Login</button>
                 </form>

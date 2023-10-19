@@ -9,7 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 
-<body style="overflow: hidden;background-image: url('https://media.istockphoto.com/id/1337977426/photo/dark-gray-and-black-grunge-cement-wall-studio-room-space-product-background-template.webp?b=1&s=170667a&w=0&k=20&c=4dVCV5KtJKEhuQtp5dbnFmwMBAzNknz35VUIa0C3KoE='); background-size: cover;">
+<body style="overflow: hidden;">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +26,7 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <p class="nav-link text-white">
-              Tanggal: <?php date_default_timezone_set("Asia/Jakarta"); ?>
+              <?php date_default_timezone_set("Asia/Jakarta"); ?>
               <script type="text/javascript">
                 function date_time(id) {
                   date = new Date;
@@ -108,29 +108,47 @@
       </div>
     </div>
 
-    <!-- <?php foreach ($absensi as $data) : ?>
-    <div style="width: 50%; margin-left: 5%; margin-top: 3%;">
-      <div class="card text-bg-secondary">
-              <form action="<?php echo base_url('karyawan/aksi_ubah_siswa') ?>" method="post" enctype="multipart/from-data">
-                <div class="card-body">
-                    <h5 style="margin-top: 20px; margin-bottom: 30px ;" class="card-title text-center">Kegiatan</h5>
-                    <p class="card-text"><input style="width: 80%;margin-left: 20px;" type="text" name="kegiatan" value="<?php echo $data->kegiatan ?>"></p>
-                    <button type="submit" name="submit" class="btn btn-info" style="margin-left: 25px;"> Ubah</button>
-                </div>
-                </form>
-              </div>
+    <?php foreach ($absensi as $data) : ?>
+      <div style="width: 50%; margin-left: 5%; margin-top: 3%;">
+        <div class="card text-bg-secondary">
+          <form action="<?php echo base_url('karyawan/aksi_ubah_absen') ?>" method="post" enctype="multipart/from-data">
+            <div class="card-body">
+              <h5 style="margin-top: 20px; margin-bottom: 30px ;" class="card-title text-center">Kegiatan</h5>
+                <input style="width: 80%;margin-left: 20px;" type="text" name="kegiatan" value="<?php echo $data->kegiatan ?>">
+              <!-- <button type="submit" name="submit" class="btn btn-info" style="margin-left: 25px;"> Ubah</button> -->
             </div>
-          <?php endforeach; ?> -->
-
-    <?php for ($i = 0; $i < count($absensi); $i++) : ?>
-      <?php $data = $absensi[$i]; ?>
-      <form action="<?php echo base_url('karyawan/aksi_ubah_siswa') ?>" method="post" enctype="multipart/from-data">
-        <div class="card-body">
-          <input type="text" name="kegiatan" value="<?php echo $data->kegiatan ?>">
-          <input type="text" name="kegiatan" value="<?php echo $data->kegiatan ?>">
+            <div class="card-body">
+              <h5 style="margin-top: 20px; margin-bottom: 30px ;" class="card-title text-center">Keterangan</h5>
+                <input style="width: 80%;margin-left: 20px;" type="text" name="keterangan" value="<?php echo $data->keterangan ?>">
+              <input style="width: 80%;margin-left: 20px;" type="hidden" name="id" value="<?php echo $data->id ?>">
+              <button type="submit" name="submit" class="btn btn-info" style="margin-left: 25px;"> Ubah</button>
+            </div>
+          </form>
         </div>
+      </div>
+    <?php endforeach; ?>
+
+    <!-- <?php for ($i = 0; $i < count($absensi); $i++) : ?>
+      <?php $data = $absensi[$i]; ?>
+      <form action="<?php echo base_url('karyawan/aksi_ubah_absen') ?>" method="post" enctype="multipart/from-data">
+        <div style="margin-top: 50px; margin-left:100px; width: 500px" class="card text-bg-info">
+          <div class="card-header">
+            <button type="submit" class="btn btn-primary w-50" name="submit">Ubah</button>
+          </div>
+          <div style="display: flex;">
+            <div style="margin-top: 20px;" class="card-body">
+              <p class="card-text">kegiatan</p>
+              <input type="text" name="kegiatan" value="<?php echo $data->kegiatan ?>">
+            </div>
+            <div style="margin-top: 20px;" class="card-body">
+              <p class="card-text">kegiatan</p>
+              <input type="text" name="kegiatan" value="<?php echo $data->keterangan ?>">
+            </div>
+          </div>
+        </div>
+
       </form>
-    <?php endfor; ?>
+    <?php endfor; ?> -->
 </body>
 
 </html>

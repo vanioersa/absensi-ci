@@ -91,13 +91,15 @@ class Admin extends CI_Controller
     public function rekap_mingguan()
     {
         $data['absensi'] = $this->m_model->getAbsensiLast7Days();
+        $data['absensi'] = $this->m_model->get_karyawan();
         $this->load->view('admin/rekap_mingguan', $data);
     }
 
     public function rekap_harian()
     {
         $hari_ini = date('Y-M-D');
-        $data['absen'] = $this->m_model->get_harian();
+        $data['absensi'] = $this->m_model->get_harian();
+        $data['absensi'] = $this->m_model->get_karyawan();
         $this->load->view('admin/rekap_harian', $data);
     }
 
@@ -105,6 +107,7 @@ class Admin extends CI_Controller
     {
         $bulan = $this->input->post('bulan');
         $data['absensi'] = $this->m_model->getbulanan($bulan);
+        $data['absensi'] = $this->m_model->get_karyawan();
         $this->load->view('admin/rekap_bulanan', $data);
     }
 
@@ -595,6 +598,7 @@ class Admin extends CI_Controller
         $writer = new Xlsx($spreadsheet);
         $writer->save('php://output');
     }
+    
     public function export_karyawan()
     {
         $spreadsheet = new Spreadsheet();
@@ -603,26 +607,26 @@ class Admin extends CI_Controller
         $style_col = [
             'font' => ['bold' => true],
             'alignment' => [
-                'horizontal' => \PhpOffice\PhpSpreadsheet\style\Alignment::HORIZONTAL_CENTER,
-                'vertical' => \PhpOffice\PhpSpreadsheet\style\Alignment::VERTICAL_CENTER
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
             ],
             'borders' => [
-                'top' => ['borderstyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
-                'right' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
-                'bottom' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
-                'left' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN]
+                'top' => ['borderstyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
+                'right' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
+                'bottom' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
+                'left' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]
             ]
         ];
 
         $style_row = [
             'alignment' => [
-                'vertical' => \PhpOffice\PhpSpreadsheet\style\Alignment::VERTICAL_CENTER
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
             ],
             'borders' => [
-                'top' => ['borderstyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
-                'right' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
-                'bottom' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
-                'left' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN]
+                'top' => ['borderstyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
+                'right' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
+                'bottom' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
+                'left' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]
             ]
         ];
 
