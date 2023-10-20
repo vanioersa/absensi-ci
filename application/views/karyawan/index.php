@@ -251,7 +251,7 @@
               <th>Jam Pulang</th>
               <th>Keterangan</th>
               <th>Status</th>
-              <th>Aksi</th>
+              <!-- <th>Aksi</th> -->
             </tr>
           </thead>
           <tbody>
@@ -266,59 +266,20 @@
                 <td><?= $row->jam_pulang ?></td>
                 <td><?= $row->keterangan ?></td>
                 <td><?= $row->status ?></td>
-                <td>
+                <!-- <td>
                 <a href="<?php echo base_url('karyawan/menu_izin/') . $row->id ?>" class="btn btn-danger"><b><i class="fas fa-check-circle"></i> Izin</b></a>
                   <?php if ($row->status === "done") : ?>
                     <button disabled class="btn btn-danger" type="button"><i class="fas fa-check"></i> Pulang</button>
                   <?php else : ?>
                     <button onclick="pulang(<?= $row->id ?>)" class="btn btn-primary" type="button"><i class="fas fa-home"></i> Pulang</button>
                   <?php endif; ?>
-                </td>
+                </td> -->
               </tr>
             <?php endforeach; ?>
           </tbody>
         </table>
       </div>
-
-      <script>
-        function pulang(id) {
-          const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-              confirmButton: 'btn btn-success',
-              cancelButton: 'btn btn-danger',
-            },
-            buttonsStyling: false
-          });
-
-          swalWithBootstrapButtons.fire({
-            title: 'Pulang?',
-            text: "Anda Yakin Ingin pulang!",
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Ya, pulang!',
-            cancelButtonText: 'Tidak, batalkan!',
-            reverseButtons: true
-          }).then((result) => {
-            if (result.isConfirmed) {
-              swalWithBootstrapButtons.fire(
-                  'Pulang!',
-                  'Selamat, Anda Telah pulang.',
-                  'success'
-                )
-                .then(function() {
-                  window.location.href = `<?= base_url('karyawan/pulang/') ?>${id}`;
-                })
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-              swalWithBootstrapButtons.fire(
-                'Dibatalkan',
-                'Tidak Jadi Pulang :)',
-                'error'
-              );
-            }
-          });
-        }
-      </script>
-
+    </div>
 </body>
 
 </html>

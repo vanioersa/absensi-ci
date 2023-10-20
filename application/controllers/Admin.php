@@ -187,10 +187,10 @@ class Admin extends CI_Controller
     // }
     //from untuk akun
 
-    public function account()
+    public function profile()
     {
         $data['user'] = $this->m_model->get_by_id('user', 'id', $this->session->userdata('id'))->result();
-        $this->load->view('admin/account', $data);
+        $this->load->view('admin/profile', $data);
     }
 
     public function upload_image($value)
@@ -214,73 +214,60 @@ class Admin extends CI_Controller
         }
     }
 
-    public function aksi_update_account()
+    public function aksi_update_profile()
     {
-        $username = $this->input->post('username');
+        $image = $_FILES['foto']['name'];
+        $foto_temp = $_FILES['foto']['tmp_name'];
         $email = $this->input->post('email');
-        $nama_depan  = $this->input->post('nama_depan');
-        $nama_belakang  = $this->input->post('nama_belakang');
-        $password_baru = $this->input->post('password_baru');
-        $konfirmasi_password = $this->input->post('konfirmasi_password');
-        $foto = $this->upload_image('image');
+        $username = $this->input->post('username');
+        $nama_depan = $this->input->post('nama_depan');
+        $nama_belakang = $this->input->post('nama_belakang');
+        // $foto = $this->upload_img('foto');
+        // Jika ada foto yang diunggah
+        if ($image) {
+            $kode = round(microtime(true) * 100);
+            $file_name = $kode . '_' . $image;
+            $upload_path = './image/' . $file_name;
 
-        if ($foto[0] == false) {
-            //data yg akan diubah
-            $data = [
-                'image' => 'User.jpg',
-                'username' => $username,
-                'email' => $email,
-                'nama_depan' => $nama_depan,
-                'nama_belakang' => $nama_belakang,
-            ];
-        } else {
-            //data yg akan diubah
-            $data = [
-                'image' => $foto[1],
-                'username' => $username,
-                'email' => $email,
-                'nama_depan' => $nama_depan,
-                'nama_belakang' => $nama_belakang,
-            ];
-        }
-        //kondisi jika ada password baru
-        if (!empty($password_baru)) {
-            // Pastikan password baru dan konfirmasi password sama
-            if ($password_baru === $konfirmasi_password) {
-                // Enkripsi password baru dengan md5 (harap ganti dengan metode keamanan yang lebih kuat seperti bcrypt)
-                $hashed_password = md5($password_baru);
-
-                // Perbarui data password pengguna di sesi
-                $this->session->set_userdata('password', $hashed_password);
-
-                // Perbarui data password pengguna di database
-                $data['password'] = $hashed_password;
-
-                // Simpan data pengguna ke database
-                $update_result = $this->m_model->ubah_data('user', $data, array('id' => $this->session->userdata('id')));
-
-                if ($update_result) {
-                    redirect(base_url('admin/account'));
-                } else {
-                    // Handle error jika gagal menyimpan data ke database
-                    $this->session->set_flashdata('message', 'Terjadi kesalahan saat menyimpan data ke database.');
-                    redirect(base_url('admin/account'));
+            if (move_uploaded_file($foto_temp, $upload_path)) {
+                // Hapus image lama jika ada
+                $old_file = $this->m_model->get_foto_by_id($this->input->post('id'));
+                if ($old_file && file_exists(' ./image/' . $old_file)) {
+                    unlink(' ./image/' . $old_file);
                 }
+
+                $data = [
+                    'image' => $file_name,
+                    'email' => $email,
+                    'username' => $username,
+                    'nama_depan' => $nama_depan,
+                    'nama_belakang' => $nama_belakang,
+                ];
             } else {
-                $this->session->set_flashdata('message', 'Password baru dan konfirmasi password harus sama');
-                redirect(base_url('admin/account'));
+                // Gagal mengunggah image baru
+                redirect(base_url('admin/profile'));
             }
+        } else {
+            // Jika tidak ada image yang diunggah
+            $data = [
+                'email' => $email,
+                'username' => $username,
+                'nama_depan' => $nama_depan,
+                'nama_belakang' => $nama_belakang,
+            ];
         }
 
-
-        //untuk melakukan pembaruan data
-        $this->session->set_userdata($data);
+        // Eksekusi dengan model ubah_data
         $update_result = $this->m_model->ubah_data('user', $data, array('id' => $this->session->userdata('id')));
 
         if ($update_result) {
-            redirect(base_url('admin/account'));
+            $this->session->set_flashdata('sukses', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+        Berhasil Merubah Profile
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>');
+            redirect(base_url('admin/profile'));
         } else {
-            redirect(base_url('admin/account'));
+            redirect(base_url('admin/profile'));
         }
     }
 

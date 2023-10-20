@@ -190,7 +190,7 @@
             <h3 class='text-center'><b>Absensi Karyawan</b></h3>
             <form action="<?php echo base_url('karyawan/aksi_tambah_absen') ?>" method="post" enctype="multipart/from-data">
                 <div class="row">
-                    <div class="mb-3 col-6">
+                    <!-- <div class="mb-3 col-6">
                         <label for="nama_siswa" class="form-label"><b>Username</b></label>
                         <select name="username" class="form-select">
                             <option selected>Pilih Username</option>
@@ -200,15 +200,15 @@
                                 </option>
                             <?php endforeach; ?>
                         </select>
-                    </div>
+                    </div> -->
                     <div class="mb-3 col-6">
                         <label for="kegiatan" class="form-label"><b>Kegiatan</b></label>
                         <input type="kegiatan" class="form-control" id="kegiatan" name="kegiatan">
                     </div>
-                    <div class="mb-3 col-6">
-                        <label for="date" class="form-label"><b>Tanggal</b></label>
-                        <input type="date" class="form-control" id="date" name="date">
-                    </div>
+
+                    <input type="hidden" class="form-control" id="date" name="date" value="<?php echo date("Y-m-d"); ?>">
+
+                    <?php foreach ($absensi as $id) : ?> <input type="hidden" class="form-control" id="username" name="username" value="<?php echo $id->id_karyawan ?>"><?php endforeach; ?>
 
                     <input type="hidden" class="form-control" id="jam_masuk" name="jam_masuk" value="08:00:00">
 
@@ -222,6 +222,12 @@
             </form>
         </div>
     </div>
+    <script>
+        <?php
+        date_default_timezone_set('Asia/Jakarta');
+        echo date('Y-m-d');
+        ?>
+    </script>
 </body>
 
 </html>

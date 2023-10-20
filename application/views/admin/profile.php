@@ -7,7 +7,38 @@
   <title>Document</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 </head>
+<style>
+  .container {
+    margin-top: 20px;
+  }
+
+  .card {
+    width: 60%;
+    padding: 20px;
+    border: none;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    background-color: #f5f5f5;
+    text-align: center;
+  }
+
+  .card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }
+
+  .btn-upload {
+    background-color: #007BFF;
+    color: #fff;
+  }
+
+  .btn-upload:hover {
+    background-color: #0056b3;
+  }
+</style>
 
 <body style="overflow: hidden;">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -101,42 +132,45 @@
     </div>
 
     <div class="container">
-      <div class="card  text-center" style="margin-left: 25%;margin-top: 25px; width: 50%; padding: 15px;">
-        <div class="">
-          <button class="border border-0 btn btn-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <?php if (!empty($row->foto)) : ?>
-              <img class="rounded-circle" height="150" width="150" src="<?php echo base64_decode($row->foto); ?>">
-            <?php else : ?>
-              <img class="rounded-circle" height="150" width="150" src="https://slabsoft.com/wp-content/uploads/2022/05/pp-wa-kosong-default.jpg" />
-            <?php endif; ?>
-          </button>
-        </div>
+      <div class="card text-center mx-auto">
         <h1 class="text-center"><b>Akun <?php echo $this->session->userdata('username'); ?></b></h1>
-        <?php echo $this->session->flashdata('message'); ?>
-        <?php foreach ($user as $users) : ?>
-          <form class="row" action="<?php echo base_url('admin/aksi_update_account'); ?>" method="post" enctype="multipart/form-data">
+        <?php foreach ($user as $row) : ?>
+          <form class="row" action="<?php echo base_url('admin/aksi_update_profile'); ?>" method="post" enctype="multipart/form-data">
+            <div class="row d-flex">
+              <input name="id" type="hidden" value="<?php echo $row->id ?>">
+              <span class="border border-0 btn btn-link">
+                <?php if (!empty($row->image)) : ?>
+                  <img src="<?php echo  base_url('./image/' . $row->image) ?>" height="150" width="150" class="rounded-circle">
+
+                <?php else : ?>
+                  <img class="rounded-circle " height="150" width="150" src="https://slabsoft.com/wp-content/uploads/2022/05/pp-wa-kosong-default.jpg" />
+                <?php endif; ?>
+              </span>
+              <?php echo $this->session->flashdata('message'); ?>
+              <?php echo $this->session->flashdata('sukses'); ?>
+            </div>
             <div class="col-6">
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="text" class="form-control" id="email" name="email" value="<?php echo $users->email; ?>">
+                <input type="text" class="form-control" id="email" name="email" value="<?php echo $row->email; ?>">
               </div>
             </div>
             <div class="col-6">
               <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" name="username" value="<?php echo $users->username; ?>">
+                <input type="text" class="form-control" id="username" name="username" value="<?php echo $row->username; ?>">
               </div>
             </div>
             <div class="col-6">
               <div class="mb-3">
                 <label for="nama_depan" class="form-label">Nama Depan</label>
-                <input type="text" class="form-control" id="nama_depan" name="nama_depan" value="<?php echo $users->nama_depan; ?>">
+                <input type="text" class="form-control" id="nama_depan" name="nama_depan" value="<?php echo $row->nama_depan; ?>">
               </div>
             </div>
             <div class="col-6">
               <div class="mb-3">
                 <label for="nama_belakang" class="form-label">Nama Belakang</label>
-                <input type="text" class="form-control" id="nama_belakang" name="nama_belakang" value="<?php echo $users->nama_belakang; ?>">
+                <input type="text" class="form-control" id="nama_belakang" name="nama_belakang" value="<?php echo $row->nama_belakang; ?>">
               </div>
             </div>
             <div class="col-6">
@@ -161,12 +195,12 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="col-8" style="margin-left: 15%">
+            <div class="col-8" style="margin-left: 15%">
               <div class="mb-3">
                 <label for="foto" class="form-label">Foto</label>
                 <input type="file" class="form-control" id="foto" name="foto">
               </div>
-            </div> -->
+            </div>
             <div class="col-12">
               <button type="submit" class="btn btn-primary w-25">Ubah</button>
             </div>

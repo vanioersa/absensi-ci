@@ -87,7 +87,7 @@
             </a>
           </li>
           <li>
-            <a style="color: #fff;" href="<?php echo base_url('admin/account'); ?>" class="nav-link px-0 align-middle">
+            <a style="color: #fff;" href="<?php echo base_url('admin/profile'); ?>" class="nav-link px-0 align-middle">
               <i class="fa-solid fa-user-lock"></i> <span class="ms-1 d-none d-sm-inline">Account</span>
             </a>
           </li>

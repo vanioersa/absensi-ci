@@ -111,18 +111,18 @@
                         <div class="col-4">
                             <select name="bulan" id="form-select" class="form-select" aria-label="Default Select Example">
                                 <option selected>Bulan</option>
-                                <option value="01">Muharram / January</option>
-                                <option value="02">Shafar / February</option>
-                                <option value="03">Rabiul Awal / March</option>
-                                <option value="04">Rabiul Akhir / April</option>
-                                <option value="05">Jumadil Awal / May</option>
-                                <option value="06">Jumadil Akhir / June</option>
-                                <option value="07">Rajab / July</option>
-                                <option value="08">Syakban / August</option>
-                                <option value="09">Ramadhan / September</option>
-                                <option value="10">Syawal / October</option>
-                                <option value="11">Dzulkaidah / November</option>
-                                <option value="12">Dzulhijjah / December</option>
+                                <option value="01">Januari</option>
+                                <option value="02">Febuari</option>
+                                <option value="03">Maret</option>
+                                <option value="04">April</option>
+                                <option value="05">Mei</option>
+                                <option value="06">Juni</option>
+                                <option value="07">Juli</option>
+                                <option value="08">Agustus</option>
+                                <option value="09">Seprtember</option>
+                                <option value="10">Oktober</option>
+                                <option value="11">November</option>
+                                <option value="12">Desember</option>
                             </select>
                         </div>
                         <div class="col-2">

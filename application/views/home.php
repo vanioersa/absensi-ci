@@ -90,8 +90,8 @@
             <div class="col-md-6">
                 <div class="welcome-card card">
                     <div class="card-body">
-                        <h3 class="welcome-text">Selamat Datang di Portal Karyawan Kami</h3>
-                        <p class="description">Jelajahi portal karyawan kami dan temukan berbagai fitur yang bermanfaat.</p>
+                        <h3 class="welcome-text">Selamat Datang di Absensi Karyawan</h3>
+                        <p class="description">Jelajahi Absensi karyawan dan temukan berbagai fitur yang bermanfaat.</p>
                     </div>
                 </div>
             </div>
