@@ -113,10 +113,12 @@ class M_model extends CI_Model
         return $query->result_array();
     }
 
-    public function getbulanan($bulan)
+    public function get_bulanan($bulan)
     {
+        $this->db->select('absensi.*, user.nama_depan, nama_belakang');
         $this->db->from('absensi');
         $this->db->where("DATE_FORMAT(absensi.date, '%m') =", $bulan);
+        $this->db->join('user', 'absensi.id_karyawan = user.id', 'left');
         $db = $this->db->get();
         $result = $db->result();
         return $result;
@@ -134,7 +136,7 @@ class M_model extends CI_Model
 
     function get_karyawan()
     {
-        $this->db->select('absensi.*, user.username');
+        $this->db->select('absensi.*, user.nama_depan, user.nama_belakang');
         $this->db->from('absensi');
         $this->db->join('user', 'absensi.id_karyawan = user.id', 'left');
         $query = $this->db->get();
@@ -153,7 +155,7 @@ class M_model extends CI_Model
     public function get_absen($table, $id_karyawan)
     {
         return $this->db->where('id_karyawan', $id_karyawan)
-            ->where('keterangan', 'default')
+            ->where('status', 'not')
             ->get($table);
     }
 
@@ -161,6 +163,12 @@ class M_model extends CI_Model
     {
         return $this->db->where('id_karyawan', $id_karyawan)
             ->where('kegiatan', '-')
+            ->get($table);
+    }
+    public function get_pulang($table, $id)
+    {
+        return $this->db->where('id_karyawan', $id)
+            ->where('keterangan', 'pulang' )
             ->get($table);
     }
 }

@@ -22,7 +22,7 @@
         .welcome-card {
             border-radius: 15px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            background-color: #fff;
+            /* background-color: #fff; */
         }
 
         .welcome-text {
@@ -74,13 +74,14 @@
         }
 
         .card .card-body {
-            background-color: #007BFF;
+            /* background-color: rgb(0, 140, 0); */
             border-radius: 15px;
-            color: #fff;
+            color: blue;
         }
 
         hr {
             background-color: #007BFF;
+            height: 3px;
         }
     </style>
 </head>
@@ -102,9 +103,9 @@
                         <h3 class="card-title">Memulai</h3>
                         <hr>
                         <ul class="menu-list">
-                            <li><a href="auth" class="btn btn-info btn-block">Login</a></li>
-                            <!-- <li><a href="auth/register" class="btn btn-info btn-block">Register Admin</a></li> -->
-                            <li><a href="auth/registeri" class="btn btn-info btn-block">Register</a></li>
+                            <li><a href="auth" class="btn btn-primary btn-block">Login</a></li>
+                            <!-- <li><a href="auth/register" class="btn btn-primary btn-block">Register Admin</a></li> -->
+                            <li><a href="auth/registeri" class="btn btn-primary btn-block">Register</a></li>
                         </ul>
                     </div>
                 </div>

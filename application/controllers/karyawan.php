@@ -16,8 +16,16 @@ class karyawan extends CI_Controller
             redirect(base_url() . 'auth');
         }
     }
+    public function coba()
+    {
+        $data['user'] = $this->m_model->get_by_id('user', 'id', $this->session->userdata('id'))->result();
+        $data['karyawan'] = $this->m_model->get_data('absensi')->result();
+        $this->load->view('karyawan/coba', $data);
+    }
     public function index()
     {
+        $data['user'] = $this->m_model->get_by_id('user', 'id', $this->session->userdata('id'))->result();
+        $data['total_pulang'] = $this->m_model->get_pulang('absensi', $this->session->userdata('id'))->num_rows();
         $data['total_izin'] = $this->m_model->get_izin('absensi', $this->session->userdata('id'))->num_rows();
         $data['total_absen'] = $this->m_model->get_absen('absensi', $this->session->userdata('id'))->num_rows();
         $data['absensi'] = $this->m_model->get_data('absensi')->result();
@@ -45,9 +53,9 @@ class karyawan extends CI_Controller
         $config['allowed_types'] = 'jpg|png|jpeg';
         $config['max_size'] = '30000';
         $config['file_name'] = $kode;
-
+        
         $this->load->library('upload', $config); // Load library 'upload' with config
-
+        
         if (!$this->upload->do_upload($value)) {
             return array(false, '');
         } else {
@@ -110,6 +118,8 @@ class karyawan extends CI_Controller
     {
         $image = $_FILES['foto']['name'];
         $foto_temp = $_FILES['foto']['tmp_name'];
+        $passsword_baru = $this->input->post('passsword_baru');
+        $konfirmasi_password = $this->input->post('konfirmasi_password');
         $email = $this->input->post('email');
         $username = $this->input->post('username');
         $nama_depan = $this->input->post('nama_depan');
@@ -119,13 +129,13 @@ class karyawan extends CI_Controller
         if ($image) {
             $kode = round(microtime(true) * 100);
             $file_name = $kode . '_' . $image;
-            $upload_path = './image/' . $file_name;
+            $upload_path = './image/karyawan/' . $file_name;
 
             if (move_uploaded_file($foto_temp, $upload_path)) {
                 // Hapus image lama jika ada
                 $old_file = $this->m_model->get_foto_by_id($this->input->post('id'));
-                if ($old_file && file_exists(' ./image/' . $old_file)) {
-                    unlink(' ./image/' . $old_file);
+                if ($old_file && file_exists(' ./image/karyawan/' . $old_file)) {
+                    unlink(' ./image/karyawan/' . $old_file);
                 }
 
                 $data = [
@@ -147,6 +157,18 @@ class karyawan extends CI_Controller
                 'nama_depan' => $nama_depan,
                 'nama_belakang' => $nama_belakang,
             ];
+        }
+
+         //kondisi jika ada password baru
+        if (!empty($password_baru)) {
+            //pastikan password baru dan konfirmasi password sama
+            if ($password_baru === $konfirmasi_password) {
+                //wadah password baru
+                $data['password'] = md5($password_baru);
+            } else {
+                $this->session->set_flashdata('message', 'password baru dan konfirmasi password harus sama');
+                redirect(base_url('karyawan/profile'));
+            }
         }
 
         // Eksekusi dengan model ubah_data
@@ -326,7 +348,7 @@ class karyawan extends CI_Controller
     {
         $data = [
             'kegiatan' => $this->input->post('kegiatan'),
-            'keterangan' => $this->input->post('keterangan')
+            // 'keterangan' => $this->input->post('keterangan')
         ];
         $eksekusi = $this->m_model->ubah_data('absensi', $data, array('id' => $this->input->post('id')));
         if ($eksekusi) {
@@ -343,6 +365,7 @@ class karyawan extends CI_Controller
         $absensi = $this->db->get_where('absensi', array('id' => $id))->row();
         if ($absensi) {
             $data = [
+                'keterangan' => 'pulang',
                 'jam_pulang' => date('H.i.s'),
                 'status' => 'done'
             ];
@@ -396,7 +419,7 @@ class karyawan extends CI_Controller
             'status' => $this->input->post('status'),
         ];
         $this->m_model->tambah_data('absensi', $data);
-        redirect(base_url('karyawan'));
+        redirect(base_url('karyawan/history'));
     }
 
     public function export_absen()

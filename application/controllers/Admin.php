@@ -27,25 +27,25 @@ class Admin extends CI_Controller
         $this->load->view('admin/index');
     }
 
-    public function upload_img($value)
-    {
-        $kode = round(microtime(true) * 1000);
-        $config['upload_path'] = './images/siswa/';
-        $config['allowed_types'] = 'jpg|png|jpeg';
-        $config['max_size'] = '30000';
-        $config['file_name'] = $kode;
+    // public function upload_img($value)
+    // {
+    //     $kode = round(microtime(true) * 1000);
+    //     $config['upload_path'] = './images/siswa/';
+    //     $config['allowed_types'] = 'jpg|png|jpeg';
+    //     $config['max_size'] = '30000';
+    //     $config['file_name'] = $kode;
 
-        $this->load->library('upload', $config);
-        // Load library 'upload' with config
+    //     $this->load->library('upload', $config);
+    //     // Load library 'upload' with config
 
-        if (!$this->upload->do_upload($value)) {
-            return array(false, '');
-        } else {
-            $fn = $this->upload->data();
-            $nama = $fn['file_name'];
-            return array(true, $nama);
-        }
-    }
+    //     if (!$this->upload->do_upload($value)) {
+    //         return array(false, '');
+    //     } else {
+    //         $fn = $this->upload->data();
+    //         $nama = $fn['file_name'];
+    //         return array(true, $nama);
+    //     }
+    // }
 
     //from untuk siswa
 
@@ -97,8 +97,8 @@ class Admin extends CI_Controller
 
     public function rekap_harian()
     {
-        $hari_ini = date('Y-M-D');
-        $data['absensi'] = $this->m_model->get_harian();
+        $hari_ini = date('Y-m-d');
+        $data['absensi_harian'] = $this->m_model->get_harian();
         $data['absensi'] = $this->m_model->get_karyawan();
         $this->load->view('admin/rekap_harian', $data);
     }
@@ -106,7 +106,7 @@ class Admin extends CI_Controller
     public function rekap_bulanan()
     {
         $bulan = $this->input->post('bulan');
-        $data['absensi'] = $this->m_model->getbulanan($bulan);
+        $data['absensi_bulanan'] = $this->m_model->get_bulanan($bulan);
         $data['absensi'] = $this->m_model->get_karyawan();
         $this->load->view('admin/rekap_bulanan', $data);
     }
@@ -196,7 +196,7 @@ class Admin extends CI_Controller
     public function upload_image($value)
     {
         $kode = round(microtime(true) * 1000);
-        $config['upload_path'] = './images/karyawan/';
+        $config['upload_path'] = './image/karyawan/';
         $config['allowed_types'] = 'jpg|png|jpeg';
         $config['max_size'] = 30000;
         // Ukuran dalam kilobita ( 30 MB )
@@ -227,7 +227,7 @@ class Admin extends CI_Controller
         if ($image) {
             $kode = round(microtime(true) * 100);
             $file_name = $kode . '_' . $image;
-            $upload_path = './image/' . $file_name;
+            $upload_path = './image/karyawan/' . $file_name;
 
             if (move_uploaded_file($foto_temp, $upload_path)) {
                 // Hapus image lama jika ada
@@ -271,27 +271,6 @@ class Admin extends CI_Controller
         }
     }
 
-    // public function upload_image()
-    // {
-
-    //     $base64_image = $this->input->post('base64_image');
-
-    //     $binary_image = base64_encode($base64_image);
-
-    //     $data = array(
-    //         'foto' => $binary_image
-    //     );
-
-    //     $eksekusi = $this->m_model->ubah_data('admin', $data, array('id' => $this->input->post('id')));
-    //     if ($eksekusi) {
-    //         $this->session->set_flashdata('sukses', 'berhasil');
-    //         redirect(base_url('admin/user'));
-    //     } else {
-    //         $this->session->set_flashdata('error', 'gagal...');
-    //         echo 'error gais';
-    //     }
-    // }
-
     function logout_account()
     {
         $this->session->sess_destroy();
@@ -334,11 +313,12 @@ class Admin extends CI_Controller
         $sheet->getStyle('A1')->getFont()->setBold(true);
 
         // set thead
-        $sheet->setCellValue('A3', "Kegiatan");
-        $sheet->setCellValue('B3', "Tanggal");
-        $sheet->setCellValue('C3', "Jam Masuk");
-        $sheet->setCellValue('D3', "Jam Pulang");
-        $sheet->setCellValue('E3', "Keterangan");
+        $sheet->setCellValue('A3', "Nama");
+        $sheet->setCellValue('B3', "Kegiatan");
+        $sheet->setCellValue('C3', "Tanggal");
+        $sheet->setCellValue('D3', "Jam Masuk");
+        $sheet->setCellValue('E3', "Jam Pulang");
+        $sheet->setCellValue('F3', "Keterangan");
 
         // mengaplikasikan style thead
         $sheet->getStyle('A3')->applyFromArray($style_col);
@@ -346,17 +326,19 @@ class Admin extends CI_Controller
         $sheet->getStyle('C3')->applyFromArray($style_col);
         $sheet->getStyle('D3')->applyFromArray($style_col);
         $sheet->getStyle('E3')->applyFromArray($style_col);
+        $sheet->getStyle('F3')->applyFromArray($style_col);
 
         // get data from the database and assign it to $data variable
 
         $no = 1;
         $numrow = 4;
-        foreach ($data as $data) {
+        foreach ($data_mingguan as $data) {
             $sheet->setCellValue('A' . $numrow, $data->kegiatan);
             $sheet->setCellValue('B' . $numrow, $data->date);
             $sheet->setCellValue('C' . $numrow, $data->jam_masuk);
             $sheet->setCellValue('D' . $numrow, $data->jam_pulang);
             $sheet->setCellValue('E' . $numrow, $data->keterangan);
+            $sheet->setCellValue('F' . $numrow, $data->nama_depan.' '.$data->nama_belakang);
 
             $sheet->getStyle('A' . $numrow)->applyFromArray($style_row);
             $sheet->getStyle('B' . $numrow)->applyFromArray($style_row);

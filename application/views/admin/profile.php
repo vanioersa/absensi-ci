@@ -25,8 +25,8 @@
   }
 
   .card img {
-    width: 150px;
-    height: 150px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
   }
 
@@ -104,7 +104,7 @@
   <div class="d-flex">
     <div class="col-12 bg-success" style="width: 15%;">
       <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-        <img src="https://cdn.pixabay.com/photo/2017/07/25/11/59/logo-2537871_1280.png" style="height: 50px; width: 60px; margin-bottom: 10px; margin-top: 5px;">
+        <!-- <img src="https://cdn.pixabay.com/photo/2017/07/25/11/59/logo-2537871_1280.png" style="height: 50px; width: 60px; margin-bottom: 10px; margin-top: 5px;"> -->
         <h4 class="fs-5 d-none d-sm-inline">Admin</h4>
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
           <li>
@@ -140,7 +140,7 @@
               <input name="id" type="hidden" value="<?php echo $row->id ?>">
               <span class="border border-0 btn btn-link">
                 <?php if (!empty($row->image)) : ?>
-                  <img src="<?php echo  base_url('./image/' . $row->image) ?>" height="150" width="150" class="rounded-circle">
+                  <img src="<?php echo  base_url('./image/karyawan/' . $row->image) ?>" height="150" width="150" class="rounded-circle">
 
                 <?php else : ?>
                   <img class="rounded-circle " height="150" width="150" src="https://slabsoft.com/wp-content/uploads/2022/05/pp-wa-kosong-default.jpg" />

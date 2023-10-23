@@ -19,7 +19,7 @@
             width: 80%;
             max-width: 400px;
             margin: 0 auto;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgb(0, 140, 0);
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0px 0px 10px 0px #000000;
@@ -85,6 +85,7 @@
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required placeholder="Password Minimal 8 Karakter">
             <span class="password-toggle" id="password-toggle" onclick="togglePassword()">Lihat Password</span><br><br>
+            <p>password minimal 8  karakter</p>
 
             <input type="hidden" name="role" value="admin">
 
