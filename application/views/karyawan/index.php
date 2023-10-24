@@ -10,21 +10,36 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js" integrity="sha256-LkC+rZzbNkEleBllGdKANe5nxH0QnRjn4hbw2lW+Hjo=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" integrity="sha256-VJuwjrIWHWsPSEvQV4DiPfnZi7axOaiWwKfXaJnR5tA=" crossorigin="anonymous">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <!-- Boxicons CDN Link -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+
   .card {
     background-color: #fff;
     border-radius: 10px;
     border: none;
     position: relative;
     margin-bottom: 30px;
-    box-shadow: 0 0.46875rem 2.1875rem rgba(90, 97, 105, 0.1), 0 0.9375rem 1.40625rem rgba(90, 97, 105, 0.1), 0 0.25rem 0.53125rem rgba(90, 97, 105, 0.12), 0 0.125rem 0.1875rem rgba(90, 97, 105, 0.1);
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90, 97, 105, 0.1),
+      0 0.9375rem 1.40625rem rgba(90, 97, 105, 0.1),
+      0 0.25rem 0.53125rem rgba(90, 97, 105, 0.12),
+      0 0.125rem 0.1875rem rgba(90, 97, 105, 0.1);
   }
 
   .l-bg-cherry {
@@ -88,14 +103,19 @@
   .table {
     width: 90%;
     margin-top: 50px;
-    margin-left: 4%;
-    margin-right: 9%;
-    text-align: center;
+    margin-left: 5%;
+    /* margin-right: 9%; */
+    /* text-align: center; */
     border-radius: 5%;
   }
-  .container .table{
-    width: 100%;
-    margin-left: 0px
+
+  .abu {
+    width: 75%;
+    margin-left: 10%
+  }
+
+  .dark {
+    padding-top: 20px;
   }
 </style>
 <style>
@@ -367,12 +387,14 @@
     width: calc(100% - 78px);
     transition: all 0.5s ease;
     z-index: 2;
+    margin-top: -20px;
   }
 
   .sidebar.open~.home-section {
     left: 250px;
     width: calc(100% - 250px);
   }
+
 
   .home-section .text {
     display: inline-block;
@@ -393,6 +415,32 @@
     margin-left: 20px;
 } */
 </style>
+<style>
+  .custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
+  }
+
+  .custom-table th,
+  .custom-table td {
+    padding: 12px;
+    text-align: left;
+  }
+
+  .custom-table thead {
+    background-color: #f5f5f5;
+  }
+
+  /* .custom-table th {
+    background-color: #333;
+    color: white;
+  } */
+
+  .custom-table tbody tr:hover {
+    background-color: #f2f2f2;
+  }
+</style>
 
 <body>
   <div class="sidebar">
@@ -402,11 +450,6 @@
       <i class='bx bx-menu' id="btn"></i>
     </div>
     <ul class="nav-list">
-      <!-- <li>
-          <i class='bx bx-search' ></i>
-         <input type="text" placeholder="Search...">
-         <span class="tooltip">Search</span>
-      </li> -->
       <li>
         <a href="<?php echo base_url('karyawan') ?>">
           <i class='bx bx-grid-alt'></i>
@@ -420,6 +463,13 @@
           <span class="links_name">Absen</span>
         </a>
         <span class="tooltip">Absen</span>
+      </li>
+      <li>
+        <a href="<?php echo base_url('karyawan/menu_izin') ?>">
+          <i class='bx bx-user'></i>
+          <span class="links_name">Izin</span>
+        </a>
+        <span class="tooltip">Izin</span>
       </li>
       <li>
         <a href="<?php echo base_url('karyawan/profile') ?>">
@@ -452,65 +502,63 @@
     </ul>
   </div>
 
-  <section class="home-section section" style="margin-top: -18px;">
-    <div style="width:100%;">
-      <div class="text-center m-4">
-        <h1><b>
-            Selamat Datang <?php echo $this->session->userdata('username') ?>
-          </b></h1>
-      </div>
-      <hr>
+  <section class="home-section section">
+    <div class="text-center m-4">
+      <h1 class="dark"><b>
+          Selamat Datang <?php echo $this->session->userdata('username') ?>
+        </b></h1>
+    </div>
+    <hr style="background-color: RGBA( 255, 20, 147, 1 );height: 5px">
 
-      <div class="container">
-        <div style="display: flex;" class="row">
-          <div class="col-xl-4">
-            <div class="card l-bg-cherry">
-              <div class="card-statistic-3 p-4">
-                <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
-                <div class="mb-4">
-                  <h5 class="card-title mb-0">Total Masuk</h5>
-                </div>
-                <div class="row align-items-center mb-2 d-flex">
-                  <div class="col-8">
-                    <h2 class="d-flex align-items-center mb-0">
-                      <i class="fa-solid fa-user"></i><span style="margin-left: 5px;"><?php echo $total_absen ?></span>
-                    </h2>
-                  </div>
+    <div class="abu">
+      <div style="display: flex;" class="row">
+        <div class="col-xl-4">
+          <div class="card l-bg-cherry">
+            <div class="card-statistic-3 p-4">
+              <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
+              <div class="mb-4">
+                <h5 class="card-title mb-0">Total Masuk</h5>
+              </div>
+              <div class="row align-items-center mb-2 d-flex">
+                <div class="col-8">
+                  <h2 class="d-flex align-items-center mb-0">
+                    <i class="fa-solid fa-user"></i><span style="margin-left: 5px;"><?php echo $total_absen ?></span>
+                  </h2>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-xl-4">
-            <div class="card l-bg-blue-dark">
-              <div class="card-statistic-3 p-4">
-                <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
-                <div class="mb-4">
-                  <h5 class="card-title mb-0">Total Izin</h5>
-                </div>
-                <div class="row align-items-center mb-2 d-flex">
-                  <div class="col-8">
-                    <h2 class="d-flex align-items-center mb-0">
-                      <i class="fa-solid fa-user"></i><span style="margin-left: 5px;"><?php echo $total_izin ?></span>
-                    </h2>
-                  </div>
+        </div>
+        <div class="col-xl-4">
+          <div class="card l-bg-blue-dark">
+            <div class="card-statistic-3 p-4">
+              <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
+              <div class="mb-4">
+                <h5 class="card-title mb-0">Total Izin</h5>
+              </div>
+              <div class="row align-items-center mb-2 d-flex">
+                <div class="col-8">
+                  <h2 class="d-flex align-items-center mb-0">
+                    <i class="fa-solid fa-user"></i><span style="margin-left: 5px;"><?php echo $total_izin ?></span>
+                  </h2>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="col-xl-4">
-            <div class="card l-bg-cherry">
-              <div class="card-statistic-3 p-4">
-                <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
-                <div class="mb-4">
-                  <h5 class="card-title mb-0">Karyawan Yang Telah Pulang</h5>
-                </div>
-                <div class="row align-items-center mb-2 d-flex">
-                  <div class="col-8">
-                    <h2 class="d-flex align-items-center mb-0">
-                      <i class="fa-solid fa-user"></i><span style="margin-left: 5px;"><?php echo $total_pulang ?></span>
-                    </h2>
-                  </div>
+        <div class="col-xl-4">
+          <div class="card l-bg-cherry">
+            <div class="card-statistic-3 p-4">
+              <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
+              <div class="mb-4">
+                <h5 class="card-title mb-0">Karyawan Yang Telah Pulang</h5>
+              </div>
+              <div class="row align-items-center mb-2 d-flex">
+                <div class="col-8">
+                  <h2 class="d-flex align-items-center mb-0">
+                    <i class="fa-solid fa-user"></i><span style="margin-left: 5px;"><?php echo $total_pulang ?></span>
+                  </h2>
                 </div>
               </div>
             </div>
@@ -519,46 +567,68 @@
       </div>
     </div>
 
-      <div class="container">
-        <table class="table table-info table-bordered border-primary">
-          <thead>
-            <tr>
-              <th style="width: 10px;">No</th>
-              <th>Nama</th>
-              <th>Kegiatan</th>
-              <th>Tanggal</th>
-              <th>Jam Masuk</th>
-              <th>Jam Pulang</th>
-              <th>Keterangan</th>
-              <th>Status</th>
-              <!-- <th>Aksi</th> -->
-            </tr>
-          </thead>
-          <tbody>
-            <?php $no = 0;
-            foreach ($absensi as $row) : $no++; ?>
-              <tr>
-                <th><?= $no ?></th>
-                <td><?= tampil_full_karyawan_byid($row->id_karyawan) ?></td>
-                <td><?= $row->kegiatan ?></td>
-                <td><?= $row->date ?></td>
-                <td><?= $row->jam_masuk ?></td>
-                <td><?= $row->jam_pulang ?></td>
-                <td><?= $row->keterangan ?></td>
-                <td><?= $row->status ?></td>
-                <!-- <td>
-                <a href="<?php echo base_url('karyawan/menu_izin/') . $row->id ?>" class="btn btn-danger"><b><i class="fas fa-check-circle"></i> Izin</b></a>
-                  <?php if ($row->status === "done") : ?>
-                    <button disabled class="btn btn-danger" type="button"><i class="fas fa-check"></i> Pulang</button>
-                  <?php else : ?>
-                    <button onclick="pulang(<?= $row->id ?>)" class="btn btn-primary" type="button"><i class="fas fa-home"></i> Pulang</button>
-                  <?php endif; ?>
-                </td> -->
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
-      </div>
+    <div class="relative min-h-screen md:flex" data-dev-hint="container">
+      <main id="content" class="max-h-screen overflow-y-auto flex-1 p-6 lg:px-8">
+        <div class="container mx-auto">
+          <div class="overflow-x-auto w-full px-4 bg-white rounded-b-lg shadow">
+            <table class="my-4 custom-table divide-y divide-gray-300 text-center">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-5 py-3 text-xs text-gray-500">NO</th>
+                  <th class="px-5 py-3 text-xs text-gray-500">ID</th>
+                  <th class="px-5 py-3 text-xs text-gray-500">KEGIATAN</th>
+                  <th class="px-5 py-3 text-xs text-gray-500">TANGGAL</th>
+                  <th class="px-5 py-3 text-xs text-gray-500">JAM MASUK</th>
+                  <th class="px-5 py-3 text-xs text-gray-500">JAM PULANG</th>
+                  <th class="px-5 py-3 text-xs text-gray-500">KETERANGAN</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-300">
+                <?php $no = 0;
+                foreach ($absensi as $row) : $no++ ?>
+                  <tr class="whitespace-nowrap">
+                    <td class="px-5 py-3 text-sm text-gray-500"><?php echo $no ?></td>
+                    <td class="px-5 py-3">
+                      <div class="text-sm text-gray-900">
+                        <?php echo $row->id_karyawan?>
+                      </div>
+                    </td>
+                    <td class="px-5 py-3">
+                      <div class="text-sm text-gray-900">
+                        <?php echo $row->kegiatan; ?>
+                      </div>
+                    </td>
+                    <td class="px-5 py-3">
+                      <div class="text-sm text-gray-900">
+                        <?php echo $row->date; ?>
+                      </div>
+                    </td>
+                    <td class="px-5 py-3">
+                      <div class="text-sm text-gray-900">
+                        <?php echo $row->jam_masuk; ?>
+                      </div>
+                    </td>
+                    <td class="px-5 py-3">
+                      <div class="text-sm text-gray-900">
+                        <?php echo $row->jam_pulang; ?>
+                      </div>
+                    </td>
+                    <td class="px-5 py-3">
+                      <div class="text-sm text-gray-900">
+                        <?php echo $row->keterangan; ?>
+                      </div>
+                    </td>
+                  </tr>
+                <?php endforeach ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+
+
+    </div>
+
   </section>
 
   <script>

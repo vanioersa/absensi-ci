@@ -293,6 +293,7 @@
         width: calc(100% - 250px);
     }
 
+
     .home-section .text {
         display: inline-block;
         color: #11101d;
@@ -397,7 +398,61 @@
     </div>
 
     <section class="home-section section">
-
+        <div class="relative min-h-screen md:flex" data-dev-hint="container">
+            <main id="content" class="max-h-screen overflow-y-auto flex-1 p-6 lg:px-8">
+                <div class="container mx-auto">
+                    <div class="overflow-x-auto w-full px-4 bg-white rounded-b-lg shadow">
+                        <table class="my-4 w-full divide-y divide-gray-300 text-center">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-5 py-3 text-xs text-gray-500">NO</th>
+                                    <th class="px-5 py-3 text-xs text-gray-500">
+                                        KEGIATAN
+                                    </th>
+                                    <th class="px-5 py-3 text-xs text-gray-500">TANGGAL</th>
+                                    <th class="px-5 py-3 text-xs text-gray-500">JAM MASUK</th>
+                                    <th class="px-5 py-3 text-xs text-gray-500">JAM PULANG</th>
+                                    <th class="px-5 py-3 text-xs text-gray-500">KETERANGAN IZIN</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-300">
+                                <?php $no = 0;
+                                foreach ($absensi as $row) : $no++ ?>
+                                    <tr class="whitespace-nowrap">
+                                        <td class="px-5 py-3 text-sm text-gray-500"><?php echo $no ?></td>
+                                        <td class="px-5 py-3">
+                                            <div class="text-sm text-gray-900">
+                                                <?php echo $row->kegiatan; ?>
+                                            </div>
+                                        </td>
+                                        <td class="px-5 py-3">
+                                            <div class="text-sm text-gray-900">
+                                                <?php echo $row->date; ?>
+                                            </div>
+                                        </td>
+                                        <td class="px-5 py-3">
+                                            <div class="text-sm text-gray-900">
+                                                <?php echo $row->jam_masuk; ?>
+                                            </div>
+                                        </td>
+                                        <td class="px-5 py-3">
+                                            <div class="text-sm text-gray-900">
+                                                <?php echo $row->jam_pulang; ?>
+                                            </div>
+                                        </td>
+                                        <td class="px-5 py-3">
+                                            <div class="text-sm text-gray-900">
+                                                <?php echo $row->keterangan; ?>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
     </section>
     <script>
         let sidebar = document.querySelector(".sidebar");
