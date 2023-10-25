@@ -430,6 +430,13 @@
                 <span class="tooltip">Absen</span>
             </li>
             <li>
+                <a href="<?php echo base_url('karyawan/menu_izin') ?>">
+                    <i class='bx bx-user'></i>
+                    <span class="links_name">Izin</span>
+                </a>
+                <span class="tooltip">Izin</span>
+            </li>
+            <li>
                 <a href="<?php echo base_url('karyawan/profile') ?>">
                     <i class="fa-solid fa-user"></i>
                     <span class="links_name">Profile</span>
@@ -461,31 +468,23 @@
     </div>
 
     <section class="home-section section">
+    <div style="height: 100%; width: 90%; margin-left: 50px;" class="shadow p-4 bg-body-tertiary rounded"><h3><b>Silahkan Absen Di Sini</b></h3></div>
         <div class="container">
             <div class="card w-50 m-auto p-5">
                 <h3 class="text-center"><b>Absensi Karyawan</b></h3>
-                <form action="<?php echo base_url('karyawan/aksi_tambah_absen') ?>" method="post" enctype="multipart/from-data">
-                    <div class="row">
-                        <div class="mb-3 col-12">
-                            <label for="kegiatan" class="form-label"><b>Kegiatan</b></label>
-                            <input type="text" class="form-control" id="kegiatan" name="kegiatan">
+                <?php echo $this->session->flashdata('message'); ?>
+                <form action="<?php echo base_url('Karyawan/aksi_tambah_absensi') ?>" method="post" enctype="multipart/form-data">
+                    <div class="overview shadow-lg p-4 mb-3 bg-body rounded">
+                        <div class="wrapper d-flex flex-column">
+
+                            <textarea id="kegiatan" name="kegiatan" placeholder="  Kegiatan..." required></textarea>
                         </div>
-
-                        <input type="hidden" class="form-control" id="date" name="date" value="<?php echo date("Y-m-d"); ?>">
-
-                        <?php foreach ($absensi as $id) : ?> <input type="hidden" class="form-control" id="username" name="username" value="<?php echo $id->id_karyawan ?>"><?php endforeach; ?>
-
-                        <input type="hidden" class="form-control" id="jam_masuk" name="jam_masuk" value="08:00:00">
-
-                        <input type="hidden" class="form-control" id="jam_pulang" name="jam_pulang" value="-">
-
-                        <input type="hidden" class="form-control" id="keterangan" name="keterangan" value="default">
-
-                        <input type="hidden" class="form-control" id="status" name="status" value="not">
+                        <br>
+                        <button type="submit" class=" btn btn-sm btn-dark text-white mb-3">Absensi</button>
                     </div>
-                    <button type="submit" class="btn btn-primary w-25" name="submit">Tambah</button>
-                </form>
             </div>
+            </form>
+        </div>
         </div>
     </section>
     <script>

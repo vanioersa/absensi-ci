@@ -458,90 +458,95 @@
     </div>
     <hr style="background-color: RGBA( 255, 20, 147, 1 );height: 5px; margin-bottom: 50px;">
     <div class="relative min-h-screen md:flex">
-  <main id="content" class="max-h-screen overflow-y-auto flex-1 p-6 lg:px-8">
-    <div class="container mx-auto">
-      <div class="overflow-x-auto divide-full px-4 bg-white rounded-b-lg shadow">
-        <table class="my-4 w-full divide-gray-300 text-center table table-bordered table-hover">
-          <thead class="bg-gray-50">
-            <tr>
-              <th class="px-7 py-3 text-xs text-gray-700">NO</th>
-              <th class="px-7 py-3 text-xs text-gray-700">NAMA</th>
-              <th class="px-7 py-3 text-xs text-gray-700">KEGIATAN</th>
-              <th class="px-7 py-3 text-xs text-gray-700">TANGGAL</th>
-              <th class="px-7 py-3 text-xs text-gray-700">WAKTU MASUK</th>
-              <th class="px-7 py-3 text-xs text-gray-700">WAKTU PULANG</th>
-              <th class="px-7 py-3 text-xs text-gray-700">KETERANGAN</th>
-              <th class="px-7 py-3 text-xs text-gray-700">PULANG</th>
-              <!-- <th class="px-7 py-3 text-xs text-gray-700">IZIN</th> -->
-              <th class="px-7 py-3 text-xs text-gray-700">AKSI</th>
-            </tr>
-          </thead>
-          <tbody class="bg-white divide-y divide-gray-300">
-            <?php $no = 0;
-            foreach ($absensi as $row) : $no++ ?>
-              <tr class="whitespace-nowrap">
-                <th class="px-7 py-3 text-sm text-gray-700">
-                  <?php echo $no ?>
-                </th>
-                <td class="px-7 py-3">
-                  <div class="text-sm text-gray-900">
-                  <?php echo tampil_full_karyawan_byid($row->id_karyawan)?>
-                  </div>
-                </td>
-                <td class="px-7 py-3">
-                  <div class="text-sm text-gray-900">
-                    <?php echo $row->kegiatan; ?>
-                  </div>
-                </td>
-                <td class="px-7 py-3">
-                  <div class="text-sm text-gray-900">
-                    <?php echo $row->date; ?>
-                  </div>
-                </td>
-                <td class="px-7 py-3">
-                  <div class="text-sm text-gray-900">
-                    <?php echo $row->jam_masuk; ?>
-                  </div>
-                </td>
-                <td class="px-7 py-3">
-                  <div class="text-sm text-gray-900">
-                    <?php echo $row->jam_pulang; ?>
-                  </div>
-                </td>
-                <td class="px-7 py-3">
-                  <div class="text-sm text-gray-900">
-                    <?php echo $row->keterangan; ?>
-                  </div>
-                </td>
-                
-                <td class="px-7 py-3">
-                  <div class="text-sm text-gray-900">
-                    <?php if ($row->status === "done") : ?>
-                      <button disabled class="btn btn-success" type="button"><i class="fas fa-check"></i> Pulang</button>
-                    <?php else : ?>
-                      <button onclick="pulang(<?= $row->id ?>)" class="btn btn-success" type="button"><i class="fas fa-home"></i> Pulang</button>
-                    <?php endif; ?>
-                  </div>
-                </td>
-                <!-- <td class="px-7 py-3">
-                  <div class="text-sm text-gray-900">
-                    <a href="<?php echo base_url('karyawan/menu_izin/') . $row->id ?>" class="btn btn-danger"><b><i class="fas fa-i"></i></b></a>
-                  </div>
-                </td> -->
-                <td class="px-7 py-3">
-                  <div class="text-sm text-gray-900">
-                    <a href="<?php echo base_url('karyawan/ubah_absen/') . $row->id ?>" class="btn btn-success"><i class="fas fa-pen-to-square"></i></a>
-                    <button onclick="hapus(<?php echo $row->id ?>)" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                  </div>
-                </td>
-              </tr>
-            <?php endforeach ?>
-          </tbody>
-        </table>
-      </div>
+      <main id="content" class="max-h-screen overflow-y-auto flex-1 p-6 lg:px-8">
+        <div class="container mx-auto">
+          <div class="overflow-x-hidden divide-full px-4 bg-white rounded-b-lg shadow">
+            <div class="table-responsive">
+              <table class="my-4 w-full divide-gray-300 text-center table table-bordered table-hover">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-7 py-3 text-xs text-gray-700">NO</th>
+                    <th class="px-7 py-3 text-xs text-gray-700">NAMA</th>
+                    <th class="px-7 py-3 text-xs text-gray-700">KEGIATAN</th>
+                    <th class="px-7 py-3 text-xs text-gray-700">TANGGAL</th>
+                    <th class="px-7 py-3 text-xs text-gray-700">WAKTU MASUK</th>
+                    <th class="px-7 py-3 text-xs text-gray-700">WAKTU PULANG</th>
+                    <th class="px-7 py-3 text-xs text-gray-700">KETERANGAN</th>
+                    <th class="px-7 py-3 text-xs text-gray-700">PULANG</th>
+                    <!-- <th class="px-7 py-3 text-xs text-gray-700">IZIN</th> -->
+                    <th class="px-7 py-3 text-xs text-gray-700">AKSI</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-300">
+                  <?php
+                  $no = 0;
+                  foreach ($absensi as $row) : $no++
+                  ?>
+                    <tr class="whitespace-nowrap">
+                      <th class="px-7 py-3 text-sm text-gray-700">
+                        <?php echo $no ?>
+                      </th>
+                      <td class="px-7 py-3">
+                        <div class="text-sm text-gray-900">
+                          <?php echo tampil_full_karyawan_byid($row->id_karyawan) ?>
+                        </div>
+                      </td>
+                      <td class="px-7 py-3">
+                        <div class="text-sm text-gray-900">
+                          <?php echo $row->kegiatan; ?>
+                        </div>
+                      </td>
+                      <td class="px-7 py-3">
+                        <div class="text-sm text-gray-900">
+                          <?php echo $row->date; ?>
+                        </div>
+                      </td>
+                      <td class="px-7 py-3">
+                        <div class="text-sm text-gray-900">
+                          <?php echo $row->jam_masuk; ?>
+                        </div>
+                      </td>
+                      <td class="px-7 py-3">
+                        <div class="text-sm text-gray-900">
+                          <?php echo $row->jam_pulang; ?>
+                        </div>
+                      </td>
+                      <td class="px-7 py-3">
+                        <div class="text-sm text-gray-900">
+                          <?php echo $row->keterangan; ?>
+                        </div>
+                      </td>
+
+                      <td class="px-7 py-3">
+                        <div class="text-sm text-gray-900">
+                          <?php if ($row->status === "done") : ?>
+                            <button disabled class="btn btn-success" type="button"><i class="fas fa-check"></i> Pulang</button>
+                          <?php else : ?>
+                            <button onclick="pulang(<?= $row->id ?>)" class="btn btn-success" type="button"><i class="fas fa-home"></i> Pulang</button>
+                          <?php endif; ?>
+                        </div>
+                      </td>
+                      <!-- <td class="px-7 py-3">
+                    <div class="text-sm text-gray-900">
+                      <a href="<?php echo base_url('karyawan/menu_izin/') . $row->id ?>" class="btn btn-danger"><b><i class="fas fa-i"></i></b></a>
+                    </div>
+                  </td> -->
+                      <td class="px-7 py-3">
+                        <div class="text-sm text-gray-900">
+                          <a href="<?php echo base_url('karyawan/ubah_absen/') . $row->id ?>" class="btn btn-success"><i class="fas fa-pen-to-square"></i></a>
+                          <button onclick="hapus(<?php echo $row->id ?>)" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                        </div>
+                      </td>
+                    </tr>
+                  <?php endforeach ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
-  </main>
-</div>
+
 
   </section>
 
@@ -599,32 +604,48 @@
         buttonsStyling: false
       });
 
-      swalWithBootstrapButtons.fire({
-        title: 'Pulang?',
-        text: "Anda Yakin Ingin pulang!",
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Ya, pulang!',
-        cancelButtonText: 'Tidak, batalkan!',
-        reverseButtons: true
-      }).then((result) => {
-        if (result.isConfirmed) {
-          swalWithBootstrapButtons.fire(
-              'Pulang!',
-              'Selamat, Anda Telah pulang.',
-              'success'
-            )
-            .then(function() {
-              window.location.href = `<?= base_url('karyawan/pulang/') ?>${id}`;
-            })
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          swalWithBootstrapButtons.fire(
-            'Dibatalkan',
-            'Tidak Jadi Pulang :)',
-            'error'
-          );
-        }
-      });
+      // Get the current time
+      const currentTime = new Date();
+      const currentHour = currentTime.getHours();
+
+      // Define the allowed time (e.g., 8 AM)
+      const allowedHour = 09.30;
+
+      if (currentHour < allowedHour) {
+        // Display an error message if it's too early to leave
+        swalWithBootstrapButtons.fire(
+          'Pulang Dilarang',
+          'Anda tidak dapat pulang sebelum jam 09.30',
+          'error'
+        );
+      } else {
+        swalWithBootstrapButtons.fire({
+          title: 'Pulang?',
+          text: 'Anda Yakin Ingin pulang!',
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonText: 'Ya, pulang!',
+          cancelButtonText: 'Tidak, batalkan!',
+          reverseButtons: true
+        }).then((result) => {
+          if (result.isConfirmed) {
+            swalWithBootstrapButtons.fire(
+                'Pulang!',
+                'Selamat, Anda Telah pulang.',
+                'success'
+              )
+              .then(function() {
+                window.location.href = `<?= base_url('karyawan/pulang/') ?>${id}`;
+              })
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire(
+              'Dibatalkan',
+              'Tidak Jadi Pulang :)',
+              'error'
+            );
+          }
+        });
+      }
     }
   </script>
   <script>

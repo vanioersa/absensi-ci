@@ -126,7 +126,7 @@ class M_model extends CI_Model
 
     public function get_harian()
     {
-        $this->db->select('absensi.*, user.nama_depan, nama_belakang');
+        $this->db->select('absensi.*, user.username');
         $this->db->from('absensi');
         $this->db->join('user', 'absensi.id_karyawan = user.id', 'left');
         $this->db->where('date', date('Y-m-d'));
@@ -168,7 +168,24 @@ class M_model extends CI_Model
     public function get_pulang($table, $id)
     {
         return $this->db->where('id_karyawan', $id)
-            ->where('keterangan', 'pulang' )
+            ->where('keterangan', 'pulang')
             ->get($table);
+    }
+    public function getlast($table, $where)
+    {
+        $this->db->select('*');
+        $this->db->from($table);
+        $this->db->where($where);
+        $this->db->order_by('id', 'DESC');
+        $this->db->limit(1);
+        return $this->db->get()->row();
+    }
+
+    public function get_role()
+    {
+        $this->db->where("role", 'karyawan');
+        $db = $this->db->get();
+        $result = $db->result();
+        return $query->result();
     }
 }

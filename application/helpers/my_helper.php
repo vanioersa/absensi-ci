@@ -10,7 +10,7 @@ function tampil_full_karyawan_byid($id)
     $ci->load->database();
     $result = $ci->db->where('id', $id)->get('user');
     foreach ($result->result() as $c) {
-        $stmt = $c->nama_depan.' '.$c->nama_belakang;
+        $stmt = $c->username;
         return $stmt;
     }
 }

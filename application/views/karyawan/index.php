@@ -575,7 +575,7 @@
               <thead class="bg-gray-50">
                 <tr>
                   <th class="px-5 py-3 text-xs text-gray-500">NO</th>
-                  <th class="px-5 py-3 text-xs text-gray-500">ID</th>
+                  <th class="px-5 py-3 text-xs text-gray-500">NAMA</th>
                   <th class="px-5 py-3 text-xs text-gray-500">KEGIATAN</th>
                   <th class="px-5 py-3 text-xs text-gray-500">TANGGAL</th>
                   <th class="px-5 py-3 text-xs text-gray-500">JAM MASUK</th>
@@ -590,7 +590,7 @@
                     <td class="px-5 py-3 text-sm text-gray-500"><?php echo $no ?></td>
                     <td class="px-5 py-3">
                       <div class="text-sm text-gray-900">
-                        <?php echo $row->id_karyawan?>
+                        <?php echo tampil_full_karyawan_byid($row->id_karyawan) ?>
                       </div>
                     </td>
                     <td class="px-5 py-3">
@@ -625,10 +625,7 @@
           </div>
         </div>
       </main>
-
-
     </div>
-
   </section>
 
   <script>

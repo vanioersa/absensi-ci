@@ -286,6 +286,7 @@
     width: calc(100% - 78px);
     transition: all 0.5s ease;
     z-index: 2;
+    padding-top: 15%;
   }
 
   .sidebar.open~.home-section {
@@ -311,6 +312,13 @@
         margin-left: 10px;
         margin-left: 20px;
     } */
+
+  .dark-bg {
+    background-color: #333;
+    /* Use your preferred dark background color */
+    color: #fff;
+    /* Text color on dark background */
+  }
 </style>
 
 <body>
@@ -321,11 +329,6 @@
       <i class='bx bx-menu' id="btn"></i>
     </div>
     <ul class="nav-list">
-      <!-- <li>
-          <i class='bx bx-search' ></i>
-         <input type="text" placeholder="Search...">
-         <span class="tooltip">Search</span>
-      </li> -->
       <li>
         <a href="<?php echo base_url('karyawan') ?>">
           <i class='bx bx-grid-alt'></i>
@@ -339,6 +342,13 @@
           <span class="links_name">Absen</span>
         </a>
         <span class="tooltip">Absen</span>
+      </li>
+      <li>
+        <a href="<?php echo base_url('karyawan/menu_izin') ?>">
+          <i class='bx bx-user'></i>
+          <span class="links_name">Izin</span>
+        </a>
+        <span class="tooltip">Izin</span>
       </li>
       <li>
         <a href="<?php echo base_url('karyawan/profile') ?>">
@@ -372,40 +382,30 @@
   </div>
 
   <section class="home-section section">
-    <div class='card w-50 m-auto p-5 text-center'>
-      <h3 class='text-center'><b>Izin</b></h3>
-      <form action="<?php echo base_url('karyawan/aksi_menu_izin') ?>" method="post" enctype="multipart/from-data">
-
-        <div class="row">
-          <div class="mb-3 col-6">
-            <label for="date" class="form-label"><b>Keterangan</b></label>
-            <textarea name="keterangan" id="keterangan" cols="30" rows="10"></textarea>
+    <div class='card w-50 m-auto p-5 text-center dark-bg'>
+      <div class="container">
+        <h3 class="text-center"><b>Izin</b></h3>
+        <?php echo $this->session->flashdata('message'); ?>
+        <form action="<?php echo base_url('Karyawan/aksi_izin') ?>" method="post" enctype="multipart/form-data">
+          <div class="card shadow-lg rounded ">
+            <div class="card-body">
+              <div class="form-group">
+                <label for="izin">Izin Karena...</label>
+                <textarea id="izin" name="izin" class="form-control" placeholder="Izin Karena..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-dark text-white">Izin</button>
+            </div>
           </div>
-
-          <input type="hidden" class="form-control" id="date" name="date" value="<?php echo date("Y-m-d"); ?>">
-
-          <?php foreach ($karyawan as $row): ?> <input type="hidden" class="form-control" id="username" name="username" value="<?php echo $row->id_karyawan ?>"><?php endforeach; ?>
-          
-          <input type="hidden" class="form-control" id="kegiatan" name="kegiatan" value="-">
-
-          <input type="hidden" class="form-control" id="jam_masuk" name="jam_masuk" value="-">
-
-          <input type="hidden" class="form-control" id="jam_pulang" name="jam_pulang" value="-">
-
-
-          <input type="hidden" class="form-control" id="status" name="status" value="done">
-        </div>
-        <br><br>
-        <button type="submit" class="btn btn-primary w-100" name="submit">Ubah</button>
-      </form>
+        </form>
+      </div>
     </div>
   </section>
   <script>
-        <?php
-        date_default_timezone_set('Asia/Jakarta');
-        echo date('Y-m-d');
-        ?>
-    </script>
+    <?php
+    date_default_timezone_set('Asia/Jakarta');
+    echo date('Y-m-d');
+    ?>
+  </script>
   <script>
     let sidebar = document.querySelector(".sidebar");
     let closeBtn = document.querySelector("#btn");

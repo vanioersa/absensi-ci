@@ -42,11 +42,7 @@ class karyawan extends CI_Controller
         $data['user'] = $this->m_model->get_by_id('user', 'id', $this->session->userdata('id'))->result();
         $this->load->view('karyawan/profile', $data);
     }
-    // public function ubah_profile()
-    // {
-    //     $data['user'] = $this->m_model->get_by_id('user', 'id', $this->session->userdata('id'))->result();
-    //     $this->load->view('karyawan/ubah_profile', $data);
-    // }
+
     public function upload_img($value)
     {
         $kode = round(microtime(true) * 1000);
@@ -65,56 +61,6 @@ class karyawan extends CI_Controller
             return array(true, $nama);
         }
     }
-
-    // public function aksi_ubah_profile()
-    // {
-    //     $passsword_baru = $this->input->post('password_baru');
-    //     $konfirmasi_password = $this->input->post('konfirmasi_password');
-    //     $email = $this->input->post('email');
-    //     $nama_depan = $this->input->post('nama_depan');
-    //     $nama_belakang = $this->input->post('nama_belakang');
-
-    //     if ($foto[0] == false) {
-    //         //data yg akan diubah
-    //         $data = [
-    //             'foto' => 'User.png',
-    //             'email' => $email,
-    //             'username' => $username,
-    //             'nama_depan' => $nama_depan,
-    //             'nama_belakang' => $nama_belakang,
-    //         ];
-    //     } else {
-    //         //data yg akan diubah
-    //         $data = [
-    //             'foto' => $foto[1],
-    //             'email' => $email,
-    //             'username' => $username,
-    //             'nama_depan' => $nama_depan,
-    //             'nama_belakang' => $nama_belakang,
-    //         ];
-    //     }
-    //     //kondisi jika ada password baru
-    //     if (!empty($password_baru)) {
-    //         //pastikan password baru dan konfirmasi password sama
-    //         if ($password_baru === $konfirmasi_password) {
-    //             //wadah password baru
-    //             $data['password'] = md5($password_baru);
-    //         } else {
-    //             $this->session->set_flashdata('message', 'password baru dan konfirmasi password harus sama');
-    //             redirect(base_url('karyawan/profile'));
-    //         }
-    //     }
-
-    //     //untuk melakukan pembaruan data
-    //     $this->session->set_userdata($data);
-    //     $update_result = $this->m_model->ubah_data('user', $data, array('id' => $this->session->userdata('id')));
-
-    //     if ($update_result) {
-    //         redirect(base_url('karyawan/profile'));
-    //     } else {
-    //         redirect(base_url('karyawan/profile'));
-    //     }
-    // }
 
     public function aksi_ubah_profilee()
     {
@@ -274,27 +220,90 @@ class karyawan extends CI_Controller
     //         redirect(base_url('karyawan/profile/' . $this->input->post('id')));
     //     }
     // }
+
+    // public function menu_izin()
+    // {
+    //     $data['karyawan'] = $this->m_model->get_by_id('absensi', 'id', $this->session->userdata('id'))->result();
+    //     $data['karyawan'] = $this->m_model->get_karyawan();
+    //     $this->load->view('karyawan/menu_izin', $data);
+    // }
     public function menu_izin()
-    {
-        $data['karyawan'] = $this->m_model->get_by_id('absensi', 'id', $this->session->userdata('id'))->result();
-        $data['karyawan'] = $this->m_model->get_karyawan();
+    {       
+        $data['user'] = $this->m_model->get_by_id('user', 'id', $this->session->userdata('id'))->result();
+        $data['absensi'] = $this->m_model->get_karyawan();
         $this->load->view('karyawan/menu_izin', $data);
     }
 
+    // public function aksi_menu_izin()
+    // {
+    //     $data = [
+    //         'id_karyawan' => $this->input->post('user name'),
+    //         'kegiatan' => $this->input->post('kegiatan'),
+    //         'date' => $this->input->post('date'),
+    //         'jam_masuk' => $this->input->post('jam_masuk'),
+    //         'jam_pulang' => $this->input->post('jam_pulang'),
+    //         'keterangan' => $this->input->post('keterangan'),
+    //         'status' => $this->input->post('status'),
+    //     ];
+    //     $this->m_model->tambah_data('absensi', $data);
+    //     redirect(base_url('karyawan/history'));
+    // }
+
     public function aksi_menu_izin()
-    {
-        $data = [
-            'id_karyawan' => $this->input->post('user name'),
-            'kegiatan' => $this->input->post('kegiatan'),
-            'date' => $this->input->post('date'),
-            'jam_masuk' => $this->input->post('jam_masuk'),
-            'jam_pulang' => $this->input->post('jam_pulang'),
-            'keterangan' => $this->input->post('keterangan'),
-            'status' => $this->input->post('status'),
-        ];
-        $this->m_model->tambah_data('absensi', $data);
-        redirect(base_url('karyawan/history'));
+    {        
+        date_default_timezone_set('Asia/Jakarta');
+        $waktu_sekarang = date('Y-m-d H:i:s');
+        $id_karyawan = $this->session->userdata('id');
+        $tanggal = date('Y-m-d');
+
+        
+        $izin = $this->m_model->getwhere('absensi', array(
+            'id_karyawan' => $id_karyawan,
+            'date' => $tanggal
+        ));
+
+        if ($izin->num_rows() > 0) {
+            // Karyawan sudah memiliki catatan izin pada tanggal yang sama
+            $this->session->set_flashdata('message', '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                Anda Sudah Mengajukan Izin Hari Ini
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>');
+            redirect(base_url('karyawan/menu_izin'));
+        } else {
+        
+            
+            // Tambahkan pengecekan apakah sudah ada data absensi pada tanggal yang sama
+            $absensi = $this->m_model->getwhere('absensi', array(
+                'id_karyawan' => $id_karyawan,
+                'date' => $tanggal
+            ));
+
+            if ($absensi->num_rows() > 0) {
+                // Karyawan sudah memiliki catatan absensi pada tanggal yang sama
+                $this->session->set_flashdata('message', '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    Anda Sudah Melakukan Absensi Hari Ini
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>');
+                redirect(base_url('karyawan/meu_izin'));
+            } else {
+                // Karyawan belum memiliki catatan izin atau absensi pada tanggal yang sama, bisa melanjutkan
+                $data = [
+                    'id_karyawan' => $id_karyawan,
+                    'kegiatan' => '-',
+                    'jam_pulang' => '-',
+                    'jam_masuk' => '-', 
+                    'date' => $tanggal,  
+                    'keterangan' => $this->input->post('izin'),
+                    'status' => 'done'
+                ];
+            
+                $this->m_model->tambah_data('absensi', $data);
+                
+                redirect(base_url('karyawan/history'));
+            }
+        }
     }
+    
     public function upload_image($value)
     {
         $kode = round(microtime(true) * 1000);
@@ -416,23 +425,22 @@ class karyawan extends CI_Controller
     public function ubah_absen($id)
     {
         $data['user'] = $this->m_model->get_by_id('user', 'id', $this->session->userdata('id'))->result();
-        $data['absensi'] = $this->m_model->get_by_id('absensi', 'id', $id)->result();
+        $data['absensi'] = $this-> m_model->get_by_id('absensi' , 'id', $id)->result();
         // $data['absensi'] = $this->m_model->get_karyawan();
         $this->load->view('karyawan/ubah_absen', $data);
     }
     public function aksi_ubah_absen()
     {
-        $data = [
+        $data =  [
             'kegiatan' => $this->input->post('kegiatan'),
-            // 'keterangan' => $this->input->post('keterangan')
         ];
-        $eksekusi = $this->m_model->ubah_data('absensi', $data, array('id' => $this->input->post('id')));
-        if ($eksekusi) {
-            $this->session->set_flashdata('sukses', 'berhasil');
+        $eksekusi = $this->m_model->ubah_data('absensi', $data, array('id'=>$this->input->post('id')));
+        if($eksekusi) {
+            $this->session->set_flashdata('sukses' , 'berhasil');
             redirect(base_url('karyawan/history'));
         } else {
-            $this->session->set_flashdata('error', 'gagal...');
-            redirect(base_url('karyawan/ubah_absen/' . $this->input->post('id')));
+            $this->session->set_flashdata('error' , 'gagal...');
+            redirect(base_url('karyawan/ubah_absen'.$this->input->post('id')));
         }
     }
     public function pulang($id)
@@ -484,19 +492,60 @@ class karyawan extends CI_Controller
         $this->load->view('karyawan/tambah_absensi', $data);
     }
 
-    public function aksi_tambah_absen()
-    {
-        $data = [
-            'id_karyawan' => $this->input->post('user name'),
-            'kegiatan' => $this->input->post('kegiatan'),
-            'date' => $this->input->post('date'),
-            'jam_masuk' => $this->input->post('jam_masuk'),
-            'jam_pulang' => $this->input->post('jam_pulang'),
-            'keterangan' => $this->input->post('keterangan'),
-            'status' => $this->input->post('status'),
-        ];
-        $this->m_model->tambah_data('absensi', $data);
-        redirect(base_url('karyawan/history'));
+    // public function aksi_tambah_absensi()
+    // {
+    //     $data = [
+    //         'id_karyawan' => $this->input->post('user name'),
+    //         'kegiatan' => $this->input->post('kegiatan'),
+    //         'date' => $this->input->post('date'),
+    //         'jam_masuk' => $this->input->post('jam_masuk'),
+    //         'jam_pulang' => $this->input->post('jam_pulang'),
+    //         'keterangan' => $this->input->post('keterangan'),
+    //         'status' => $this->input->post('status'),
+    //     ];
+    //     $this->m_model->tambah_data('absensi', $data);
+    //     redirect(base_url('karyawan/history'));
+    // }
+
+    public function aksi_tambah_absensi()
+    {        
+        date_default_timezone_set('Asia/Jakarta');
+        $waktu_sekarang = date('H:i:s');
+        $id_karyawan = $this->session->userdata('id');
+        $tanggal_absensi = date('Y-m-d');
+
+        // Cek apakah karyawan sudah pulang
+        $absensi_terakhir = $this->m_model->getlast('absensi', array(
+            'id_karyawan' => $id_karyawan
+        ));
+
+        // Mengecek apakah tanggal terakhir absensi sudah berbeda
+        if ($absensi_terakhir && $absensi_terakhir->date !== $tanggal_absensi) {
+            $absensi_terakhir = null; // Atur $absensi_terakhir menjadi null jika tanggal berbeda
+        }
+
+        if ($absensi_terakhir && $absensi_terakhir->jam_keluar === null) {
+            // Karyawan belum pulang, tidak dapat melakukan absensi tambahan
+            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Anda tidak dapat melakukan absensi tambahan
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>');
+            redirect(base_url('karyawan/tambah_absensi'));
+        } else {
+            // Karyawan sudah pulang atau belum ada catatan absensi
+            $data = [
+                'id_karyawan' => $id_karyawan,
+                'kegiatan' => $this->input->post('kegiatan'),
+                'jam_pulang' => '-',
+                'jam_masuk' => $waktu_sekarang, 
+                'date' => $tanggal_absensi,  
+                'keterangan' => '-',
+                'status' => 'not'
+            ];
+
+            $this->m_model->tambah_data('absensi', $data);
+            redirect(base_url('karyawan/history'));
+        }
     }
 
     public function export_absen()

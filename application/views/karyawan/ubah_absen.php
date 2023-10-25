@@ -439,6 +439,13 @@
         <span class="tooltip">Absen</span>
       </li>
       <li>
+        <a href="<?php echo base_url('karyawan/menu_izin') ?>">
+          <i class='bx bx-user'></i>
+          <span class="links_name">Izin</span>
+        </a>
+        <span class="tooltip">Izin</span>
+      </li>
+      <li>
         <a href="<?php echo base_url('karyawan/profile') ?>">
           <i class="fa-solid fa-user"></i>
           <span class="links_name">Profile</span>
@@ -470,13 +477,16 @@
   </div>
 
   <section class="home-section section">
-    <?php foreach ($absensi as $data) : ?>
+    <?php echo $this->session->flashdata('message'); ?>
+    <?php foreach ($absensi as $row) :  $kegiatan = $row->kegiatan; ?>
       <div class="container">
         <div class="card w-50 m-auto p-5">
           <form action="<?php echo base_url('karyawan/aksi_ubah_absen') ?>" method="post" enctype="multipart/from-data">
-            <div class="card-body">
-              <h2 class="card-title text-center red">Kegiatan</h2>
-              <input class="blue" type="text" name="kegiatan" value="<?php echo $data->kegiatan ?>">
+            <div class="overview shadow-lg p-4 mb-3 bg-body rounded">
+              <input type="hidden" id="id" name="id" value="<?php echo $row->id ?>">
+              <div class="wrapper d-flex flex-column">
+                <textarea id="kegiatan" name="kegiatan" placeholder="  Kegiatan..." required><?php echo $kegiatan; ?></textarea>
+              </div>
               <br><br>
               <button type="submit" name="submit" class="btn btn-info" style="margin-left: 25px;"> Ubah</button>
             </div>

@@ -20,11 +20,12 @@ class Admin extends CI_Controller
 
     public function index()
     {
-        // $data[ 'siswa' ] = $this->m_model->get_data( 'siswa' )->num_rows();
-        // $data[ 'mapel' ] = $this->m_model->get_data( 'mapel' )->num_rows();
-        // $data[ 'kelas' ] = $this->m_model->get_data( 'kelas' )->num_rows();
-        // $data[ 'guru' ] = $this->m_model->get_data( 'guru' )->num_rows();
-        $this->load->view('admin/index');
+        $data['admin'] = $this->m_model->get_by_id('user', 'id', $this->session->userdata('id'))->result();
+        $data['total_pulang'] = $this->m_model->get_pulang('absensi', $this->session->userdata('id'))->num_rows();
+        $data['total_izin'] = $this->m_model->get_izin('absensi', $this->session->userdata('id'))->num_rows();
+        $data['total_absen'] = $this->m_model->get_absen('absensi', $this->session->userdata('id'))->num_rows();
+        $data['absensi'] = $this->m_model->get_data('absensi')->result();
+        $this->load->view('admin/index', $data);
     }
 
     // public function upload_img($value)
@@ -51,41 +52,16 @@ class Admin extends CI_Controller
 
     public function karyawan()
     {
-        $data['absensi'] = $this->m_model->get_data('absensi')->result();
+        // $data['user'] = $this->m_model->get_role('user')->result();
+        $data['admin'] = $this->m_model->get_by_id('user', 'id', $this->session->userdata('id'))->result();
+        $data['user'] = $this->m_model->get_data('user')->result();
         $this->load->view('admin/karyawan', $data);
     }
-    public function tambah_karyawan()
-    {
-        $data['absensi'] = $this->m_model->get_data('absensi')->result();
-        $this->load->view('karyawan/tambah_karyawan', $data);
-    }
-    //fungsi untuk ubah foto didalam ubah siswa
 
-    public function aksi_tambah_karyawan()
+    public function delete($id)
     {
-        $foto = $this->upload_img('foto');
-
-        if ($foto[0] == false) {
-            $data = [
-                'foto' => 'User.png',
-                'nama_siswa' => $this->input->post('nama'),
-                'nisn' => $this->input->post('nisn'),
-                'gender' => $this->input->post('gender'),
-                'id_kelas' => $this->input->post('kelas'),
-            ];
-            $this->m_model->tambah_data('siswa', $data);
-            redirect(base_url('admin/siswa'));
-        } else {
-            $data = [
-                'foto' => $foto[1],
-                'nama_siswa' => $this->input->post('nama'),
-                'nisn' => $this->input->post('nisn'),
-                'gender' => $this->input->post('gender'),
-                'id_kelas' => $this->input->post('kelas'),
-            ];
-            $this->m_model->tambah_data('siswa', $data);
-            redirect(base_url('admin/siswa'));
-        }
+        $this->m_model->delete('absensi', 'id', $id);
+        redirect(base_url('admin/karyawan'));
     }
 
     public function rekap_mingguan()
@@ -97,6 +73,7 @@ class Admin extends CI_Controller
 
     public function rekap_harian()
     {
+        $data['admin'] = $this->m_model->get_by_id('user', 'id', $this->session->userdata('id'))->result();
         $hari_ini = date('Y-m-d');
         $data['absensi_harian'] = $this->m_model->get_harian();
         $data['absensi'] = $this->m_model->get_karyawan();
@@ -111,84 +88,15 @@ class Admin extends CI_Controller
         $this->load->view('admin/rekap_bulanan', $data);
     }
 
-
-
-    // public function ubah_siswa($id)
-    // {
-    //     $data['siswa'] = $this->m_model->get_by_id('siswa', 'id_siswa', $id)->result();
-    //     $data['kelas'] = $this->m_model->get_data('kelas')->result();
-    //     $this->load->view('admin/ubah_siswa', $data);
-    // }
-
-    // public function aksi_ubah_siswa()
-    // {
-    //     $foto = $_FILES['foto']['name'];
-    //     $foto_temp = $_FILES['foto']['tmp_name'];
-
-    //     // Jika ada foto yang diunggah
-    //     if ($foto) {
-    //         $kode = round(microtime(true) * 1000);
-    //         $file_name = $kode . '_' . $foto;
-    //         $upload_path = './images/siswa/' . $file_name;
-
-    //         if (move_uploaded_file($foto_temp, $upload_path)) {
-    //             // Hapus foto lama jika ada
-    //             $old_file = $this->m_model->get_siswa_foto_by_id($this->input->post('id_siswa'));
-    //             if ($old_file && file_exists('./images/siswa/' . $old_file)) {
-    //                 unlink('./images/siswa/' . $old_file);
-    //             }
-    //             $data = [
-    //                 'foto' => $file_name,
-    //                 'nama_siswa' => $this->input->post('nama'),
-    //                 'nisn' => $this->input->post('nisn'),
-    //                 'gender' => $this->input->post('gender'),
-    //                 'id_kelas' => $this->input->post('kelas'),
-    //             ];
-    //         } else {
-    //             // Gagal mengunggah foto baru
-    //             redirect(base_url('admin/ubah_siswa/' . $this->input->post('id_siswa')));
-    //         }
-    //     } else {
-    //         // Jika tidak ada foto yang diunggah
-    //         $data = [
-    //             'nama_siswa' => $this->input->post('nama'),
-    //             'nisn' => $this->input->post('nisn'),
-    //             'gender' => $this->input->post('gender'),
-    //             'id_kelas' => $this->input->post('kelas'),
-    //         ];
-    //     }
-
-    //     // Eksekusi dengan model ubah_data
-    //     $eksekusi = $this->m_model->ubah_data('siswa', $data, array('id_siswa' => $this->input->post('id_siswa')));
-
-    //     if ($eksekusi) {
-    //         redirect(base_url('admin/siswa'));
-    //     } else {
-    //         redirect(base_url('admin/ubah_siswa/' . $this->input->post('id_siswa')));
-    //     }
-    // }
-
-    // public function hapus_siswa( $id ) {
-    //     $this->m_model->delete( 'siswa', 'id_siswa', $id );
-    //     redirect( base_url( 'admin/siswa' ) );
-    // }
-
     public function delete_admin($id)
     {
         $this->m_model->delete('absensi', 'id', $id);
         redirect(base_url('admin/karyawan'));
     }
-    //logout index
-
-    // function logout_index()
-    // {
-    //     $this->session->sess_destroy();
-    //     redirect(base_url('admin/index/'));
-    // }
-    //from untuk akun
-
+    
     public function profile()
     {
+        $data['admin'] = $this->m_model->get_by_id('user', 'id', $this->session->userdata('id'))->result();
         $data['user'] = $this->m_model->get_by_id('user', 'id', $this->session->userdata('id'))->result();
         $this->load->view('admin/profile', $data);
     }
@@ -218,11 +126,13 @@ class Admin extends CI_Controller
     {
         $image = $_FILES['foto']['name'];
         $foto_temp = $_FILES['foto']['tmp_name'];
+        $password_baru = $this->input->post('password_baru');
+        $konfirmasi_password = $this->input->post('konfirmasi_password');
         $email = $this->input->post('email');
         $username = $this->input->post('username');
         $nama_depan = $this->input->post('nama_depan');
         $nama_belakang = $this->input->post('nama_belakang');
-        // $foto = $this->upload_img('foto');
+
         // Jika ada foto yang diunggah
         if ($image) {
             $kode = round(microtime(true) * 100);
@@ -232,8 +142,8 @@ class Admin extends CI_Controller
             if (move_uploaded_file($foto_temp, $upload_path)) {
                 // Hapus image lama jika ada
                 $old_file = $this->m_model->get_foto_by_id($this->input->post('id'));
-                if ($old_file && file_exists(' ./image/' . $old_file)) {
-                    unlink(' ./image/' . $old_file);
+                if ($old_file && file_exists('./image/karyawan/' . $old_file)) {
+                    unlink('./image/karyawan/' . $old_file);
                 }
 
                 $data = [
@@ -257,19 +167,32 @@ class Admin extends CI_Controller
             ];
         }
 
-        // Eksekusi dengan model ubah_data
+        // Kondisi jika ada password baru
+        if (!empty($password_baru)) {
+            // Pastikan password baru dan konfirmasi password sama
+            if ($password_baru === $konfirmasi_password) {
+                $data['password'] = md5($password_baru);
+            } else {
+                $this->session->set_flashdata('message', 'Password baru dan konfirmasi password harus sama');
+                redirect(base_url('admin/profile'));
+            }
+        }
+
+        // Eksekusi dengan model ubah_data untuk profil pengguna
         $update_result = $this->m_model->ubah_data('user', $data, array('id' => $this->session->userdata('id')));
 
         if ($update_result) {
             $this->session->set_flashdata('sukses', '<div class="alert alert-success alert-dismissible fade show" role="alert">
         Berhasil Merubah Profile
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>');
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>');
             redirect(base_url('admin/profile'));
         } else {
             redirect(base_url('admin/profile'));
         }
     }
+
+
 
     function logout_account()
     {
@@ -338,7 +261,7 @@ class Admin extends CI_Controller
             $sheet->setCellValue('C' . $numrow, $data->jam_masuk);
             $sheet->setCellValue('D' . $numrow, $data->jam_pulang);
             $sheet->setCellValue('E' . $numrow, $data->keterangan);
-            $sheet->setCellValue('F' . $numrow, $data->nama_depan.' '.$data->nama_belakang);
+            $sheet->setCellValue('F' . $numrow, $data->nama_depan . ' ' . $data->nama_belakang);
 
             $sheet->getStyle('A' . $numrow)->applyFromArray($style_row);
             $sheet->getStyle('B' . $numrow)->applyFromArray($style_row);
@@ -567,7 +490,7 @@ class Admin extends CI_Controller
         $writer = new Xlsx($spreadsheet);
         $writer->save('php://output');
     }
-    
+
     public function export_karyawan()
     {
         $spreadsheet = new Spreadsheet();
