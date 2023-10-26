@@ -1,111 +1,168 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Register</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-image: url('background-image.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            color: #fff;
+            background-color: #080710;
         }
 
-        .container {
-            width: 80%;
-            max-width: 400px;
-            margin: 0 auto;
-            background: rgb(0, 140, 0);
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px 0px #000000;
+        .background {
+            width: 430px;
+            height: 520px;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            left: 50%;
+            top: 50%;
         }
 
-        h2 {
+        .background .shape {
+            height: 200px;
+            width: 200px;
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .shape:first-child {
+            background: linear-gradient(#1845ad, #23a2f6);
+            left: -80px;
+            top: -80px;
+        }
+
+        .shape:last-child {
+            background: linear-gradient(to right, #ff512f, #f09819);
+            right: -30px;
+            bottom: -80px;
+        }
+
+        form {
+            height: 520px;
+            width: 400px;
+            background-color: rgba(255, 255, 255, 0.13);
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+            padding: 30px 20px;
+        }
+
+        form * {
+            font-family: 'Poppins', sans-serif;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            outline: none;
+            border: none;
+        }
+
+        form h3 {
+            font-size: 25px;
+            font-weight: 400;
+            line-height: 32px;
             text-align: center;
-            color: #007BFF;
         }
 
         label {
-            font-weight: bold;
-            color: #007BFF;
+            display: block;
+            margin-top: 5px;
+            font-size: 12px;
+            font-weight: 500;
         }
 
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-            width: 94%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
+        input {
+            display: block;
+            height: 40px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.07);
             border-radius: 3px;
+            padding: 0 10px;
+            margin-top: 10px;
+            font-size: 10px;
+            font-weight: 300;
         }
 
-        input[type="submit"] {
-            background-color: #007BFF;
-            color: #fff;
-            border: none;
-            padding: 15px 20px;
+        ::placeholder {
+            color: #e5e5e5;
+        }
+
+        button {
+            margin-top: 30px;
+            width: 100%;
+            background-color: #ffffff;
+            color: #080710;
+            padding: 5px 0;
+            font-size: 15px;
+            font-weight: 600;
             border-radius: 5px;
             cursor: pointer;
         }
 
-        input[type="submit"]:hover {
-            background-color: #0056b3;
+        .register p {
+            margin-top: 10px;
+            margin-left: 12%;
         }
 
-        .password-toggle {
-            cursor: pointer;
-            color: #007BFF;
-            text-decoration: underline; /* Tambah garis bawah untuk menandai tautan */
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .fixed-page {
+            height: 100%;
+            overflow: auto;
+            background-color: #f0f0f0;
+            padding: 20px;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h2>Register</h2>
-        <form method="post" action="<?php echo base_url('auth/aksi_registeri') ?>">
-            <label for="username">Username:</label>
-            <input type="text" name="username" required><br><br>
-
-            <label for="email">Email:</label>
-            <input type="email" name="email" required><br><br>
-
-            <label for="nama_depan">Nama Depan:</label>
-            <input type="text" name="nama_depan" required><br><br>
-
-            <label for="nama_belakang">Nama Belakang:</label>
-            <input type="text" name="nama_belakang" required><br><br>
-
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <span class="password-toggle" id="password-toggle" onclick="togglePassword()">Lihat Password</span><br><br>
-            <p>password minimal 8  karakter</p>
-
-            <input type="hidden" name="role" value="karyawan">
-
-            <input type="submit" value="Register">
-        </form>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
     </div>
+    <form method="post" action="<?php echo base_url('auth/aksi_registeri') ?>">
+        <h3>Register</h3>
+        <p style="color:  rgb(255, 255, 255);"><?php echo $this->session->flashdata('error'); ?></p>
 
-    <script>
-        function togglePassword() {
-            var passwordField = document.getElementById('password');
-            var passwordToggle = document.getElementById('password-toggle');
+        <label for="username">Username</label>
+        <input type="text" placeholder="Username" id="username" name="username"> 
 
-            if (passwordField.type === 'password') {
-                passwordField.type = 'text';
-                passwordToggle.textContent = 'Sembunyikan Password';
-            } else {
-                passwordField.type = 'password';
-                passwordToggle.textContent = 'Lihat Password';
-            }
-        }
-    </script>
+        <label for="email">Email</label>
+        <input type="text" placeholder="Email" id="email" name="email"> 
+
+        <label for="nama_depan">Nama Depan</label>
+        <input type="text" placeholder="Nama Depan" id="nama_depan" name="nama_depan"> 
+
+        <label for="nama_belakang">Nama Belakang</label>
+        <input type="text" placeholder="Nama Belakang" id="nama_belakang" name="nama_belakang"> 
+
+        <label for="password">Password</label>
+        <input type="password" placeholder="Password" id="password" name="password">
+
+        <button>Register</button>
+        <!-- <div class="register">
+            <p>Jika Belum Punya Akun <a href="<?php echo base_url('auth/register') ?>">Daftar di Sini</a></p>
+        </div> -->
+    </form>
 </body>
 
 </html>

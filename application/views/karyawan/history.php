@@ -472,7 +472,7 @@
                     <th class="px-7 py-3 text-xs text-gray-700">WAKTU MASUK</th>
                     <th class="px-7 py-3 text-xs text-gray-700">WAKTU PULANG</th>
                     <th class="px-7 py-3 text-xs text-gray-700">KETERANGAN</th>
-                    <th class="px-7 py-3 text-xs text-gray-700">PULANG</th>
+                    <!-- <th class="px-7 py-3 text-xs text-gray-700">PULANG</th> -->
                     <!-- <th class="px-7 py-3 text-xs text-gray-700">IZIN</th> -->
                     <th class="px-7 py-3 text-xs text-gray-700">AKSI</th>
                   </tr>
@@ -520,20 +520,13 @@
                       <td class="px-7 py-3">
                         <div class="text-sm text-gray-900">
                           <?php if ($row->status === "done") : ?>
-                            <button disabled class="btn btn-success" type="button"><i class="fas fa-check"></i> Pulang</button>
+                            <!-- Tampilkan tombol "Pulang" -->
+                            <button disabled class="btn btn-primary" type="button"><i class="fas fa-check"></i> Pulang</button>
                           <?php else : ?>
-                            <button onclick="pulang(<?= $row->id ?>)" class="btn btn-success" type="button"><i class="fas fa-home"></i> Pulang</button>
+                            <!-- Tampilkan tombol "Pulang" dan "Ubah" -->
+                            <button onclick="pulang(<?= $row->id ?>)" class="btn btn-primary" type="button"><i class="fas fa-home"></i> Pulang</button>
+                            <a href="<?php echo base_url('karyawan/ubah_absen/') . $row->id ?>" class="btn btn-primary"><i class="fas fa-pen-to-square"></i></a>
                           <?php endif; ?>
-                        </div>
-                      </td>
-                      <!-- <td class="px-7 py-3">
-                    <div class="text-sm text-gray-900">
-                      <a href="<?php echo base_url('karyawan/menu_izin/') . $row->id ?>" class="btn btn-danger"><b><i class="fas fa-i"></i></b></a>
-                    </div>
-                  </td> -->
-                      <td class="px-7 py-3">
-                        <div class="text-sm text-gray-900">
-                          <a href="<?php echo base_url('karyawan/ubah_absen/') . $row->id ?>" class="btn btn-success"><i class="fas fa-pen-to-square"></i></a>
                           <button onclick="hapus(<?php echo $row->id ?>)" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                         </div>
                       </td>
@@ -609,13 +602,13 @@
       const currentHour = currentTime.getHours();
 
       // Define the allowed time (e.g., 8 AM)
-      const allowedHour = 09.30;
+      const allowedHour = 15;
 
       if (currentHour < allowedHour) {
         // Display an error message if it's too early to leave
         swalWithBootstrapButtons.fire(
           'Pulang Dilarang',
-          'Anda tidak dapat pulang sebelum jam 09.30',
+          'Anda tidak dapat pulang sebelum jam 15.00',
           'error'
         );
       } else {

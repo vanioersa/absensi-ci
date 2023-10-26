@@ -405,7 +405,6 @@
   </div>
 
   <section class="home-section section">
-
     <div class="container">
       <div class="card text-center mx-auto">
         <h1 class="text-center"><b>Akun <?php echo $this->session->userdata('username'); ?></b></h1>
@@ -478,88 +477,87 @@
         <?php endforeach; ?>
       </div>
     </div>
-    </div>
+  </section>
 
+  <script>
+    // Function to toggle password visibility
+    function togglePasswordVisibility(inputId, buttonId) {
+      const passwordInput = document.getElementById(inputId);
+      const toggleButton = document.getElementById(buttonId);
 
-    <script>
-      // Function to toggle password visibility
-      function togglePasswordVisibility(inputId, buttonId) {
-        const passwordInput = document.getElementById(inputId);
-        const toggleButton = document.getElementById(buttonId);
-
-        toggleButton.addEventListener('click', () => {
-          if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            toggleButton.innerHTML = '<i class="fas fa-eye"></i>'; // Mengganti dengan ikon mata terbuka
-          } else {
-            passwordInput.type = 'password';
-            toggleButton.innerHTML = '<i class="fas fa-eye-slash"></i>'; // Mengganti dengan ikon mata tertutup
-          }
-        });
-      }
-
-      // Toggle password visibility for "Password Baru"
-      togglePasswordVisibility('password_baru', 'togglePasswordBaru');
-
-      // Toggle password visibility for "Konfirmasi Password Baru"
-      togglePasswordVisibility('konfirmasi_password', 'toggleKonfirmasiPassword');
-    </script>
-    <script>
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-      });
-
-      document.getElementById('ubahButton').addEventListener('click', function() {
-        swalWithBootstrapButtons.fire({
-          title: 'Ubah Data?',
-          text: 'Apakah Anda yakin ingin mengubah data ini?',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Ya, ubah!',
-          cancelButtonText: 'Batal',
-          reverseButtons: true
-        }).then((result) => {
-          if (result.isConfirmed) {
-            // Submit the form for data update
-            document.querySelector('form').submit();
-          } else if (result.dismiss === Swal.DismissReason.cancel) {
-            swalWithBootstrapButtons.fire(
-              'Dibatalkan',
-              'Data Anda tidak diubah.',
-              'error'
-            );
-          }
-        });
-      });
-    </script>
-    <script>
-      let sidebar = document.querySelector(".sidebar");
-      let closeBtn = document.querySelector("#btn");
-      let searchBtn = document.querySelector(".bx-search");
-
-      closeBtn.addEventListener("click", () => {
-        sidebar.classList.toggle("open");
-        menuBtnChange(); //calling the function(optional)
-      });
-
-      searchBtn.addEventListener("click", () => { // Sidebar open when you click on the search iocn
-        sidebar.classList.toggle("open");
-        menuBtnChange(); //calling the function(optional)
-      });
-
-      // following are the code to change sidebar button(optional)
-      function menuBtnChange() {
-        if (sidebar.classList.contains("open")) {
-          closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
+      toggleButton.addEventListener('click', () => {
+        if (passwordInput.type === 'password') {
+          passwordInput.type = 'text';
+          toggleButton.innerHTML = '<i class="fas fa-eye"></i>'; // Mengganti dengan ikon mata terbuka
         } else {
-          closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
+          passwordInput.type = 'password';
+          toggleButton.innerHTML = '<i class="fas fa-eye-slash"></i>'; // Mengganti dengan ikon mata tertutup
         }
+      });
+    }
+
+    // Toggle password visibility for "Password Baru"
+    togglePasswordVisibility('password_baru', 'togglePasswordBaru');
+
+    // Toggle password visibility for "Konfirmasi Password Baru"
+    togglePasswordVisibility('konfirmasi_password', 'toggleKonfirmasiPassword');
+  </script>
+  <script>
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    });
+
+    document.getElementById('ubahButton').addEventListener('click', function() {
+      swalWithBootstrapButtons.fire({
+        title: 'Ubah Data?',
+        text: 'Apakah Anda yakin ingin mengubah data ini?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, ubah!',
+        cancelButtonText: 'Batal',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Submit the form for data update
+          document.querySelector('form').submit();
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire(
+            'Dibatalkan',
+            'Data Anda tidak diubah.',
+            'error'
+          );
+        }
+      });
+    });
+  </script>
+  <script>
+    let sidebar = document.querySelector(".sidebar");
+    let closeBtn = document.querySelector("#btn");
+    let searchBtn = document.querySelector(".bx-search");
+
+    closeBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+      menuBtnChange(); //calling the function(optional)
+    });
+
+    searchBtn.addEventListener("click", () => { // Sidebar open when you click on the search iocn
+      sidebar.classList.toggle("open");
+      menuBtnChange(); //calling the function(optional)
+    });
+
+    // following are the code to change sidebar button(optional)
+    function menuBtnChange() {
+      if (sidebar.classList.contains("open")) {
+        closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
+      } else {
+        closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
       }
-    </script>
+    }
+  </script>
 </body>
 
 </html>

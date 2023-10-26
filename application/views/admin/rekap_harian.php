@@ -16,6 +16,7 @@
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <style>
     /* Google Font Link */
@@ -388,9 +389,10 @@
     <section class="home-section">
         <div class="container">
             <div class="text-center mt-5 ">
-                <h1 style="font-size: 24px; background-color: #3498db; color: white; padding: 10px; border-radius: 5px;"><b>Rekap Harian</b></h1>
+                <h1 style="font-size: 24px; background-color: #000; color: white; padding: 10px; border-radius: 5px;"><b>Rekap Harian</b></h1>
             </div>
             <hr style="background-color: red; height: 10px;">
+            <p style="margin-bottom: 20px;"><button id="exportButton" class="btn btn-dark">Export Data <i class="fas fa-file-download" style="margin-left: 5px;"></i></button></p>
             <div class="table-responsive">
                 <table class="table table-striped table-bordered text-center" style="font-size: 14px;">
                     <thead class="bg-dark text-white">
@@ -422,13 +424,11 @@
             </div>
             <div class="text-center mt-3">
                 <div class="text-center mt-3">
-                    <button id="exportButton" class="btn btn-primary">Export Data <i class="fas fa-file-download" style="margin-left: 5px;"></i></button>
                 </div>
             </div>
         </div>
     </section>
     <!-- Include SweetAlert2 library -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.getElementById("exportButton").addEventListener("click", function() {
             Swal.fire({

@@ -492,61 +492,46 @@ class karyawan extends CI_Controller
         $this->load->view('karyawan/tambah_absensi', $data);
     }
 
-    // public function aksi_tambah_absensi()
-    // {
-    //     $data = [
-    //         'id_karyawan' => $this->input->post('user name'),
-    //         'kegiatan' => $this->input->post('kegiatan'),
-    //         'date' => $this->input->post('date'),
-    //         'jam_masuk' => $this->input->post('jam_masuk'),
-    //         'jam_pulang' => $this->input->post('jam_pulang'),
-    //         'keterangan' => $this->input->post('keterangan'),
-    //         'status' => $this->input->post('status'),
-    //     ];
-    //     $this->m_model->tambah_data('absensi', $data);
-    //     redirect(base_url('karyawan/history'));
-    // }
-
     public function aksi_tambah_absensi()
-    {        
-        date_default_timezone_set('Asia/Jakarta');
-        $waktu_sekarang = date('H:i:s');
-        $id_karyawan = $this->session->userdata('id');
-        $tanggal_absensi = date('Y-m-d');
+{        
+    date_default_timezone_set('Asia/Jakarta');
+    $waktu_sekarang = date('H:i:s');
+    $id_karyawan = $this->session->userdata('id');
+    $tanggal_absensi = date('Y-m-d');
 
-        // Cek apakah karyawan sudah pulang
-        $absensi_terakhir = $this->m_model->getlast('absensi', array(
-            'id_karyawan' => $id_karyawan
-        ));
+    // Cek apakah karyawan sudah pulang
+    $absensi_terakhir = $this->m_model->getlast('absensi', array(
+        'id_karyawan' => $id_karyawan
+    ));
 
-        // Mengecek apakah tanggal terakhir absensi sudah berbeda
-        if ($absensi_terakhir && $absensi_terakhir->date !== $tanggal_absensi) {
-            $absensi_terakhir = null; // Atur $absensi_terakhir menjadi null jika tanggal berbeda
-        }
-
-        if ($absensi_terakhir && $absensi_terakhir->jam_keluar === null) {
-            // Karyawan belum pulang, tidak dapat melakukan absensi tambahan
-            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-            Anda tidak dapat melakukan absensi tambahan
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>');
-            redirect(base_url('karyawan/tambah_absensi'));
-        } else {
-            // Karyawan sudah pulang atau belum ada catatan absensi
-            $data = [
-                'id_karyawan' => $id_karyawan,
-                'kegiatan' => $this->input->post('kegiatan'),
-                'jam_pulang' => '-',
-                'jam_masuk' => $waktu_sekarang, 
-                'date' => $tanggal_absensi,  
-                'keterangan' => '-',
-                'status' => 'not'
-            ];
-
-            $this->m_model->tambah_data('absensi', $data);
-            redirect(base_url('karyawan/history'));
-        }
+    // Mengecek apakah tanggal terakhir absensi sudah berbeda
+    if ($absensi_terakhir && $absensi_terakhir->date !== $tanggal_absensi) {
+        $absensi_terakhir = null; // Atur $absensi_terakhir menjadi null jika tanggal berbeda
     }
+
+    if ($absensi_terakhir && $absensi_terakhir->jam_keluar === null) {
+        // Karyawan belum pulang, tidak dapat melakukan absensi tambahan
+        $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+        Anda tidak dapat melakukan absensi tambahan
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>');
+        redirect(base_url('karyawan/tambah_absensi'));
+    } else {
+        // Karyawan sudah pulang atau belum ada catatan absensi
+        $data = [
+            'id_karyawan' => $id_karyawan,
+            'kegiatan' => $this->input->post('kegiatan'),
+            'jam_pulang' => '-',
+            'jam_masuk' => $waktu_sekarang, 
+            'date' => $tanggal_absensi,  
+            'keterangan' => '-',
+            'status' => 'not'
+        ];
+
+        $this->m_model->tambah_data('absensi', $data);
+        redirect(base_url('karyawan/history'));
+    }
+}
 
     public function export_absen()
     {

@@ -431,6 +431,15 @@
     background-color: #f2f2f2;
   }
 </style>
+<style>
+  .abang {
+    font-size: 18px;
+    margin-left: 10px;
+  }
+  .wortel p {
+    margin-left: 20%;
+  }
+</style>
 
 <body>
   <div class="sidebar">
@@ -493,13 +502,12 @@
             <div class="card-statistic-3 p-4">
               <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
               <div class="mb-4">
-                <h5 class="card-title mb-0">Total Masuk</h5>
+                <h5 class="card-title mb-0 abang">Rekap Harian</h5>
               </div>
               <div class="row align-items-center mb-2 d-flex">
-                <div class="col-8">
+                <div class="col-8 wortel">
                   <h2 class="d-flex align-items-center mb-0">
-                    <!-- <i class="fa-solid fa-user"></i><span style="margin-left: 5px;"><?php echo $total_absen ?></span> -->
-                    <p><a href="<?php echo base_url('admin/rekap_harian'); ?>" class="btn btn-primary">Rekap Harian</a></p>
+                    <p><a href="<?php echo base_url('admin/rekap_harian'); ?>" class="btn btn-primary">Buka</a></p>
                   </h2>
                 </div>
               </div>
@@ -512,13 +520,12 @@
             <div class="card-statistic-3 p-4">
               <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
               <div class="mb-4">
-                <h5 class="card-title mb-0">Karyawan Yang Telah Pulang</h5>
+                <h5 class="card-title mb-0 abang">Rekap Mingguan</h5>
               </div>
               <div class="row align-items-center mb-2 d-flex">
-                <div class="col-8">
+                <div class="col-8 wortel">
                   <h2 class="d-flex align-items-center mb-0">
-                    <!-- <i class="fa-solid fa-user"></i><span style="margin-left: 5px;"><?php echo $total_pulang ?></span> -->
-                    <p><a href="<?php echo base_url('admin/rekap_mingguan'); ?>" class="btn btn-primary">Rekap Mingguan</a></p>
+                    <p><a href="<?php echo base_url('admin/rekap_mingguan'); ?>" class="btn btn-primary">Buka</a></p>
                   </h2>
                 </div>
               </div>
@@ -530,13 +537,12 @@
             <div class="card-statistic-3 p-4">
               <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
               <div class="mb-4">
-                <h5 class="card-title mb-0">Karyawan Yang Telah Pulang</h5>
+                <h5 class="card-title mb-0 abang">Rekap Bulanan</h5>
               </div>
               <div class="row align-items-center mb-2 d-flex">
-                <div class="col-8">
+                <div class="col-8 wortel">
                   <h2 class="d-flex align-items-center mb-0">
-                    <!-- <i class="fa-solid fa-user"></i><span style="margin-left: 5px;"><?php echo $total_pulang ?></span> -->
-                    <p><a href="<?php echo base_url('admin/rekap_bulanan'); ?>" class="btn btn-primary">Rekap Bulanan</a></p>
+                    <p><a href="<?php echo base_url('admin/rekap_bulanan'); ?>" class="btn btn-primary">Buka</a></p>
                   </h2>
                 </div>
               </div>

@@ -28,26 +28,6 @@ class Admin extends CI_Controller
         $this->load->view('admin/index', $data);
     }
 
-    // public function upload_img($value)
-    // {
-    //     $kode = round(microtime(true) * 1000);
-    //     $config['upload_path'] = './images/siswa/';
-    //     $config['allowed_types'] = 'jpg|png|jpeg';
-    //     $config['max_size'] = '30000';
-    //     $config['file_name'] = $kode;
-
-    //     $this->load->library('upload', $config);
-    //     // Load library 'upload' with config
-
-    //     if (!$this->upload->do_upload($value)) {
-    //         return array(false, '');
-    //     } else {
-    //         $fn = $this->upload->data();
-    //         $nama = $fn['file_name'];
-    //         return array(true, $nama);
-    //     }
-    // }
-
     //from untuk siswa
 
     public function karyawan()
@@ -66,6 +46,7 @@ class Admin extends CI_Controller
 
     public function rekap_mingguan()
     {
+        $data['admin'] = $this->m_model->get_by_id('user', 'id', $this->session->userdata('id'))->result();
         $data['absensi'] = $this->m_model->getAbsensiLast7Days();
         $data['absensi'] = $this->m_model->get_karyawan();
         $this->load->view('admin/rekap_mingguan', $data);
@@ -82,6 +63,7 @@ class Admin extends CI_Controller
 
     public function rekap_bulanan()
     {
+        $data['admin'] = $this->m_model->get_by_id('user', 'id', $this->session->userdata('id'))->result();
         $bulan = $this->input->post('bulan');
         $data['absensi_bulanan'] = $this->m_model->get_bulanan($bulan);
         $data['absensi'] = $this->m_model->get_karyawan();
@@ -93,7 +75,7 @@ class Admin extends CI_Controller
         $this->m_model->delete('absensi', 'id', $id);
         redirect(base_url('admin/karyawan'));
     }
-    
+
     public function profile()
     {
         $data['admin'] = $this->m_model->get_by_id('user', 'id', $this->session->userdata('id'))->result();
@@ -192,302 +174,328 @@ class Admin extends CI_Controller
         }
     }
 
-
-
     function logout_account()
     {
         $this->session->sess_destroy();
         redirect(base_url('admin'));
     }
-    public function export_mingguan()
-    {
-        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
 
-        $style_col = [
+    public function export_minggu()
+    {
+
+        // Load autoloader Composer
+        require 'vendor/autoload.php';
+
+        $spreadsheet = new Spreadsheet();
+
+        // Buat lembar kerja aktif
+        $sheet = $spreadsheet->getActiveSheet();
+        // Data yang akan diekspor (contoh data)
+        $data = $this->m_model->getAbsensiLast7Days();
+
+        // Buat objek Spreadsheet
+        $headers = ['NO', 'NAMA KARYAWAN', 'KEGIATAN', 'TANGGAL', 'JAM MASUK', 'JAM PULANG', 'KETERANGAN', 'STATUS'];
+        $rowIndex = 1;
+        foreach ($headers as $header) {
+            $sheet->setCellValueByColumnAndRow($rowIndex, 1, $header);
+            $rowIndex++;
+        }
+
+        // Isi data dari database
+        $rowIndex = 2;
+        $no = 1;
+        foreach ($data as $rowData) {
+            $columnIndex = 1;
+            $nama_karyawan = '';
+            $kegiatan = '';
+            $tanggal = '';
+            $jam_masuk = '';
+            $jam_pulang = '';
+            $keterangan = '';
+            $status = '';
+            foreach ($rowData as $cellName => $cellData) {
+                if ($cellName == 'kegiatan') {
+                    $kegiatan = $cellData;
+                } else if ($cellName == 'id_karyawan') {
+                    $nama_karyawan = tampil_id_karyawan($cellData);
+                } elseif ($cellName == 'date') {
+                    $tanggal = $cellData;
+                } elseif ($cellName == 'jam_masuk') {
+                    if ($cellData == NULL) {
+                        $jam_masuk = '-';
+                    } else {
+                        $jam_masuk = $cellData;
+                    }
+                } elseif ($cellName == 'jam_pulang') {
+                    if ($cellData == NULL) {
+                        $jam_pulang = '-';
+                    } else {
+                        $jam_pulang = $cellData;
+                    }
+                } elseif ($cellName == 'keterangan') {
+                    $keterangan = $cellData;
+                } elseif ($cellName == 'status') {
+                    $status = $cellData;
+                }
+
+                // Anda juga dapat menambahkan logika lain jika perlu
+
+                // Contoh: $sheet->setCellValueByColumnAndRow($columnIndex, $rowIndex, $cellData);
+                $columnIndex++;
+            }
+            // Setelah loop, Anda memiliki data yang diperlukan dari setiap kolom
+            // Anda dapat mengisinya ke dalam lembar kerja Excel di sini
+            $sheet->setCellValueByColumnAndRow(1, $rowIndex, $no);
+            $sheet->setCellValueByColumnAndRow(2, $rowIndex, $nama_karyawan);
+            $sheet->setCellValueByColumnAndRow(3, $rowIndex, $kegiatan);
+            $sheet->setCellValueByColumnAndRow(4, $rowIndex, $tanggal);
+            $sheet->setCellValueByColumnAndRow(5, $rowIndex, $jam_masuk);
+            $sheet->setCellValueByColumnAndRow(6, $rowIndex, $jam_pulang);
+            $sheet->setCellValueByColumnAndRow(7, $rowIndex, $keterangan);
+            $sheet->setCellValueByColumnAndRow(8, $rowIndex, $status);
+            $no++;
+
+            $rowIndex++;
+        }
+        // Auto size kolom berdasarkan konten
+        foreach (range('A', $sheet->getHighestDataColumn()) as $col) {
+            $sheet->getColumnDimension($col)->setAutoSize(true);
+        }
+
+        // Set style header
+        $headerStyle = [
             'font' => ['bold' => true],
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-            ],
-            'borders' => [
-                'top' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
-                'right' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
-                'bottom' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
-                'left' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
             ],
         ];
+        $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . '1')->applyFromArray($headerStyle);
 
-        $style_row = [
-            'alignment' => [
-                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-            ],
-            'borders' => [
-                'top' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
-                'right' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
-                'bottom' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
-                'left' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
-            ],
-        ];
+        // Konfigurasi output Excel
+        $writer = new Xlsx($spreadsheet);
+        $filename = 'REKAP_MINGGUAN.xlsx'; // Nama file Excel yang akan dihasilkan
 
-        // set judul
-        $sheet->setCellValue('A1', "REKAP MINGGUAN");
-        $sheet->mergeCells('A1:E1');
-        $sheet->getStyle('A1')->getFont()->setBold(true);
-
-        // set thead
-        $sheet->setCellValue('A3', "Nama");
-        $sheet->setCellValue('B3', "Kegiatan");
-        $sheet->setCellValue('C3', "Tanggal");
-        $sheet->setCellValue('D3', "Jam Masuk");
-        $sheet->setCellValue('E3', "Jam Pulang");
-        $sheet->setCellValue('F3', "Keterangan");
-
-        // mengaplikasikan style thead
-        $sheet->getStyle('A3')->applyFromArray($style_col);
-        $sheet->getStyle('B3')->applyFromArray($style_col);
-        $sheet->getStyle('C3')->applyFromArray($style_col);
-        $sheet->getStyle('D3')->applyFromArray($style_col);
-        $sheet->getStyle('E3')->applyFromArray($style_col);
-        $sheet->getStyle('F3')->applyFromArray($style_col);
-
-        // get data from the database and assign it to $data variable
-
-        $no = 1;
-        $numrow = 4;
-        foreach ($data_mingguan as $data) {
-            $sheet->setCellValue('A' . $numrow, $data->kegiatan);
-            $sheet->setCellValue('B' . $numrow, $data->date);
-            $sheet->setCellValue('C' . $numrow, $data->jam_masuk);
-            $sheet->setCellValue('D' . $numrow, $data->jam_pulang);
-            $sheet->setCellValue('E' . $numrow, $data->keterangan);
-            $sheet->setCellValue('F' . $numrow, $data->nama_depan . ' ' . $data->nama_belakang);
-
-            $sheet->getStyle('A' . $numrow)->applyFromArray($style_row);
-            $sheet->getStyle('B' . $numrow)->applyFromArray($style_row);
-            $sheet->getStyle('C' . $numrow)->applyFromArray($style_row);
-            $sheet->getStyle('D' . $numrow)->applyFromArray($style_row);
-            $sheet->getStyle('E' . $numrow)->applyFromArray($style_row);
-
-            $no++;
-            $numrow++;
-        }
-
-        // set the column width
-        $sheet->getColumnDimension('A')->setWidth(20);
-        $sheet->getColumnDimension('B')->setWidth(15);
-        $sheet->getColumnDimension('C')->setWidth(15);
-        $sheet->getColumnDimension('D')->setWidth(15);
-        $sheet->getColumnDimension('E')->setWidth(30);
-
-        // Set the row height
-        $sheet->getDefaultRowDimension()->setRowHeight(20);
-
-        // Set the page orientation to landscape
-        $sheet->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
-
-        // set the file name when exporting
-        $sheet->setTitle("Rekap Mingguan");
+        // Set header HTTP untuk mengunduh file Excel
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="Rekap_mingguan.xlsx"');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
         header('Cache-Control: max-age=0');
 
-        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+        // Outputkan file Excel ke browser
         $writer->save('php://output');
     }
 
     public function export_harian()
     {
-        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
 
-        $style_col = [
+        // Load autoloader Composer
+        require 'vendor/autoload.php';
+
+        $spreadsheet = new Spreadsheet();
+
+        // Buat lembar kerja aktif
+        $sheet = $spreadsheet->getActiveSheet();
+        // Data yang akan diekspor (contoh data)
+        $tanggal = date('Y-m-d'); // Ambil nilai tanggal yang dipilih dari form
+        $data = $this->m_model->get_harian($tanggal);
+
+        // Buat objek Spreadsheet
+        $headers = ['NO', 'NAMA KARYAWAN', 'KEGIATAN', 'TANGGAL', 'JAM MASUK', 'JAM PULANG', 'KETERANGAN', 'STATUS'];
+        $rowIndex = 1;
+        foreach ($headers as $header) {
+            $sheet->setCellValueByColumnAndRow($rowIndex, 1, $header);
+            $rowIndex++;
+        }
+
+        // Isi data dari database
+        $rowIndex = 2;
+        $no = 1;
+        foreach ($data as $rowData) {
+            $columnIndex = 1;
+            $nama_karyawan = '';
+            $kegiatan = '';
+            $tanggal = '';
+            $jam_masuk = '';
+            $jam_pulang = '';
+            $keterangan = '';
+            $status = '';
+            foreach ($rowData as $cellName => $cellData) {
+                if ($cellName == 'kegiatan') {
+                    $kegiatan = $cellData;
+                } else if ($cellName == 'id_karyawan') {
+                    $nama_karyawan = tampil_id_karyawan($cellData);
+                } elseif ($cellName == 'date') {
+                    $tanggal = $cellData;
+                } elseif ($cellName == 'jam_masuk') {
+                    if ($cellData == NULL) {
+                        $jam_masuk = '-';
+                    } else {
+                        $jam_masuk = $cellData;
+                    }
+                } elseif ($cellName == 'jam_pulang') {
+                    if ($cellData == NULL) {
+                        $jam_pulang = '-';
+                    } else {
+                        $jam_pulang = $cellData;
+                    }
+                } elseif ($cellName == 'keterangan') {
+                    $keterangan = $cellData;
+                } elseif ($cellName == 'status') {
+                    $status = $cellData;
+                }
+
+                // Anda juga dapat menambahkan logika lain jika perlu
+
+                // Contoh: $sheet->setCellValueByColumnAndRow($columnIndex, $rowIndex, $cellData);
+                $columnIndex++;
+            }
+            // Setelah loop, Anda memiliki data yang diperlukan dari setiap kolom
+            // Anda dapat mengisinya ke dalam lembar kerja Excel di sini
+            $sheet->setCellValueByColumnAndRow(1, $rowIndex, $no);
+            $sheet->setCellValueByColumnAndRow(2, $rowIndex, $nama_karyawan);
+            $sheet->setCellValueByColumnAndRow(3, $rowIndex, $kegiatan);
+            $sheet->setCellValueByColumnAndRow(4, $rowIndex, $tanggal);
+            $sheet->setCellValueByColumnAndRow(5, $rowIndex, $jam_masuk);
+            $sheet->setCellValueByColumnAndRow(6, $rowIndex, $jam_pulang);
+            $sheet->setCellValueByColumnAndRow(7, $rowIndex, $keterangan);
+            $sheet->setCellValueByColumnAndRow(8, $rowIndex, $status);
+            $no++;
+
+            $rowIndex++;
+        }
+        // Auto size kolom berdasarkan konten
+        foreach (range('A', $sheet->getHighestDataColumn()) as $col) {
+            $sheet->getColumnDimension($col)->setAutoSize(true);
+        }
+
+        // Set style header
+        $headerStyle = [
             'font' => ['bold' => true],
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-            ],
-            'borders' => [
-                'top' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
-                'right' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
-                'bottom' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
-                'left' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
             ],
         ];
+        $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . '1')->applyFromArray($headerStyle);
 
-        $style_row = [
-            'alignment' => [
-                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-            ],
-            'borders' => [
-                'top' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
-                'right' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
-                'bottom' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
-                'left' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
-            ],
-        ];
+        // Konfigurasi output Excel
+        $writer = new Xlsx($spreadsheet);
+        $filename = 'REKAP_HARIAN.xlsx'; // Nama file Excel yang akan dihasilkan
 
-        // set judul
-        $sheet->setCellValue('A1', "REKAP HARIAN");
-        $sheet->mergeCells('A1:E1');
-        $sheet->getStyle('A1')->getFont()->setBold(true);
-
-        // set thead
-        $sheet->setCellValue('A3', "Kegiatan");
-        $sheet->setCellValue('B3', "Tanggal");
-        $sheet->setCellValue('C3', "Jam Masuk");
-        $sheet->setCellValue('D3', "Jam Pulang");
-        $sheet->setCellValue('E3', "Keterangan");
-
-        // mengaplikasikan style thead
-        $sheet->getStyle('A3')->applyFromArray($style_col);
-        $sheet->getStyle('B3')->applyFromArray($style_col);
-        $sheet->getStyle('C3')->applyFromArray($style_col);
-        $sheet->getStyle('D3')->applyFromArray($style_col);
-        $sheet->getStyle('E3')->applyFromArray($style_col);
-
-        // get data from the database and assign it to $data variable
-
-        $no = 1;
-        $numrow = 4;
-        foreach ($data as $data) {
-            $sheet->setCellValue('A' . $numrow, $data->kegiatan);
-            $sheet->setCellValue('B' . $numrow, $data->date);
-            $sheet->setCellValue('C' . $numrow, $data->jam_masuk);
-            $sheet->setCellValue('D' . $numrow, $data->jam_pulang);
-            $sheet->setCellValue('E' . $numrow, $data->keterangan);
-
-            $sheet->getStyle('A' . $numrow)->applyFromArray($style_row);
-            $sheet->getStyle('B' . $numrow)->applyFromArray($style_row);
-            $sheet->getStyle('C' . $numrow)->applyFromArray($style_row);
-            $sheet->getStyle('D' . $numrow)->applyFromArray($style_row);
-            $sheet->getStyle('E' . $numrow)->applyFromArray($style_row);
-
-            $no++;
-            $numrow++;
-        }
-
-        // set the column width
-        $sheet->getColumnDimension('A')->setWidth(20);
-        $sheet->getColumnDimension('B')->setWidth(20);
-        $sheet->getColumnDimension('C')->setWidth(20);
-        $sheet->getColumnDimension('D')->setWidth(20);
-        $sheet->getColumnDimension('E')->setWidth(40);
-
-        // Set the row height
-        $sheet->getDefaultRowDimension()->setRowHeight(20);
-
-        // Set the page orientation to landscape
-        $sheet->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
-
-        // set the file name when exporting
-        $sheet->setTitle("Rekap Harian");
+        // Set header HTTP untuk mengunduh file Excel
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="Rekap_Harian.xlsx"');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
         header('Cache-Control: max-age=0');
 
-        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+        // Outputkan file Excel ke browser
         $writer->save('php://output');
     }
 
     public function export_bulanan()
     {
+
+        // Load autoloader Composer
+        require 'vendor/autoload.php';
+
         $spreadsheet = new Spreadsheet();
+
+        // Buat lembar kerja aktif
         $sheet = $spreadsheet->getActiveSheet();
+        // Ambil bulan dari input formulir
+        $bulan = $this->input->post('bulan');
+        // Data yang akan diekspor (contoh data)
+        $bulan = date('m');; // Ambil nilai bulan yang dipilih dari form
+        $data = $this->m_model->get_bulanan($bulan);
 
-        $style_col = [
-            'font' => ['bold' => true],
-            'alignment' => [
-                'horizontal' => \PhpOffice\PhpSpreadsheet\style\Alignment::HORIZONTAL_CENTER,
-                'vertical' => \PhpOffice\PhpSpreadsheet\style\Alignment::VERTICAL_CENTER
-            ],
-            'borders' => [
-                'top' => ['borderstyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
-                'right' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
-                'bottom' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
-                'left' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN]
-            ]
-        ];
-
-        $style_row = [
-            'alignment' => [
-                'vertical' => \PhpOffice\PhpSpreadsheet\style\Alignment::VERTICAL_CENTER
-            ],
-            'borders' => [
-                'top' => ['borderstyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
-                'right' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
-                'bottom' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
-                'left' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN]
-            ]
-        ];
-
-        // set judul
-        $sheet->setCellValue('A1', "REKAP BULANAN");
-        $sheet->mergeCells('A1:E1');
-        $sheet->getStyle('A1')->getFont()->setBold(true);
-        // set thead
-        $sheet->setCellValue('A3', "Kegiatan");
-        $sheet->setCellValue('B3', "Tanggal");
-        $sheet->setCellValue('C3', "Jam Masuk");
-        $sheet->setCellValue('D3', "Jam Pulang");
-        $sheet->setCellValue('E3', "Keterangan");
-        // $sheet->setCellValue('F3', "");
-        // $sheet->setCellValue('E3', "KELAS");
-
-        // mengaplikasikan style thead
-        $sheet->getStyle('A3')->applyFromArray($style_col);
-        $sheet->getStyle('B3')->applyFromArray($style_col);
-        $sheet->getStyle('C3')->applyFromArray($style_col);
-        $sheet->getStyle('D3')->applyFromArray($style_col);
-        $sheet->getStyle('E3')->applyFromArray($style_col);
-        // $sheet->getStyle('F3')->applyFromArray($style_col);
-        // $sheet->getStyle('E3')->applyFromArray($style_col);
-
-        // get dari database
-        // $data_pembayaran = $this->m_model->getDataSiswa();
-
-        $no = 1;
-        $numrow = 4;
-        foreach ($data as $data) {
-            $sheet->setCellValue('A' . $numrow, $data->kegiatan);
-            $sheet->setCellValue('B' . $numrow, $data->date);
-            $sheet->setCellValue('C' . $numrow, $data->jam_masuk);
-            $sheet->setCellValue('D' . $numrow, $data->jam_pulang);
-            $sheet->setCellValue('E' . $numrow, $data->keterangan);
-            // $sheet->setCellValue('F' . $numrow, $data->foto);
-            // $sheet->setCellValue('E' . $numrow, $data->tingkat_kelas . ' ' . $data->jurusan_kelas);
-
-            $sheet->getStyle('A' . $numrow)->applyFromArray($style_row);
-            $sheet->getStyle('B' . $numrow)->applyFromArray($style_row);
-            $sheet->getStyle('C' . $numrow)->applyFromArray($style_row);
-            $sheet->getStyle('D' . $numrow)->applyFromArray($style_row);
-            $sheet->getStyle('E' . $numrow)->applyFromArray($style_row);
-            // $sheet->getStyle('F' . $numrow)->applyFromArray($style_row);
-            // $sheet->getStyle('E' . $numrow)->applyFromArray($style_row);
-
-            $no++;
-            $numrow++;
+        // Buat objek Spreadsheet
+        $headers = ['NO', 'NAMA KARYAWAN', 'KEGIATAN', 'TANGGAL', 'JAM MASUK', 'JAM PULANG', 'KETERANGAN IZIN', 'STATUS'];
+        $rowIndex = 1;
+        foreach ($headers as $header) {
+            $sheet->setCellValueByColumnAndRow($rowIndex, 1, $header);
+            $rowIndex++;
         }
 
-        // set panjang column
-        $sheet->getColumnDimension('A')->setWidth(5);
-        $sheet->getColumnDimension('B')->setWidth(25);
-        $sheet->getColumnDimension('C')->setWidth(25);
-        $sheet->getColumnDimension('D')->setWidth(25);
-        $sheet->getColumnDimension('E')->setWidth(25);
-        $sheet->getColumnDimension('F')->setWidth(25);
+        // Isi data dari database
+        $rowIndex = 2;
+        $no = 1;
+        foreach ($data as $rowData) {
+            $columnIndex = 1;
+            $nama_karyawan = '';
+            $kegiatan = '';
+            $tanggal = '';
+            $jam_masuk = '';
+            $jam_pulang = '';
+            $keterangan = '';
+            $status = '';
+            foreach ($rowData as $cellName => $cellData) {
+                if ($cellName == 'kegiatan') {
+                    $kegiatan = $cellData;
+                } else if ($cellName == 'id_karyawan') {
+                    $nama_karyawan = tampil_id_karyawan($cellData);
+                } elseif ($cellName == 'date') {
+                    $tanggal = $cellData;
+                } elseif ($cellName == 'jam_masuk') {
+                    if ($cellData == NULL) {
+                        $jam_masuk = '-';
+                    } else {
+                        $jam_masuk = $cellData;
+                    }
+                } elseif ($cellName == 'jam_pulang') {
+                    if ($cellData == NULL) {
+                        $jam_pulang = '-';
+                    } else {
+                        $jam_pulang = $cellData;
+                    }
+                } elseif ($cellName == 'keterangan') {
+                    $keterangan = $cellData;
+                } elseif ($cellName == 'status') {
+                    $status = $cellData;
+                }
 
-        $sheet->getDefaultRowDimension()->setRowHeight(-1);
+                // Anda juga dapat menambahkan logika lain jika perlu
 
-        $sheet->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+                // Contoh: $sheet->setCellValueByColumnAndRow($columnIndex, $rowIndex, $cellData);
+                $columnIndex++;
+            }
+            // Setelah loop, Anda memiliki data yang diperlukan dari setiap kolom
+            // Anda dapat mengisinya ke dalam lembar kerja Excel di sini
+            $sheet->setCellValueByColumnAndRow(1, $rowIndex, $no);
+            $sheet->setCellValueByColumnAndRow(2, $rowIndex, $nama_karyawan);
+            $sheet->setCellValueByColumnAndRow(3, $rowIndex, $kegiatan);
+            $sheet->setCellValueByColumnAndRow(4, $rowIndex, $tanggal);
+            $sheet->setCellValueByColumnAndRow(5, $rowIndex, $jam_masuk);
+            $sheet->setCellValueByColumnAndRow(6, $rowIndex, $jam_pulang);
+            $sheet->setCellValueByColumnAndRow(7, $rowIndex, $keterangan);
+            $sheet->setCellValueByColumnAndRow(8, $rowIndex, $status);
+            $no++;
 
-        // set nama file saat di export
-        $sheet->setTitle("Rekap Bulanan");
-        header('Content-Type: aplication/vnd.openxmlformants-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="Rekap Bulanan.xlsx"');
+            $rowIndex++;
+        }
+        // Auto size kolom berdasarkan konten
+        foreach (range('A', $sheet->getHighestDataColumn()) as $col) {
+            $sheet->getColumnDimension($col)->setAutoSize(true);
+        }
+
+        // Set style header
+        $headerStyle = [
+            'font' => ['bold' => true],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+            ]
+        ];
+        $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . '1')->applyFromArray($headerStyle);
+
+        // Konfigurasi output Excel
+        $writer = new Xlsx($spreadsheet);
+        $filename = 'REKAP_BULANAN' . $bulan . '.xlsx'; // Nama file Excel yang akan dihasilkan
+
+        // Set header HTTP untuk mengunduh file Excel
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
         header('Cache-Control: max-age=0');
 
-        $writer = new Xlsx($spreadsheet);
+        // Outputkan file Excel ke browser
         $writer->save('php://output');
     }
 

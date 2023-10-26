@@ -29,20 +29,26 @@ class M_model extends CI_Model
         return $data;
     }
 
-    public function register($username, $email,  $nama_depan, $nama_belakang, $password, $role)
+    public function register($data)
     {
-        $pass = md5($password);
-        $data = array(
-            'username' => $username,
-            'email' => $email,
-            'nama_depan' => $nama_depan,
-            'nama_belakang' => $nama_belakang,
-            'password' => $pass,
-            'role' => $role
-        );
-
         // Simpan data ke dalam tabel pengguna (ganti 'users' sesuai dengan nama tabel Anda)
         $this->db->insert('user', $data);
+        return $this->db->insert_id();
+    }
+
+    public function get_user_by_email($email)
+    {
+        // Gantilah 'nama_tabel' dengan nama tabel pengguna Anda di database
+        $this->db->where('email', $email);
+        $query = $this->db->get('user');
+
+        if ($query->num_rows() > 0) {
+            // Mengembalikan data pengguna jika ditemukan
+            return $query->row();
+        } else {
+            // Mengembalikan null jika tidak ada data pengguna dengan email yang sesuai
+            return null;
+        }
     }
 
     public function registeri($username, $email,  $nama_depan, $nama_belakang, $password, $role)
@@ -98,18 +104,16 @@ class M_model extends CI_Model
         return $this->db->affected_rows();
     }
 
-
-    public function getAbsensiLast7Days()
-    {
+    public function getAbsensiLast7Days() {
         $this->load->database();
         $end_date = date('Y-m-d');
-        $start_date = date('Y-m-d', strtotime('-7 days', strtotime($end_date)));
-        $query = $this->db->select('date, kegiatan, jam_masuk, jam_pulang, keterangan, status, COUNT(*) AS total_absences')
-            ->from('absensi')
-            ->where('date >=', $start_date)
-            ->where('date <=', $end_date)
-            ->group_by('date, kegiatan, jam_masuk, jam_pulang, keterangan, status')
-            ->get();
+        $start_date = date('Y-m-d', strtotime('-7 days', strtotime($end_date)));        
+        $query = $this->db->select('id_karyawan,date, kegiatan, jam_masuk, jam_pulang, keterangan, status, COUNT(*) AS total_absences')
+                          ->from('absensi')
+                          ->where('date >=', $start_date)
+                          ->where('date <=', $end_date)
+                          ->group_by('id_karyawan ,date, kegiatan, jam_masuk, jam_pulang, keterangan, status')
+                          ->get();
         return $query->result_array();
     }
 
