@@ -125,7 +125,7 @@
 
         .social p {
             margin-top: 30px;
-            margin-left: 12%;
+            /* margin-left: 12%; */
         }
     </style>
 </head>
